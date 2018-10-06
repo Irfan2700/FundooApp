@@ -1,0 +1,140 @@
+<div fxLayout="column" fxLayoutGap="12%">
+  <div fxFlex="25">top
+
+
+  </div>
+  <!-- <div fxFlex="50%"> -->
+
+
+
+  <div fxLayout="row">
+    <div fxFlex="38" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="33"></div>
+    <div fxFlex="24" fxFlex.xs="100" fxFlex.sm="84" fxFlex.md="68" fxFlex.lg="34">
+      <!-- fxHide.sm='true' fxHide.xs='false' -->
+      <mat-card class="loginCard">
+
+
+        <div id="formbody" fxFlex="100">
+          <form id="logForm">
+            <mat-card-title fxLayoutAlign="center" class="cardTitle">Sign In</mat-card-title>
+            <mat-form-field id="example-full-width" appearance="standard">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" placeholder="enter your email">
+              <mat-hint id="hintColor">e.g abc123@xyz.com</mat-hint>
+            </mat-form-field><br><br>
+
+            <mat-form-field id="example-full-width" appearance="standard">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="enter your password">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-hint></mat-hint>
+            </mat-form-field><br><br>
+
+            <nav>
+              <a routerLink="/forgotPass" routerLinkActive="active">forgot password?</a>
+
+            </nav><br><br><br>
+
+            <button id="submit" mat-button type="submit" fxLayoutAlign="center">Sign in</button>
+            <nav><a routerLink="/signup" routerLinkActive="inactive">create account</a></nav>
+
+            
+
+
+          </form>
+        </div>
+
+
+
+      </mat-card>
+
+    </div>
+    <div fxFlex="38" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="33"></div>
+    <!-- <button mat-icon-button ><mat-icon id="icon" ></mat-icon></button> -->
+  </div>
+
+  <!-- hide part start -->
+
+  <!-- <div fxLayout="row" fxHide fxShow.lt-md='true'>
+      <div fxFlex="20%"></div>
+      <div fxFlex="60%">
+
+        <mat-card class="loginCard" fxHide.xs='true' fxHide.md='false'>
+          <div fxLayout="row">
+            <div fxFlex="25%"></div>
+
+            <div id="formbody" fxFlex="50%">
+              <form id="logForm">
+                <mat-form-field id="example-full-width" appearance="standard">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" placeholder="enter your email">
+                  <mat-hint id="hintColor">e.g abc123@xyz.com</mat-hint>
+                </mat-form-field><br><br>
+
+                <mat-form-field id="example-full-width" appearance="standard">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" placeholder="enter your password">
+                  <mat-hint></mat-hint>
+                </mat-form-field><br><br><br>
+
+                <nav>
+                  <a routerLink="/forgotPass" routerLinkActive="active">forgot password</a>
+                  <br><br>
+                </nav>
+
+                <button id="submit" mat-button type="submit">Login</button>
+
+
+              </form>
+            </div>
+            <div fxFlex="25%"></div>
+          </div>
+
+
+
+        </mat-card>
+
+      </div>
+      <div fxFlex="20%"></div>
+
+    </div> -->
+
+  <!-- hide part ends -->
+
+  <!-- </div> -->
+  <div fxFlex="25">
+    <div>bottom
+
+
+    </div>
+  </div>
+</div>
+<!-- hide content start-->
+
+
+<!-- <div id="formbody" fxHide fxShow.lt-sm='true' fxHide.xs='false'>
+  <form id="logForm">
+    <mat-form-field id="example-full-width" appearance="standard">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" placeholder="enter your email">
+      <mat-hint id="hintColor">e.g abc123@xyz.com</mat-hint>
+    </mat-form-field><br>
+
+    <mat-form-field id="example-full-width" appearance="standard">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" placeholder="enter your password">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <nav>
+      <a routerLink="/forgotPass" routerLinkActive="active">forgot password</a>
+      <br><br>
+    </nav>
+
+    <button id="submit" mat-button type="submit">Login</button>
+
+
+  </form>
+</div> -->
+
+<!-- hide content end -->

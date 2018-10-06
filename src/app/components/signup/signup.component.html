@@ -1,0 +1,83 @@
+<div fxLayout="column" fxLayoutGap="8%">
+  <div fxFlex="25">top
+
+
+  </div>
+  <!-- <div fxFlex="50%"> -->
+
+
+
+  <div fxLayout="row">
+    <div fxFlex="38" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="33"></div>
+    <div fxFlex="24" fxFlex.xs="100" fxFlex.sm="84" fxFlex.md="68" fxFlex.lg="34">
+      <!-- fxHide.sm='true' fxHide.xs='false' -->
+      <mat-card class="signupCard">
+
+
+        <div id="formbody" fxFlex="100">
+          <mat-toolbar class = "headBar" color = 'warn' fxLayoutAlign="center">Fundoo App</mat-toolbar><br>
+          <mat-card-title fxLayoutAlign="center">Sign Up</mat-card-title><br><br>
+          <mat-card-header class=cardHeader>Create a FundooApp account</mat-card-header><br><br><br>
+          <form class="signForm">
+
+
+              <mat-form-field class="fName">
+                <input matInput type="text" placeholder="First name">
+              </mat-form-field>
+              &nbsp;&nbsp;
+              <mat-form-field class="lName">
+                <input matInput type="text" placeholder="Last name">
+              </mat-form-field><br>
+
+              <mat-form-field class="email">
+
+                <input matInput type="email" placeholder="Email">
+                <mat-hint>e.g. abc123@xyz.com</mat-hint>
+              </mat-form-field><br><br><br>
+
+
+
+            <div>
+              <mat-form-field class="password">
+                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Password">
+              </mat-form-field>
+              &nbsp;&nbsp;
+              <mat-form-field class="confirmPass">
+                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Confirm password">
+              </mat-form-field>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </div><br><br><br>
+
+            <div fxLayout="row">
+            <mat-card class="basic">
+              <mat-card-title fxLayoutAlign="center" fx>Basic</mat-card-title>
+            </mat-card>&nbsp;<mat-card class="advance">
+                <mat-card-title fxLayoutAlign="center">Advance</mat-card-title>
+            </mat-card>
+          </div><br><br>
+
+            <button mat-button class="signup" type="submit ">sign up</button>
+            <nav><a routerLink="/login" routerLinkActive="active">Sign in instead</a></nav>
+
+          </form>
+        </div>
+
+
+
+      </mat-card>
+
+    </div>
+    <div fxFlex="38" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="33"></div>
+    <!-- <button mat-icon-button ><mat-icon id="icon" ></mat-icon></button> -->
+  </div>
+
+
+
+  <!-- </div> -->
+  <div fxFlex="25">
+    <div>bottom
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+/*  */
+#email{
+
+  display: flex;
+  width: auto;
+  flex-direction: column;
+}
+
+#password{
+
+  display: flex;
+  width: auto;
+  flex-direction: column;
+}
+
+#hintColor{
+
+  color: lightslategray;
+}
+
+#container {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  }
+
+  #example-full-width{
+
+  flex-direction: column;
+    width:100%;
+  }
+
+  .loginCard{
+
+
+    align-content: center;
+    justify-content: center;
+    /* float: right; */
+    /* padding: 10px 0px 0px 20px; */
+
+    box-shadow: 5px;
+    border-radius: 4px;
+    padding: 54px;
+  }
+
+  #submit{
+
+    color: rgb(253, 253, 253);
+    background-color: rgb(22, 125, 243);
+    /* align-content: center;
+    justify-content: center; */
+    /* position: absolute; */
+    width: 40%;
+    border-radius: 4px;
+    float: right
+  }
+
+/* #icon
+{
+
+} */
+
+#logForm{
+
+  /* display: grid; */
+  flex-direction: column;
+  align-content: center;
+  width: auto
+
+/* justify-content: center; */
+}
+
+.cardTitle{
+
+  
+}
+
+/* #formbody
+{
+
+
+} */
+
+/* @media (min-width: 450px){
+.loginCard {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 185px 107px 40px 636px;
+  width: 394px;
+  height: 357px;
+}
+} */
+
+/* @media (max-width: 599px){
+.mat-card {
+    padding: 24px 16px;
+    margin: auto;
+}
+} */
+
+/* @media (min-width: 1366px){
+.loginCard[_ngcontent-c1] {
+    padding-left: 40px;
+    padding-right: 40px;
+    /* align-content: flex-start; */
+    /* margin: auto; */
+    /* margin: 185px 107px 40px 636px;
+    width: 394px;
+    height: 357px;
+}
+} */
+
+/* @media (min-width: 1024px){
+
+.loginCard[_ngcontent-c1] {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 352px 107px 40px 263px;
+    width: 394px;
+    height: 357px;
+}
+} */
