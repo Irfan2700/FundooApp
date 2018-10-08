@@ -8,6 +8,7 @@
 
 .signup{
 
+  font-size: 20px;
   color: rgb(253, 253, 253);
     background-color: rgb(22, 125, 243);
     /* align-content: center;
@@ -16,6 +17,7 @@
     width: 40%;
     border-radius: 4px;
     float: right;
+    height: 45px;
 }
 
 .fName{
@@ -46,11 +48,61 @@ width: 46%;
   background-color: deepskyblue;
 }
 
+.cardButton{
+
+
+}
+
 .basic
 {
-  width: 25%;
+  width: 75%;
+  height: 145px;
+  background-color: rgb(203, 206, 209);
+  border-radius: 5px;
+  font-size: 20px;
+
+}
+
+.basicNew{
+
+  width: 75%;
+  height: 145px;
+  background-color: rgb(29, 134, 238);
+  border-radius: 5px;
+  font-size: 20px;
 }
 
 .advance{
-  width: 25%;
+  width: 60%;
+  height: 145px;
+  background-color: rgb(203, 206, 209);
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.advanceNew{
+
+  width: 60%;
+  height: 145px;
+  background-color: rgb(29, 134, 238);
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.basicLink{
+  text-decoration: none;
+}
+
+.advanceLink{
+  text-decoration: none;
+}
+
+.loginLink{
+  text-decoration: none;
+  color: royalblue;
+}
+
+.termsLink
+{
+  color: blue;
 }

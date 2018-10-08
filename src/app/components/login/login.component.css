@@ -70,9 +70,20 @@
 /* justify-content: center; */
 }
 
+.forgetLink{
+
+  text-decoration: none;
+  color: royalblue;
+}
+
+.signupLink
+{
+  text-decoration: none;
+  color: royalblue;
+}
 .cardTitle{
 
-  
+
 }
 
 /* #formbody

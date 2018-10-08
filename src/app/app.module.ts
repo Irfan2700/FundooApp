@@ -4,15 +4,22 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+// import { TermsDialog } from './component/signup/signup.component';
+import { SignupComponent, TermsDialog } from './components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
         MatCardModule,
         MatIconModule,
-        MatToolbarModule} from '@angular/material';
+        MatToolbarModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatButtonToggleModule} from '@angular/material';
 
 
 
@@ -22,8 +29,8 @@ import {MatFormFieldModule,
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
-
+    SignupComponent,
+    TermsDialog
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,13 @@ import {MatFormFieldModule,
     MatCardModule,
     MatIconModule,
     FlexLayoutModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    ScrollDispatchModule,
+    MatButtonToggleModule,
+    HttpClientModule
   ],
 
   exports: [
@@ -47,7 +60,7 @@ import {MatFormFieldModule,
     MatIconModule,
     FlexLayoutModule
   ],
-
+  entryComponents: [SignupComponent, TermsDialog],
   providers: [],
   bootstrap: [AppComponent]
 })

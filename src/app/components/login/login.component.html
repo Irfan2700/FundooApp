@@ -19,26 +19,26 @@
             <mat-card-title fxLayoutAlign="center" class="cardTitle">Sign In</mat-card-title>
             <mat-form-field id="example-full-width" appearance="standard">
               <mat-label>Email</mat-label>
-              <input matInput type="email" placeholder="enter your email">
+              <input matInput type="email" placeholder="enter your email" required>
               <mat-hint id="hintColor">e.g abc123@xyz.com</mat-hint>
             </mat-form-field><br><br>
 
             <mat-form-field id="example-full-width" appearance="standard">
               <mat-label>Password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder="enter your password">
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="enter your password" required>
               <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               <mat-hint></mat-hint>
             </mat-form-field><br><br>
 
             <nav>
-              <a routerLink="/forgotPass" routerLinkActive="active">forgot password?</a>
+              <a class="forgetLink" routerLink="/forgotPass" routerLinkActive="active">forgot password?</a>
 
             </nav><br><br><br>
 
             <button id="submit" mat-button type="submit" fxLayoutAlign="center">Sign in</button>
-            <nav><a routerLink="/signup" routerLinkActive="inactive">create account</a></nav>
+            <nav><a class="signupLink" routerLink="/signup" routerLinkActive="inactive">create account</a></nav>
 
-            
+
 
 
           </form>

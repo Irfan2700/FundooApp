@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="8%">
+<div fxLayout="column" fxLayoutGap="4%">
   <div fxFlex="25">top
 
 
@@ -22,16 +22,16 @@
 
 
               <mat-form-field class="fName">
-                <input matInput type="text" placeholder="First name">
+                <input matInput type="text" placeholder="First name" required>
               </mat-form-field>
               &nbsp;&nbsp;
               <mat-form-field class="lName">
-                <input matInput type="text" placeholder="Last name">
+                <input matInput type="text" placeholder="Last name" required>
               </mat-form-field><br>
 
               <mat-form-field class="email">
 
-                <input matInput type="email" placeholder="Email">
+                <input matInput type="email" placeholder="Email" required>
                 <mat-hint>e.g. abc123@xyz.com</mat-hint>
               </mat-form-field><br><br><br>
 
@@ -39,25 +39,55 @@
 
             <div>
               <mat-form-field class="password">
-                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Password">
+                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Password" required>
               </mat-form-field>
               &nbsp;&nbsp;
               <mat-form-field class="confirmPass">
-                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Confirm password">
+                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Confirm password" required>
               </mat-form-field>
               <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </div><br><br><br>
 
-            <div fxLayout="row">
-            <mat-card class="basic">
-              <mat-card-title fxLayoutAlign="center" fx>Basic</mat-card-title>
-            </mat-card>&nbsp;<mat-card class="advance">
-                <mat-card-title fxLayoutAlign="center">Advance</mat-card-title>
-            </mat-card>
-          </div><br><br>
 
-            <button mat-button class="signup" type="submit ">sign up</button>
-            <nav><a routerLink="/login" routerLinkActive="active">Sign in instead</a></nav>
+
+            <div fxLayout="row">
+
+
+                  <div *ngFor="let card of arrClick">
+
+                  <mat-button-toggle-group >
+                    <mat-button-toggle value="card.name">
+                <mat-card mat-button (click)="respond(card)"  [ngClass]="bclick ? 'basicNew' : 'basic'" >
+              <mat-card-title fxLayoutAlign="center">{{card.name}}</mat-card-title>
+              <div fxLayout="row" fxLayoutAlign="center">
+              <h4>$</h4><h1>{{card.price}}</h1>
+            </div>
+
+            </mat-card>
+          </mat-button-toggle>
+          </mat-button-toggle-group>
+          </div>
+
+          <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <!-- <div>
+
+                <a mat-button (click)="colorAdv = !colorAdv" >
+            <mat-card mat-button [ngClass]="colorAdv ? 'advance' : 'advanceNew'">
+                <mat-card-title fxLayoutAlign="center">Advance</mat-card-title>
+                <div fxLayout="row" fxLayoutAlign="center">
+                  <h4>$</h4><h1>25</h1>
+                </div>
+
+            </mat-card></a></div> -->
+          </div>
+          <br><br><br>
+
+          <mat-checkbox> I agree the </mat-checkbox> <a (click)="terms()" class="termsLink" > Terms of Service</a> of this site.
+
+          <br><br>
+
+            <button mat-button class="signup" type="submit ">sign up</button><br>
+            <nav><a class="loginLink" routerLink="/login" routerLinkActive="active">Sign in instead</a></nav>
 
           </form>
         </div>
