@@ -17,21 +17,20 @@
         <div id="formbody" fxFlex="100">
           <mat-toolbar class = "headBar" color = 'warn' fxLayoutAlign="center">Fundoo App</mat-toolbar><br>
           <mat-card-title fxLayoutAlign="center">Sign Up</mat-card-title><br><br>
-          <mat-card-header class=cardHeader>Create a FundooApp account</mat-card-header><br><br><br>
-          <form class="signForm">
+          <mat-card-header class=cardHeader>Create a FundooApp account</mat-card-header><br><br><br>e
 
 
               <mat-form-field class="fName">
-                <input matInput type="text" placeholder="First name" required>
+                <input matInput type="text" placeholder="First name" required [(ngModel)]="reg.firstName">
               </mat-form-field>
               &nbsp;&nbsp;
               <mat-form-field class="lName">
-                <input matInput type="text" placeholder="Last name" required>
+                <input matInput type="text" placeholder="Last name" required [(ngModel)]="reg.lastName">
               </mat-form-field><br>
 
               <mat-form-field class="email">
 
-                <input matInput type="email" placeholder="Email" required>
+                <input matInput type="email" placeholder="Email" required [(ngModel)]="reg.email">
                 <mat-hint>e.g. abc123@xyz.com</mat-hint>
               </mat-form-field><br><br><br>
 
@@ -39,7 +38,7 @@
 
             <div>
               <mat-form-field class="password">
-                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Password" required>
+                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Password" required [(ngModel)]="reg.password">
               </mat-form-field>
               &nbsp;&nbsp;
               <mat-form-field class="confirmPass">
@@ -50,22 +49,22 @@
 
 
 
-            <div fxLayout="row">
+            <div fxLayout="row" fxLayoutGap="3%">
 
 
-                  <div *ngFor="let card of arrClick">
+                  <div  *ngFor="let card of arrClick" >
 
-                  <mat-button-toggle-group >
-                    <mat-button-toggle value="card.name">
-                <mat-card mat-button (click)="respond(card)"  [ngClass]="bclick ? 'basicNew' : 'basic'" >
+
+                    <a value="card.name">
+                <mat-card mat-button (click)="respond(card)"  [ngClass]="card.select ? 'basicNew' : 'basic'" >
               <mat-card-title fxLayoutAlign="center">{{card.name}}</mat-card-title>
-              <div fxLayout="row" fxLayoutAlign="center">
-              <h4>$</h4><h1>{{card.price}}</h1>
+              <div fxLayoutAlign="center">
+              <div><mat-card-content fxLayoutWrap>{{card.description}}</mat-card-content></div>
             </div>
 
             </mat-card>
-          </mat-button-toggle>
-          </mat-button-toggle-group>
+          </a>
+
           </div>
 
           <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
@@ -86,10 +85,10 @@
 
           <br><br>
 
-            <button mat-button class="signup" type="submit ">sign up</button><br>
+            <button mat-button class="signup" type="submit" (click)="formSubmit()">sign up</button><br>
             <nav><a class="loginLink" routerLink="/login" routerLinkActive="active">Sign in instead</a></nav>
 
-          </form>
+
         </div>
 
 
