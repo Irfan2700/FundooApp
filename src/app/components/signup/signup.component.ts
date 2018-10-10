@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { ServicesService } from "src/app/services/services.service";
+// import { ToastrService } from "ngx-toastr";
+// import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-signup",
@@ -13,10 +15,11 @@ export class SignupComponent implements OnInit {
   arrClick: any[];
 
   bclick = false;
-  serv = null;
+  serv;
   baseClick;
   cardName = this.baseClick;
   ServicesService: any;
+
   respond(card) {
     console.log(card.name);
     this.serv = card.name;
@@ -27,13 +30,17 @@ export class SignupComponent implements OnInit {
       }
       this.arrClick[i].select = false;
     }
+    console.log(this.serv)
   }
 
   constructor(
     public dialog: MatDialog,
-    private _signupService: ServicesService
+    private _signupService: ServicesService,
+    public snackBar: MatSnackBar
+
   ) {
     this.arrClick = new Array();
+
   }
 
   terms() {
@@ -43,60 +50,125 @@ export class SignupComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+  flag = false;
+  emailToast = false;
+  // emailT(){
+  //   this.emailToast=true;
+  // }
 
+  // reg: any = {};
+
+   //reg = new Register('','',9876543210, this.serv, new Date(), new Date(), '', 'gorav@gmail.com', true, '1234abc');
+  // newRegister(){
+
+  //   this.reg = new Register('','',9876543211,this.serv, new Date(), new Date(), '', '', true, '')
+  // }
   reg = {
-    "firstName": "",
-      "lastName": "",
-      "phoneNumber": "9876543210",
-      "service": this.serv,
-      "createdDate": new Date(),
-      "modifiedDate": new Date(),
-      "username": "",
-      "email": "",
-      "emailVerified": true,
-      "password": ""
+    firstName: "",
+    lastName: "",
+    phoneNumber: "9874563215",
+    service: this.serv,
+    createdDate: new Date(),
+    modifiedDate: new Date(),
+    username: "",
+    email: "",
+    emailVerified: true,
+    password: ""
+  };
+
+
+// get f(){
+
+//   return this.signupForm.controls;
+// }
+
+  formSubmit() {
+
+    // this.submitted = true;
+
+    // if(this.signupForm.invalid){
+    //   return;
+    // }
+
+    let obsAdd = this._signupService.addData(
+      "user/userSignUp",
+      {
+        firstName: this.reg.firstName,
+        lastName: this.reg.lastName,
+        phoneNumber: "9874588215",
+        service: this.serv,
+        createdDate: new Date(),
+        modifiedDate: new Date(),
+        username: this.reg.username,
+        email: this.reg.email,
+        emailVerified: true,
+        password: this.reg.password
+      }
+
+    );
+
+    obsAdd.subscribe(
+      data => {
+        console.log("Post is work", data);
+        this.snackBar.open('Sign Up', 'SUCCESS!!', {
+          duration: 3000
+        });
+      },
+      error => {
+        console.log("Error occur", error);
+        this.snackBar.open('Sign Up', 'FAILED!!', {
+          duration: 3000
+        });
+      }
+    );
+    // if(this.emailToast === true){
+
+    //   this.toastrService.error("Email is required");
+    // }
   }
 
-  formSubmit(){
-    return this.reg;
-  }
+
+
+  //validations
+
+  // signupForm: FormGroup;
+  // submitted = false;
+
+
+
 
   ngOnInit() {
-    let obsGet = this._signupService.getData("user");
-    console.log(typeof this.arrClick);
 
-    obsGet.subscribe(response => console.log(response));
+     console.log(this.serv);
+    // if (this.reg.email !== "" || this.reg.firstName !== "null") {
 
-    let obsAdd = this._signupService.addData('user/userSignUp', this.formSubmit()
-    //{
-    //   "firstName": "Gourav",
-    //   "lastName": "Mishra",
-    //   "phoneNumber": "9876543210",
-    //   "service": "Basic",
-    //   "createdDate": "2018-10-09T06:35:12.617Z",
-    //   "modifiedDate": "2018-10-09T06:35:12.617Z",
-    //   "username": "gorav@gmail.com",
-    //   "email": "gorav@gmail.com",
-    //   "emailVerified": true,
-    //   "password": "123456abc"
-    //  }
+      let obsGet = this._signupService.getData("user");
+      console.log(typeof this.arrClick);
 
-    )
+      obsGet.subscribe(response => console.log(response));
 
-    obsAdd.subscribe(data => {console.log('Post is work', data)},
-    error => {console.log('Error occur',error)})
+      // this.formSubmit();
 
-    let obsGetService = this._signupService.getData("user/service");
-    obsGetService.subscribe(response => {
-      console.log(response["data"].data);
-      let res = response["data"].data;
+      let obsGetService = this._signupService.getData("user/service");
+      obsGetService.subscribe(response => {
+        console.log(response["data"].data);
+        let res = response["data"].data;
 
-      for (var i = 0; i < res.length; i++) {
-        res[i].select = false;
-        this.arrClick.push(res[i]);
-      }
-      console.log(res);
-    });
+        for (var i = 0; i < res.length; i++) {
+          res[i].select = false;
+          this.arrClick.push(res[i]);
+        }
+        console.log(res);
+      });
+
+
+      // this.signupForm = this.formBuilder.group({
+      //   firstName: ['', Validators.required],
+      //   lastName: ['', Validators.required],
+      //   email: ['', Validators.required, Validators.email],
+      //   username: ['', Validators.required, Validators.email],
+      //   password: ['', Validators.required, Validators.minLength(6)]
+      // })
   }
 }
 
@@ -107,3 +179,18 @@ export class SignupComponent implements OnInit {
 
 // tslint:disable-next-line:component-class-suffix
 export class TermsDialog {}
+
+// export class Register {
+//   constructor(
+//     firstName: string,
+//     lastName: string,
+//     phoneNumber: Number,
+//     service: string,
+//     createdDate: Date,
+//     modifiedDate: Date,
+//     username: string,
+//     email: string,
+//     emailVerified: true,
+//     password: string
+//   ) {}
+// }
