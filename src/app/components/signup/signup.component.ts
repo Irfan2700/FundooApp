@@ -1,6 +1,7 @@
+import { ServicesService } from '../../services/services.service';
 import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
-import { ServicesService } from "src/app/services/services.service";
+
 // import { ToastrService } from "ngx-toastr";
 // import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
@@ -75,14 +76,11 @@ export class SignupComponent implements OnInit {
   reg = {
     firstName: "",
     lastName: "",
-    phoneNumber: "9874563215",
     service: "",
-    createdDate: new Date(),
-    modifiedDate: new Date(),
-    username: "",
     email: "",
     emailVerified: true,
-    password: ""
+    password: "",
+    conpass:""
   };
 
 
@@ -90,7 +88,8 @@ export class SignupComponent implements OnInit {
 
 //   return this.signupForm.controls;
 // }
-
+  pass;
+  confirmpass;
 
 
   formSubmit() {
@@ -100,16 +99,15 @@ export class SignupComponent implements OnInit {
         let body = {
           firstName: this.reg.firstName,
           lastName: this.reg.lastName,
-          phoneNumber: "9874588215",
           service: this.serv,
-          createdDate: new Date(),
-          modifiedDate: new Date(),
-          username: this.reg.username,
           email: this.reg.email,
           emailVerified: true,
           password: this.reg.password
         }
-        if((body.firstName !== "") && (body.lastName !== "") && (body.email !== "") && (body.username !== "") && (body.password !== ""))
+
+        this.pass = this.reg.password;
+        this.confirmpass = this.reg.conpass;
+        if((body.firstName !== "") && (body.lastName !== "") && (body.email !== "") && (body.password !== ""))
         {
 
           if((/\S+@\S+\.\S+/).test(body.email)){

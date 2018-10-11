@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
+
+// import { ServicesService } from './services/services.service';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatFormFieldModule,
@@ -25,6 +28,7 @@ import {MatFormFieldModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
         } from '@angular/material';
+
 
 
 
@@ -58,17 +62,9 @@ import {MatFormFieldModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
+    // ServicesService
   ],
 
-  exports: [
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    FlexLayoutModule
-  ],
   entryComponents: [SignupComponent, TermsDialog],
   providers: [],
   bootstrap: [AppComponent]

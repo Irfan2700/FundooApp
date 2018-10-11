@@ -25,6 +25,25 @@
   width: 45%;
 }
 
+.fNameNew{
+  width: 100%
+}
+.lNameNew{
+  width: 100%
+}
+
+.emailNew{
+  width: 100%;
+}
+
+.passwordNew{
+  width: 100%;
+}
+
+.conpassNew{
+  width: 95%;
+}
+
 .lName{
 
   width: 45%;
@@ -32,15 +51,15 @@
 
 .email{
 
-width: 46%;
+width: 50%;
 }
 
 .password{
-  width: 40%;
+  width: 45%;
 }
 
 .confirmPass{
-  width: 40%;
+  width: 45%;
 }
 
 .headBar
@@ -55,8 +74,8 @@ width: 46%;
 
 .basic
 {
-  width: 75%;
-  height: 145px;
+  width: auto;
+  height: auto;
   background-color: rgb(203, 206, 209);
   border-radius: 5px;
   font-size: 20px;
@@ -65,16 +84,16 @@ width: 46%;
 
 .basicNew{
 
-  width: 75%;
-  height: 145px;
+  width: auto;
+  height: auto;
   background-color: rgb(29, 134, 238);
   border-radius: 5px;
   font-size: 20px;
 }
 
 .advance{
-  width: 60%;
-  height: 145px;
+  width: auto;
+  height: auto;
   background-color: rgb(203, 206, 209);
   border-radius: 5px;
   font-size: 20px;
@@ -82,8 +101,8 @@ width: 46%;
 
 .advanceNew{
 
-  width: 60%;
-  height: 145px;
+  width: auto;
+  height: auto;
   background-color: rgb(29, 134, 238);
   border-radius: 5px;
   font-size: 20px;
