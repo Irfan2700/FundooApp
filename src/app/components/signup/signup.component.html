@@ -11,7 +11,7 @@
     <div fxFlex="38" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="33"></div>
     <div fxFlex="24" fxFlex.xs="100" fxFlex.sm="84" fxFlex.md="68" fxFlex.lg="34">
       <!-- fxHide.sm='true' fxHide.xs='false' -->
-      <form name="signForm" (ngSubmit)="f.form.valid && formSubmit()" #f="ngForm" novalidate>
+      <form name="signForm" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
 
         <mat-card class="signupCard">
 
@@ -125,12 +125,12 @@
             </div>
             <br><br><br>
 
-            <mat-checkbox> I agree the </mat-checkbox> <a (click)="terms()" class="termsLink"> Terms of Service</a> of
+            <mat-checkbox (click)="deal()"> I agree the </mat-checkbox> <a (click)="terms()" class="termsLink"> Terms of Service</a> of
             this site.
 
             <br><br>
 
-            <button mat-button class="signup" type="submit" (click)="formSubmit()">sign up</button><br>
+            <button mat-button [disabled]="agree == false" class="signup" type="submit" (click)="formSubmit()">sign up</button><br>
             <nav><a class="loginLink" routerLink="/login" routerLinkActive="active">Sign in instead</a></nav>
 
 

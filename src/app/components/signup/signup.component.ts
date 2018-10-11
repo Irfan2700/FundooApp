@@ -15,15 +15,18 @@ export class SignupComponent implements OnInit {
   arrClick: any[];
 
   bclick = false;
-  serv;
+  serv = null;
   baseClick;
   cardName = this.baseClick;
   ServicesService: any;
 
   respond(card) {
-    console.log(card.name);
+
     this.serv = card.name;
     card.select = !card.select;
+    if(card.select === false){
+      this.serv = '';
+    }
     for (let i = 0; i < this.arrClick.length; i++) {
       if (card.name === this.arrClick[i].name) {
         continue;
@@ -43,15 +46,21 @@ export class SignupComponent implements OnInit {
 
   }
 
+  agree = false;
+
+  deal(){
+    this.agree = !this.agree;
+  }
+
   terms() {
     const dialogRef = this.dialog.open(TermsDialog);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
   }
-  flag = false;
-  emailToast = false;
+  // flag = false;
+  // emailToast = false;
   // emailT(){
   //   this.emailToast=true;
   // }
@@ -67,7 +76,7 @@ export class SignupComponent implements OnInit {
     firstName: "",
     lastName: "",
     phoneNumber: "9874563215",
-    service: this.serv,
+    service: "",
     createdDate: new Date(),
     modifiedDate: new Date(),
     username: "",
@@ -82,30 +91,31 @@ export class SignupComponent implements OnInit {
 //   return this.signupForm.controls;
 // }
 
+
+
   formSubmit() {
 
-    // this.submitted = true;
 
-    // if(this.signupForm.invalid){
-    //   return;
-    // }
 
-    let obsAdd = this._signupService.addData(
-      "user/userSignUp",
-      {
-        firstName: this.reg.firstName,
-        lastName: this.reg.lastName,
-        phoneNumber: "9874588215",
-        service: this.serv,
-        createdDate: new Date(),
-        modifiedDate: new Date(),
-        username: this.reg.username,
-        email: this.reg.email,
-        emailVerified: true,
-        password: this.reg.password
-      }
+        let body = {
+          firstName: this.reg.firstName,
+          lastName: this.reg.lastName,
+          phoneNumber: "9874588215",
+          service: this.serv,
+          createdDate: new Date(),
+          modifiedDate: new Date(),
+          username: this.reg.username,
+          email: this.reg.email,
+          emailVerified: true,
+          password: this.reg.password
+        }
+        if((body.firstName !== "") && (body.lastName !== "") && (body.email !== "") && (body.username !== "") && (body.password !== ""))
+        {
 
-    );
+          if((/\S+@\S+\.\S+/).test(body.email)){
+          if(body.service !== null && body.service.length !== 0 ){
+
+    let obsAdd = this._signupService.addData("user/userSignUp", body);
 
     obsAdd.subscribe(
       data => {
@@ -117,10 +127,32 @@ export class SignupComponent implements OnInit {
       error => {
         console.log("Error occur", error);
         this.snackBar.open('Sign Up', 'FAILED!!', {
-          duration: 3000
+          duration: 4000
         });
       }
     );
+    return;
+    }else{
+      this.snackBar.open('Incomplete Form Field', 'Please Select one of the card Basic or Advance', {
+        duration: 4000
+      })
+    }
+  }else{
+    this.snackBar.open('Incomplete Form Field', "'"+ body.email +"'" + ' is not a correct email', {
+      duration: 4000,
+      panelClass: ['emailSnack-bar'],
+      verticalPosition: 'top',
+    horizontalPosition: 'end',
+    //announcementMessage: body.email + ' is not a correct email'
+
+    })
+  }
+    }else{
+      this.snackBar.open('Incomplete Form Field', 'Please Enter the all Credential!!', {
+        duration: 4000
+
+      })
+    }
     // if(this.emailToast === true){
 
     //   this.toastrService.error("Email is required");
@@ -180,17 +212,4 @@ export class SignupComponent implements OnInit {
 // tslint:disable-next-line:component-class-suffix
 export class TermsDialog {}
 
-// export class Register {
-//   constructor(
-//     firstName: string,
-//     lastName: string,
-//     phoneNumber: Number,
-//     service: string,
-//     createdDate: Date,
-//     modifiedDate: Date,
-//     username: string,
-//     email: string,
-//     emailVerified: true,
-//     password: string
-//   ) {}
-// }
+

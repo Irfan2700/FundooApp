@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'node_modules/ngx-toastr/toastr.css';
+
+.emailSnack-bar{
+
+  color: rgb(21, 20, 83);
+  background-color:rgb(241, 224, 66);
+  /* margin: 0px 0px 30px 0px; */
+}
