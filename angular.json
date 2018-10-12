@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "fundooApp"
+  "defaultProject": "fundooApp",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "styl"
+    }
+  }
 }

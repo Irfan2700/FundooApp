@@ -6,5 +6,6 @@
 
   color: rgb(21, 20, 83);
   background-color:rgb(241, 224, 66);
-  /* margin: 0px 0px 30px 0px; */
+  margin: 0px 0px 30px 0px;
+  align-content: center;
 }

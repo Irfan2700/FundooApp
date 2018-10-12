@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -8,12 +7,11 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent, TermsDialog } from './components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+// import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 
 // import { ServicesService } from './services/services.service';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import {MatFormFieldModule,
         MatInputModule,
@@ -28,6 +26,10 @@ import {MatFormFieldModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
         } from '@angular/material';
+import { ResetPasswordComponent,  ResetPasswordSetComponent} from './components/reset-password/reset-password.component';
+import { HomeComponent } from './components/home/home.component';
+import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
+import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
 
 
 
@@ -39,7 +41,12 @@ import {MatFormFieldModule,
     AppComponent,
     LoginComponent,
     SignupComponent,
-    TermsDialog
+    TermsDialog,
+    ResetPasswordComponent,
+    ResetPasswordSetComponent,
+    HomeComponent,
+    TopToolbarComponent,
+    LeftSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -55,17 +62,16 @@ import {MatFormFieldModule,
     MatRadioModule,
     MatCheckboxModule,
     MatDialogModule,
-    ScrollDispatchModule,
     MatButtonToggleModule,
     HttpClientModule,
     FormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule,
+
     // ServicesService
   ],
 
-  entryComponents: [SignupComponent, TermsDialog],
+  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

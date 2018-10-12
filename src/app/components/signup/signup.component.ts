@@ -107,11 +107,14 @@ export class SignupComponent implements OnInit {
 
         this.pass = this.reg.password;
         this.confirmpass = this.reg.conpass;
-        if((body.firstName !== "") && (body.lastName !== "") && (body.email !== "") && (body.password !== ""))
+
+        if((body.firstName !== "") && (body.lastName !== "") && (body.email !== "") && (body.password !== "") && (this.reg.conpass !== ""))
         {
 
           if((/\S+@\S+\.\S+/).test(body.email)){
           if(body.service !== null && body.service.length !== 0 ){
+
+            if(this.pass === this.confirmpass){
 
     let obsAdd = this._signupService.addData("user/userSignUp", body);
 
@@ -129,10 +132,21 @@ export class SignupComponent implements OnInit {
         });
       }
     );
-    return;
+
+    }else{
+      this.snackBar.open('Password Incorrect', 'Password is not matched', {
+        duration: 4000,
+        panelClass: ['emailSnack-bar'],
+        verticalPosition: 'top',
+      horizontalPosition: 'end',
+      })
+    }
     }else{
       this.snackBar.open('Incomplete Form Field', 'Please Select one of the card Basic or Advance', {
-        duration: 4000
+        duration: 4000,
+        panelClass: ['emailSnack-bar'],
+        verticalPosition: 'top',
+      horizontalPosition: 'end',
       })
     }
   }else{
@@ -147,7 +161,10 @@ export class SignupComponent implements OnInit {
   }
     }else{
       this.snackBar.open('Incomplete Form Field', 'Please Enter the all Credential!!', {
-        duration: 4000
+        duration: 4000,
+        panelClass: ['emailSnack-bar'],
+        verticalPosition: 'top',
+      horizontalPosition: 'end',
 
       })
     }
