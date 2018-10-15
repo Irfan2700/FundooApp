@@ -126,7 +126,7 @@
   "defaultProject": "fundooApp",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "styl"
+      "styleext": "css"
     }
   }
 }

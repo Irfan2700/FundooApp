@@ -25,11 +25,15 @@ import {MatFormFieldModule,
         MatButtonToggleModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
+        MatSidenavModule,
+        MatMenuModule, MatListModule,
         } from '@angular/material';
 import { ResetPasswordComponent,  ResetPasswordSetComponent} from './components/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
 import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
+import { SlidingMaterialComponent } from './components/sliding-material/sliding-material.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -46,7 +50,8 @@ import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.com
     ResetPasswordSetComponent,
     HomeComponent,
     TopToolbarComponent,
-    LeftSidebarComponent
+    LeftSidebarComponent,
+    SlidingMaterialComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +72,10 @@ import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.com
     FormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatMenuModule,
+    LayoutModule,
+    MatListModule
 
     // ServicesService
   ],

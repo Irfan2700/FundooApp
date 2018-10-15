@@ -6,6 +6,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ResetPasswordComponent, ResetPasswordSetComponent} from './components/reset-password/reset-password.component';
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
 import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
+import { SlidingMaterialComponent } from './components/sliding-material/sliding-material.component';
 
   const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -13,10 +14,12 @@ import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.com
     {path: 'signup', component: SignupComponent},
     {path: 'reset', component: ResetPasswordComponent},
     {path: 'resetpassword/:accessToken', component: ResetPasswordSetComponent},
-    {path: 'home', component: HomeComponent, children: [
-      {path: '', component: TopToolbarComponent},
-      {path: 'toolbar', component: LeftSidebarComponent}
-    ]}
+    {path: 'home', component: TopToolbarComponent, children: [
+      {path: 'slid', component: SlidingMaterialComponent, outlet: 'slidingMenu'},
+      {path: '', component: HomeComponent, outlet: 'dashboard'},
+    ]},
+    {path: 'left', component: LeftSidebarComponent, outlet: 'sideBarOutlet'},
+    {path: 'test', component: HomeComponent, outlet: 'test'},
   ];
 
 @NgModule({
