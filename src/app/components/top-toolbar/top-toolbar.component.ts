@@ -1,3 +1,5 @@
+import { MatSnackBar } from '@angular/material';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -15,7 +17,15 @@ export class TopToolbarComponent implements OnInit {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver,
+    private auth: AuthService,
+    public snackBar: MatSnackBar) {}
 
-  ngOnInit() {}
+    logout(){
+      this.auth.logout();
+    }
+
+  ngOnInit() {
+
+  }
 }

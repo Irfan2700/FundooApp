@@ -9,7 +9,10 @@ export class LeftSidebarComponent implements OnInit {
 
   constructor() { }
 
+  array = [];
+
   ngOnInit() {
+
   }
 
 }

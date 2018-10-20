@@ -1,49 +1,20 @@
-<!-- <div fxFlex>
-  <div>
-  <mat-toolbar class="toolbarTools">
 
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    <span>fundooApp</span>
-  </mat-toolbar>
-
-
-
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
-
-      <mat-nav-list class="list">
-        <p></p>
-        <a mat-list-item href="#">Link 1</a>
-        <a mat-list-item href="#">Link 2</a>
-        <a mat-list-item href="#">Link 3</a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-
-        <router-outlet ></router-outlet>
-
-    </mat-sidenav-content>
-
-  </mat-sidenav-container>
-</div>
-</div> -->
 <div fxFlex>
   <div fxLayout="column wrap" class="container1" fxLayoutGap="40px">
     <div fxFlex="18">
       <mat-toolbar class="toolbar" fxLayout="row" ngStyle.xs=" height: 43px" ngStyle.sm=" height: 49px" ngStyle.md="height: 55px"
         ngStyle.lg="height: 64px">
         <div fxFlex="15">
-          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" ngStyle.xs="font-size:10px"
+          <button style="outline:none" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" ngStyle.xs="font-size:10px"
             ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:30px">
             <mat-icon ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:30px"
               class="menu" aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
 
-          <span class="toolHeader" ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:22px"
-            ngStyle.lg="font-size:25px">fundooApp</span>
+          <span class="toolHeader" [hidden]="(isHandset$ | async) ? true : false"  ngStyle.xs="font-size:14px;" ngStyle.sm="font-size:16px" ngStyle.md="font-size:20px"
+            ngStyle.lg="font-size:22px">FundooApp</span>
+            &nbsp;&nbsp;<span class="keepHead" ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:20px"
+            ngStyle.lg="font-size:22px">Keep</span>
         </div>
         <div fxFlex="65" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
@@ -51,24 +22,25 @@
             <form class="searchForm" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">
 
-              <div fxFlex="10" ></div>
-              <div fxFlex="10" style="float:right" fxLayoutAlign="center center" [hidden]="(isHandset$ | async) ? true : false">
-              <button type="button" mat-icon-button ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
-                ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">
-                <mat-icon aria-label="searchIcon" class="searchIcon"
-                  ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">search</mat-icon>
-              </button>
-            </div>
-            <div fxFlex="45" [hidden]="(isHandset$ | async) ? true : false">
-              <input class="searchInput" matInput type="search"
-                placeholder="Search" ngStyle.xs="font-size:12px; height:28px;" ngStyle.sm="font-size:17px; height:33px"
-                ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px">
+              <div fxFlex="10"></div>
+              <div fxFlex="55" style="background-color:#e4a700; border-radius: 5px;" [hidden]="(isHandset$ | async) ? true : false">
+              <div style="float:left; position: absolute;" fxLayoutAlign="center center" >
+                <button style="outline:none" type="button" mat-icon-button ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
+                  ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">
+                  <mat-icon aria-label="searchIcon" class="searchIcon" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
+                    ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">search</mat-icon>
+                </button>
               </div>
+              <div [hidden]="(isHandset$ | async) ? true : false">
+                <input style="outline:none" autocomplete="off" class="searchInput" matInput type="search" placeholder="Search" ngStyle.xs="font-size:12px; height:28px;"
+                  ngStyle.sm="font-size:17px; height:33px" ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px">
+              </div>
+            </div>
 
-            <div fxFlex="5" ></div>
+              <div fxFlex="5"></div>
 
-            <div fxFlex="75" [hidden]="(isHandset$ | async) ? false : true">
-                <button type="button" class="searchButtonNew" mat-icon-button >
+              <div fxFlex="75" [hidden]="(isHandset$ | async) ? false : true">
+                <button style="outline:none" type="button" class="searchButtonNew" mat-icon-button>
                   <mat-icon aria-label="searchIcon" class="searchIconNew" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
                     ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">search</mat-icon>
                 </button>
@@ -82,29 +54,35 @@
       </div> -->
         <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
-          <button class="refresh" mat-icon-button>
+          <button style="outline:none" class="refresh" mat-icon-button>
             <mat-icon aria-label="refresh" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">refresh</mat-icon>
           </button>
         </div>
         <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
-          <button mat-icon-button class="gridView">
+          <button style="outline:none" mat-icon-button class="gridView">
             <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">view_list</mat-icon>
           </button>
         </div>
         <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
-          <button mat-icon-button class="notification">
+          <button style="outline:none" mat-icon-button class="notification">
             <mat-icon aria-label="notification" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">notifications</mat-icon>
           </button>
         </div>
-        <div fxFlex="5"><button mat-icon-button class="account">
+        <div fxFlex="5"><button style="outline:none" mat-icon-button [matMenuTriggerFor]='menu' class="account">
             <mat-icon aria-label="account" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">account_circle</mat-icon>
-          </button></div>
+          </button>
+        <mat-menu #menu="matMenu" style="background-color:rgb(255, 162, 162)">
+          <p></p><br>
+          <button style="outline:none" mat-menu-item><mat-icon aria-label="account_Setting">settings</mat-icon>&nbsp;&nbsp;Account Setting</button>
+          <button style="outline:none" mat-menu-item (click)="logout()"><mat-icon aria-label="logout">logout</mat-icon>&nbsp;&nbsp;Logout</button>
+        </mat-menu>
+        </div>
 
 
 
@@ -114,11 +92,55 @@
     <div fxFlex="82">
       <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
         <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-          [opened]="(isHandset$ | async)"  >
+          [opened]="(isHandset$ | async)">
           <mat-nav-list>
-            <a mat-list-item href="#">Link 1</a>
-            <a mat-list-item href="#">Link 2</a>
-            <a mat-list-item href="#">Link 3</a>
+            <p></p><br><br>
+            <a mat-list-item>
+              <mat-icon aria-label="notes">lightbulb</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Notes
+            </a>
+            <a mat-list-item>
+              <mat-icon aria-label="touch app">touch_app</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Reminders
+            </a>
+            <hr>
+            <p> &nbsp;&nbsp;&nbsp;Labels
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
+                mat-icon-button>EDIT</button></p>
+
+            <router-outlet name="sideBarOutlet"></router-outlet>
+
+            <a mat-list-item>
+              <mat-icon aria-label="plus">add</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Create new label
+            </a>
+            <hr>
+
+            <a mat-list-item>
+              <mat-icon aria-label="archive">archive</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Archive
+            </a>
+
+            <a mat-list-item>
+              <mat-icon aria-label="trash">delete</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Trash
+            </a>
+            <hr>
+
+            <a mat-list-item>
+              <mat-icon aria-label="setting">settings</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Settings
+            </a>
+
+            <a mat-list-item>
+              <mat-icon aria-label="feedback">feedback</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Send feedback
+            </a>
+
+            <a mat-list-item>
+                <mat-icon aria-label="help">help</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Help
+              </a>
+
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:22px"

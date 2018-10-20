@@ -1,3 +1,5 @@
+import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { ServicesService } from '../../services/services.service';
@@ -12,7 +14,10 @@ export class LoginComponent implements OnInit {
   hide = true;
 
   constructor(private _loginService: ServicesService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private myRoute: Router,
+    private auth: AuthService) { }
+
 
   log = {
     email: "",
@@ -36,16 +41,20 @@ export class LoginComponent implements OnInit {
       data => {
         console.log("Login Successfully!!", data);
 
-        localStorage.setItem('token', data["id"]);
-        localStorage.setItem('userId', data["userId"]);
+        this.auth.sendToken(data["id"]);
+        this.auth.sendId(data["userId"]);
 
         this.snackBar.open('Success!!', 'Login Successfully!!', {
           duration: 4000,
           panelClass: ['emailSnack-bar'],
           verticalPosition: 'top',
         horizontalPosition: 'center',
-  
+
         })
+
+          this.myRoute.navigate(["home"]);
+
+
 
       },
       error => {
@@ -86,6 +95,9 @@ export class LoginComponent implements OnInit {
     obsGet.subscribe((response) => {
       console.log(response);
     })
+    if(this.auth.getToken()){
+      this.myRoute.navigate(["home"]);
+    }
   }
 
 }

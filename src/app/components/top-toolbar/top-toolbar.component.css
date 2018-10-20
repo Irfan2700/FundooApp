@@ -8,11 +8,12 @@
 }
 
 .toolbar{
-  background: #fd0;
+  background: #fb0;
   /* height: 64px; */
   position: fixed;
   z-index: 2;
-  width: 100%
+  width: 100.5%;
+  margin: -9px 0px 0px -12px;
 }
 
 .sidebar{
@@ -23,8 +24,15 @@
 .toolHeader{
 
   /* font-size: 20px; */
-  font-family: 'Courier New', Courier, monospace;
-  /* margin: 0px 0px 0px 20px */
+  font-family: 'Roboto Slab';
+  font:bold;
+  margin: 0px 0px 0px 9px;
+}
+
+.keepHead{
+  font-family: 'Roboto Slab';
+  font:bold;
+  margin: 0px 0px 0px 2px;
 }
 
 .menu{
@@ -38,7 +46,7 @@
 /* margin-top: 60px; */
   flex:1 0 auto;
   height: fit-content;
-
+  margin: -7px -9px 0px -8px;
 
 }
 
@@ -55,15 +63,25 @@
 
 .searchInput{
  width: 100%;
-border-radius: 6px;
-
+border: none;
+border-radius: 5px;
+padding: 0px 0px 0px 50px;
+background: #e4a700;
 }
+
+input:focus{
+  /* width: 100%;
+ border-radius: 6px;
+ padding: 10px; */
+ background: rgb(255, 255, 255);
+ }
 
 .searchIcon{
 
 
   position: relative;
   z-index: 2;
+
 }
 
 .searchIconNew{
@@ -109,7 +127,7 @@ border-radius: 6px;
 }
 
 .toolbarTools{
-  background: #fd0;
+  background: #e4a700;
 
 }
 

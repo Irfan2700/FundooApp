@@ -1,3 +1,5 @@
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guard/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +28,9 @@ import {MatFormFieldModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
         MatSidenavModule,
-        MatMenuModule, MatListModule,
+        MatMenuModule,
+        MatListModule,
+        MatExpansionModule,
         } from '@angular/material';
 import { ResetPasswordComponent,  ResetPasswordSetComponent} from './components/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
@@ -34,7 +38,6 @@ import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.compon
 import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
 import { SlidingMaterialComponent } from './components/sliding-material/sliding-material.component';
 import { LayoutModule } from '@angular/cdk/layout';
-
 
 
 
@@ -51,7 +54,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     HomeComponent,
     TopToolbarComponent,
     LeftSidebarComponent,
-    SlidingMaterialComponent
+    SlidingMaterialComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatSidenavModule,
     MatMenuModule,
     LayoutModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
 
     // ServicesService
   ],
