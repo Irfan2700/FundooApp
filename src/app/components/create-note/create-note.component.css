@@ -14,6 +14,7 @@
   font-size: 18px;
   width: 486px;
   outline: none;
+
 }
 
 .addNote{
@@ -21,6 +22,7 @@
   width: 100%;
   padding: 0px 0px 0px 17px;
   margin: 46px 0px 0px 0px;
+  opacity: 0.7;
 }
 
 .titleNote{
@@ -65,3 +67,80 @@ div[contenteditable=true] {
   outline: none;
   padding-top: 10px;
 }
+
+.takeNote:hover{
+  opacity: 1;
+}
+
+.listBut{
+  opacity: 0.7;
+}
+.listBut:hover{
+  opacity: 6;
+}
+
+.imageBut{
+  opacity: 0.7;
+}
+.imageBut:hover{
+  opacity: 6;
+}
+
+.editBut{
+  opacity: 0.7;
+}
+.editBut:hover{
+  opacity: 6;
+}
+
+.touchBut{
+  opacity: 0.7;
+}
+.touchBut:hover{
+  opacity: 6;
+}
+
+.addBut{
+  opacity: 0.7;
+}
+.addBut:hover{
+  opacity: 6;
+}
+
+.colorBut{
+  opacity: 0.7;
+}
+.colorBut:hover{
+  opacity: 6;
+}
+
+.archiveBut{
+  opacity: 0.7;
+}
+.archiveBut:hover{
+  opacity: 6;
+}
+
+.moreBut{
+  opacity: 0.7;
+}
+.moreBut:hover{
+  opacity: 6;
+}
+
+.undoBut{
+  opacity: 0.7;
+}
+.undoBut:hover{
+  opacity: 6;
+}
+
+.redoBut{
+  opacity: 0.7;
+}
+.redoBut:hover{
+  opacity: 6;
+}
+
+
+

@@ -38,6 +38,12 @@ import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.compon
 import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
 import { SlidingMaterialComponent } from './components/sliding-material/sliding-material.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NotesComponent } from './components/notes/notes.component';
+import { ReminderComponent } from './components/reminder/reminder.component';
+import { LabelComponent } from './components/label/label.component';
+import { ArchiveComponent } from './components/archive/archive.component';
+import { TrashComponent } from './components/trash/trash.component';
+import { CreateNoteComponent } from './components/create-note/create-note.component';
 
 
 
@@ -55,6 +61,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     TopToolbarComponent,
     LeftSidebarComponent,
     SlidingMaterialComponent,
+    NotesComponent,
+    ReminderComponent,
+    LabelComponent,
+    ArchiveComponent,
+    TrashComponent,
+    CreateNoteComponent,
 
   ],
   imports: [

@@ -1,0 +1,36 @@
+<!-- <div fxLayout="row" fxLayoutAlign="center center" > -->
+    <div (click)="noteCard = true" [hidden]="noteCard">
+      <mat-card class="addNote" >
+        <input type="text" placeholder="take a note..." class="takeNote" autofocus>
+        <button mat-icon-button class="listBut">
+          <mat-icon>list</mat-icon>
+        </button>
+
+        <button mat-icon-button class="imageBut">
+          <mat-icon>image</mat-icon>
+        </button>
+
+        <button mat-icon-button class="editBut">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+    <div [hidden]="!noteCard" >
+      <mat-card class="expandNoteCard">
+        <div fxLayout="row"><div contenteditable="true" placeholder="Title" class="titleNote"></div><div><button mat-icon-button style="position:absolute;"><mat-icon>fiber_pin</mat-icon></button></div></div><br>
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left"></div><br>
+        <div>
+          <button mat-icon-button class="touchBut"><mat-icon>touch_app</mat-icon></button>&nbsp;&nbsp;
+          <button mat-icon-button class="addBut"><mat-icon>person_add</mat-icon></button>&nbsp;&nbsp;
+          <button mat-icon-button class="colorBut"><mat-icon>palette</mat-icon></button>&nbsp;&nbsp;
+          <button mat-icon-button class="archiveBut"><mat-icon>archive</mat-icon></button>&nbsp;&nbsp;
+          <button mat-icon-button class="moreBut"><mat-icon>more_vert</mat-icon></button>&nbsp;&nbsp;
+          <button mat-icon-button class="undoBut"><mat-icon>undo</mat-icon></button>&nbsp;&nbsp;
+          <button mat-icon-button class="redoBut"><mat-icon>redo</mat-icon></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-button (click)="noteCard = false" style="opacity: 1.5"><b>close</b></button>
+        </div>
+      </mat-card>
+    </div>
+  <!-- </div> -->
+
+

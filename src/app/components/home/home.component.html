@@ -1,22 +1,29 @@
-<!-- <mat-card style="width: 100%; height: 100%">
 
-
-</mat-card> -->
-<!-- <p>welcome to google</p> -->
 <br>
-<mat-card style="width: -webkit-fill-available; height: -webkit-fill-available; background: lightgray">
-<!-- <div fxLayout="column" class="dash" >
+<mat-card style="width: -webkit-fill-available;  height: -webkit-fill-available; background: lightgray; margin-top: -17px;" >
+  <div fxLayout="column" class="dash" >
 
-  <div fxFlex=15 fxLayout="row">
-    <div fxFlex=25></div>
-    <div fxFlex=50>
+     <div fxFlex="15" fxLayout="row" fxLayoutAlign="center center" >
+
+      <!-- <router-outlet name="createnote"></router-outlet> -->
+      <app-create-note></app-create-note>
+
 
     </div>
-    <div fxFlex=25></div>
-  </div>
-  <div fxFlex=85></div>
 
-</div> -->
-<mat-card-title>hello card</mat-card-title>
-<mat-card-content>content are here</mat-card-content>
+    <div fxFlex="85" (click)="noteCard = false">
+      <br><br>
+      <div fxLayoutAlign="center center">
+        <mat-card>
+          <div>
+
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- <mat-card-title>hello card</mat-card-title>
+<mat-card-content>content are here</mat-card-content> -->
 </mat-card>
