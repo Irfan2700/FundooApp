@@ -1,3 +1,5 @@
+// import { test } from './../notes/notes.component';
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReminderComponent implements OnInit {
 
+
+
   constructor() { }
 
   ngOnInit() {
+
+
   }
 
 }
+

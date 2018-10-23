@@ -1,12 +1,14 @@
+
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+// import { ServicesService } from './services.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private myRoute: Router) { }
+  constructor() { }
 
   sendToken(token: string){
     localStorage.setItem("UserToken", token);
@@ -24,13 +26,31 @@ export class AuthService {
     return localStorage.getItem("UserId");
   }
 
+  removeToken(){
+    return localStorage.removeItem("UserToken");
+  }
+
+  removeId(){
+    return localStorage.removeItem("UserId");
+  }
+
   // isLoggedIn() {
   //   return this.getToken() !== null;
   // }
 
-  logout() {
-    localStorage.removeItem("UserToken");
-    localStorage.removeItem("UserId");
-    this.myRoute.navigate(["login"]);
-  }
+  // logout() {
+  //   this.myService.httpPostlogout("user/logout").subscribe(
+  //     data => {
+  //       console.log("logout Successfully");
+  //       localStorage.removeItem("UserToken");
+  //       localStorage.removeItem("UserId");
+
+  //   this.myRoute.navigate(["login"]);
+  //     },
+  //     error => {
+  //       console.log("Error occur")
+  //     }
+  //   )
+
+  // }
 }

@@ -13,12 +13,13 @@
 
     <div fxFlex="85" (click)="noteCard = false">
       <br><br>
-      <div fxLayoutAlign="center center">
-        <mat-card>
-          <div>
 
-          </div>
-        </mat-card>
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <div *ngFor="let item of arr">
+
+        <app-notes [model]= "item"></app-notes>
+
+      </div>
       </div>
     </div>
 

@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ServicesService } from './../../services/services.service';
 import { MatSnackBar } from '@angular/material';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,10 +21,23 @@ export class TopToolbarComponent implements OnInit {
 
   constructor(private breakpointObserver: BreakpointObserver,
     private auth: AuthService,
-    public snackBar: MatSnackBar) {}
+    public snackBar: MatSnackBar,
+    private myService: ServicesService,
+    private myRoute: Router) {}
 
     logout(){
-      this.auth.logout();
+      this.myService.httpPostlogout("user/logout",'').subscribe(
+        data => {
+          console.log("logout Successfully");
+          this.auth.removeToken();
+          this.auth.removeId();
+
+          this.myRoute.navigate(["login"]);
+        },
+        error => {
+          console.log("Error occur")
+        }
+      )
     }
 
   ngOnInit() {

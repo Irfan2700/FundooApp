@@ -1,3 +1,4 @@
+import { ServicesService } from './../../services/services.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,27 +8,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private myService: ServicesService) { }
 
   noteCard = false;
 
-  // do_resize= function(textbox)  {
 
-  //   var maxrows=5;
-  //    var txt=textbox.value;
-  //    var cols=textbox.cols;
+  arr = [
+    //  {
+    //   title: "Note 1",
+    //   desc: "This is the description of First Note"
+    // },
+    // {
+    //   title: "Note 2",
+    //   desc: "This is the description of second Note"
+    // },
+    // {
+    //   title: "Note 3",
+    //   desc: "This is the description of third Note"
+    // },
+    // {
+    //   title: "Note 4",
+    //   desc: "This is the description of third Note"
+    // },
 
-  //   var arraytxt=''+txt.split('\n');
-  //    var rows=arraytxt.length;
-
-  //   for (var i=0;i<arraytxt.length;i++)
-  //    rows+=parseInt(arraytxt[i].length/cols);
-
-  //   if (rows>maxrows) textbox.rows=maxrows;
-  //    else textbox.rows=rows;
-  //   }
+  ];
 
   ngOnInit() {
+
+    this.myService.get("notes/getNotesList").subscribe(
+      response => {
+        console.log("Data is Successfully Fetched!!",response);
+        var a =[];
+        console.log(response['data'].data)
+        a.push(response['data'].data);
+        console.log(a);
+
+        for(var i=0; i<response['data'].data.length; i++){
+          this.arr.push(response['data'].data[i])
+        }
+
+        console.log(this.arr);
+      },
+      error => {
+        console.log("Error in Data Fetching...")
+      }
+    )
   }
 
 }

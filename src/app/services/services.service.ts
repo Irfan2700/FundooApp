@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 //import { element } from 'protractor';
 import { HttpClient ,HttpHeaders} from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -9,7 +10,8 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class ServicesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private auth: AuthService) {}
 
   url = "http://34.213.106.173/api";
 
@@ -17,8 +19,15 @@ export class ServicesService {
     return this.http.get(this.url + "/" + nextUrl);
   }
 
-  get(nextUrl, headers) {
-    return this.http.get(this.url + "/" + nextUrl, headers);
+  get(nextUrl) {
+    var httpAuthOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.auth.getToken()
+      })
+
+    };
+    return this.http.get(this.url + "/" + nextUrl, httpAuthOptions);
   }
 
   addData(nextUrl, body) {
@@ -38,11 +47,24 @@ export class ServicesService {
     var httpAuthOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('access_token')
+        'Authorization': this.auth.getToken()
       })
 
     };
     return this.http.post(this.url + "/" + urlPart, this.getFormUrlEncoded(body), httpAuthOptions)
+  }
+
+  httpPostlogout(urlPart,body){
+
+    var httpAuth1Options = {
+
+      headers: new HttpHeaders({
+
+        'Content-Type': 'application/json',
+        'Authorization': this.auth.getToken()
+      })
+    };
+    return this.http.post(this.url + "/" + urlPart, this.getFormUrlEncoded(body), httpAuth1Options)
   }
 
 
@@ -56,5 +78,5 @@ export class ServicesService {
     }
     return formBody.join('&');
   }
-  
+
 }

@@ -36,7 +36,6 @@ import { ResetPasswordComponent,  ResetPasswordSetComponent} from './components/
 import { HomeComponent } from './components/home/home.component';
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
 import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
-import { SlidingMaterialComponent } from './components/sliding-material/sliding-material.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NotesComponent } from './components/notes/notes.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
@@ -60,7 +59,6 @@ import { CreateNoteComponent } from './components/create-note/create-note.compon
     HomeComponent,
     TopToolbarComponent,
     LeftSidebarComponent,
-    SlidingMaterialComponent,
     NotesComponent,
     ReminderComponent,
     LabelComponent,

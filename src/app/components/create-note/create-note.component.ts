@@ -1,4 +1,6 @@
+import { ServicesService } from './../../services/services.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-note',
@@ -7,9 +9,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateNoteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private myService: ServicesService,
+    private myroute: Router) { }
 
+  isPinned = false;
   noteCard = false;
+
+  arr = [];
+
+  addNote(){
+
+    console.log(document.getElementById("desc").innerHTML);
+
+
+    var body = {
+      "title": document.getElementById("title").innerHTML,
+      "description": document.getElementById("desc").innerHTML,
+      "isPined": this.isPinned
+    }
+
+    this.myService.httpPostEncoded("notes/addNotes", body).subscribe(
+      data => {
+        console.log("Data Saved Successfully", data);
+
+
+        console.log("terminated")
+      },
+      error => {
+        console.log("Error occur");
+      }
+    )
+    this.myroute.navigate(["home"]);
+
+    // this.myService.get("notes/getNotesList").subscribe(
+    //   response => {
+    //     console.log("Data is Successfully Fetched!!",response);
+
+    //     console.log(response['data'].data)
+
+    //     for(var i=0; i<response['data'].data.length; i++){
+    //       this.arr.push(response['data'].data[i])
+    //     }
+
+    //     console.log(this.arr);
+    //   },
+    //   error => {
+    //     console.log("Error in Data Fetching...")
+    //   }
+    // )
+
+  }
 
   ngOnInit() {
   }

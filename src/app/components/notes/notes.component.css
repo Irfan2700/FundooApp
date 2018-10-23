@@ -1,0 +1,35 @@
+.touchBut{
+  opacity: 0.7;
+}
+.touchBut:hover{
+  opacity: 6;
+}
+
+.addBut{
+  opacity: 0.7;
+}
+.addBut:hover{
+  opacity: 6;
+}
+
+.colorBut{
+  opacity: 0.7;
+}
+.colorBut:hover{
+  opacity: 6;
+}
+
+.archiveBut{
+  opacity: 0.7;
+}
+.archiveBut:hover{
+  opacity: 6;
+}
+
+.panal {
+  opacity: 0;
+}
+
+.panal:hover{
+  opacity: 0.7;
+}

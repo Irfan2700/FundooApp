@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { MatSnackBar } from "@angular/material";
 import { ServicesService } from "./../../services/services.service";
 import { Component, OnInit } from "@angular/core";
@@ -93,7 +94,8 @@ export class ResetPasswordSetComponent {
   constructor(private _resetSetPassService: ServicesService,
     public snackBar: MatSnackBar,
     private router: Router,
-    private routerParam: ActivatedRoute){
+    private routerParam: ActivatedRoute,
+    private auth: AuthService){
 
   }
   hide = true;
@@ -102,9 +104,9 @@ export class ResetPasswordSetComponent {
     password: "",
     conpass:""
   }
-// public 
+// public
 
-  
+
 
   resetSubmit(){
 
@@ -112,13 +114,13 @@ export class ResetPasswordSetComponent {
     if(this.respass.password === this.respass.conpass){
     const token  = this.routerParam.snapshot.params.accessToken;
 
-    
-    localStorage.setItem('access_token', token)
+
+    this.auth.sendToken(token);
 
     let input = new FormData();
     input.append('newPassword', this.respass.password);
     const field = {"newPassword": this.respass.password}
-    
+
 
    this._resetSetPassService.httpPostEncoded('user/reset-password',field).subscribe(
       data => {
@@ -132,7 +134,7 @@ export class ResetPasswordSetComponent {
         })
 
         this.router.navigate(['/login']);
-        localStorage.removeItem('access_token');
+        this.auth.removeToken();
       },
       error => {
         console.log("Error occur");
@@ -141,7 +143,7 @@ export class ResetPasswordSetComponent {
           panelClass: ['emailSnack-bar'],
           verticalPosition: 'top',
         horizontalPosition: 'center',
-  
+
         })
       }
     )
