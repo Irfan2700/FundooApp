@@ -1,12 +1,12 @@
 
 <br>
-<mat-card style="width: -webkit-fill-available;  height: -webkit-fill-available; background: lightgray; margin-top: -17px;" >
+<mat-card style="width: auto;  height: -webkit-fill-avalible; background: lightgray; margin-top: -17px;" >
   <div fxLayout="column" class="dash" >
 
      <div fxFlex="15" fxLayout="row" fxLayoutAlign="center center" >
 
       <!-- <router-outlet name="createnote"></router-outlet> -->
-      <app-create-note></app-create-note>
+      <app-create-note (open)="updateNotes($event)"></app-create-note>
 
 
     </div>
@@ -15,11 +15,11 @@
       <br><br>
 
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
-          <div *ngFor="let item of arr">
+          <!-- <div *ngFor="let item of arr"> -->
 
-        <app-notes [model]= "item"></app-notes>
+        <app-notes [model]= "arr"></app-notes>
 
-      </div>
+      <!-- </div> -->
       </div>
     </div>
 

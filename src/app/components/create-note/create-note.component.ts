@@ -1,11 +1,12 @@
 import { ServicesService } from './../../services/services.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Router, RouterLink, RouteReuseStrategy } from '@angular/router';
 
 @Component({
   selector: 'app-create-note',
   templateUrl: './create-note.component.html',
-  styleUrls: ['./create-note.component.css']
+  styleUrls: ['./create-note.component.css'],
+  outputs:['open']
 })
 export class CreateNoteComponent implements OnInit {
 
@@ -17,14 +18,17 @@ export class CreateNoteComponent implements OnInit {
 
   arr = [];
 
+
+  @Output() open = new EventEmitter();
+
+
   addNote(){
-
-    console.log(document.getElementById("desc").innerHTML);
-
+    // console.log(this.title);
+    // console.log(this.desc);
 
     var body = {
-      "title": document.getElementById("title").innerHTML,
-      "description": document.getElementById("desc").innerHTML,
+      "title": document.getElementById("title").textContent,
+      "description": document.getElementById("desc").textContent,
       "isPined": this.isPinned
     }
 
@@ -32,14 +36,19 @@ export class CreateNoteComponent implements OnInit {
       data => {
         console.log("Data Saved Successfully", data);
 
+        // this.myroute.navigate(["home"]);
+        console.log("chns calllll")
 
-        console.log("terminated")
+
+      this.open.emit({});
+        console.log("terminate")
       },
       error => {
         console.log("Error occur");
       }
     )
-    this.myroute.navigate(["home"]);
+
+
 
     // this.myService.get("notes/getNotesList").subscribe(
     //   response => {

@@ -1,58 +1,58 @@
-import { ServicesService } from './../../services/services.service';
-import { Component, OnInit } from '@angular/core';
+import { ServicesService } from "./../../services/services.service";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver
+} from "@angular/core";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private myService: ServicesService) { }
+  constructor(
+    private myService: ServicesService,
+    private resolver: ComponentFactoryResolver
+  ) {}
 
   noteCard = false;
 
-
-  arr = [
-    //  {
-    //   title: "Note 1",
-    //   desc: "This is the description of First Note"
-    // },
-    // {
-    //   title: "Note 2",
-    //   desc: "This is the description of second Note"
-    // },
-    // {
-    //   title: "Note 3",
-    //   desc: "This is the description of third Note"
-    // },
-    // {
-    //   title: "Note 4",
-    //   desc: "This is the description of third Note"
-    // },
-
-  ];
+  arr = [];
 
   ngOnInit() {
-
-    this.myService.get("notes/getNotesList").subscribe(
-      response => {
-        console.log("Data is Successfully Fetched!!",response);
-        var a =[];
-        console.log(response['data'].data)
-        a.push(response['data'].data);
-        console.log(a);
-
-        for(var i=0; i<response['data'].data.length; i++){
-          this.arr.push(response['data'].data[i])
-        }
-
-        console.log(this.arr);
-      },
-      error => {
-        console.log("Error in Data Fetching...")
-      }
-    )
+    this.showNotes();
+    // this.reload();
   }
 
+  showNotes() {
+    this.myService.get("notes/getNotesList").subscribe(
+      response => {
+        console.log("Data is Successfully Fetched!!", response);
+
+        console.log("fresh",response["data"].data);
+
+        for (var i = response["data"].data.length - 1; i >= 0; i--) {
+          this.arr.push(response["data"].data[i]);
+          // this.arr = response['data'].data;
+        }
+
+        console.log("the array one",this.arr);
+      },
+      error => {
+        console.log("Error in Data Fetching...");
+      }
+    );
+  }
+
+  updateNotes(event) {
+    if (event) {
+      console.log("event triggered");
+      // this.showNotes();
+      this.arr = [];
+      this.showNotes();
+    }
+  }
 }

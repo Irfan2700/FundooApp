@@ -9,9 +9,16 @@ export class NotesComponent implements OnInit {
 
   constructor() { }
 
-  @Input() model: string;
+  @Input() model: object;
+
+  noteId(id){
+    console.log(id);
+  }
 
   ngOnInit() {
+
+
+
   }
 
 }

@@ -33,3 +33,7 @@
 .panal:hover{
   opacity: 0.7;
 }
+
+.messgCard {
+  word-wrap: break-word;
+}

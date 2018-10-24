@@ -1,14 +1,19 @@
-<mat-card>
+<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="space-evenly center"  fxLayoutGap="10px">
+<div *ngFor="let item of model">
+<mat-card style="width: 340px; margin: 15px">
   <mat-card-title>
-    {{model["title"]}}
+    {{item["title"]}}
   </mat-card-title>
   <mat-card-content class="messgCard">
-    {{model["description"]}}
+    {{item["description"]}}
   </mat-card-content>
   <div class="panal">
       <button mat-icon-button class="touchBut"><mat-icon>touch_app</mat-icon></button>&nbsp;&nbsp;
       <button mat-icon-button class="addBut"><mat-icon>person_add</mat-icon></button>&nbsp;&nbsp;
       <button mat-icon-button class="colorBut"><mat-icon>palette</mat-icon></button>&nbsp;&nbsp;
       <button mat-icon-button class="archiveBut"><mat-icon>archive</mat-icon></button>&nbsp;&nbsp;
+      <button mat-icon-button class="moreBut" (click)="noteId(item.id)"><mat-icon>more_vert</mat-icon></button>
   </div>
 </mat-card>
+</div>
+</div>

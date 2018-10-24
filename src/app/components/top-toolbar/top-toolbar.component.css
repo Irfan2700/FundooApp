@@ -45,8 +45,10 @@
 .sidenav-container {
 /* margin-top: 60px; */
   flex:1 0 auto;
-  height: fit-content;
+  /* height: fit-content; */
   margin: -7px -9px 0px -8px;
+  background: lightgrey;
+  min-height: max-content;
 
 }
 
