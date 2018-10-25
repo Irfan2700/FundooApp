@@ -43,6 +43,9 @@ import { LabelComponent } from './components/label/label.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { CreateNoteComponent } from './components/create-note/create-note.component';
+import { MoreOptionsComponent } from './components/more-options/more-options.component';
+import { PaletteComponent } from './components/palette/palette.component';
+
 
 
 
@@ -65,6 +68,9 @@ import { CreateNoteComponent } from './components/create-note/create-note.compon
     ArchiveComponent,
     TrashComponent,
     CreateNoteComponent,
+    MoreOptionsComponent,
+    PaletteComponent,
+
 
   ],
   imports: [

@@ -1,0 +1,6 @@
+<button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #menu="matMenu" [overlapTrigger]=false>
+        <button mat-menu-item (click)="delete()">Delete Note</button>
+        <button mat-menu-item>Add Label</button>
+        <button mat-menu-item>Make a Copy</button>
+      </mat-menu>

@@ -1,0 +1,37 @@
+<button mat-icon-button class="colorBut" [matMenuTriggerFor]="colourMenu">
+  <mat-icon>palette</mat-icon>
+  <mat-menu #colourMenu="matMenu" style="border-radius: 40px;" yPosition="above" [overlapTrigger]='false'>
+
+      <div >
+      <button mat-mini-fab class="color1" (click)="changeColor(1)"></button>
+      <button mat-mini-fab class="color4" (click)="changeColor(4)"></button>
+      <button mat-mini-fab class="color7" (click)="changeColor(7)"></button>
+      <button mat-mini-fab class="color10" (click)="changeColor(10)"></button>
+
+
+        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+      </div>
+
+      <div >
+          <button mat-mini-fab class="color2" (click)="changeColor(2)"></button>
+        <button mat-mini-fab class="color5" (click)="changeColor(5)"></button>
+        <button mat-mini-fab class="color8" (click)="changeColor(8)"></button>
+        <button mat-mini-fab class="color11" (click)="changeColor(11)"></button>
+
+        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+      </div>
+      <div >
+        <button mat-mini-fab class="color3" (click)="changeColor(3)"></button>
+        <button mat-mini-fab class="color6" (click)="changeColor(6)"></button>
+        <button mat-mini-fab class="color9" (click)="changeColor(9)"></button>
+        <button mat-mini-fab class="color12" (click)="changeColor(12)"></button>
+        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+      </div>
+      <!-- <div>
+
+
+
+         <button mat-menu-item ><button mat-mini-fab class="color1"></button></button>
+      </div> -->
+
+  </mat-menu>

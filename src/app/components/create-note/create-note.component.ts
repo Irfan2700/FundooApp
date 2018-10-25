@@ -27,8 +27,8 @@ export class CreateNoteComponent implements OnInit {
     // console.log(this.desc);
 
     var body = {
-      "title": document.getElementById("title").textContent,
-      "description": document.getElementById("desc").textContent,
+      "title": document.getElementById("title").innerHTML,
+      "description": document.getElementById("desc").innerHTML,
       "isPined": this.isPinned
     }
 

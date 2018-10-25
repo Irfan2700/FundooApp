@@ -17,7 +17,7 @@
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
           <!-- <div *ngFor="let item of arr"> -->
 
-        <app-notes [model]= "arr"></app-notes>
+        <app-notes [model]= "arr" (updateList)= "deleteUpdate($event)"></app-notes>
 
       <!-- </div> -->
       </div>

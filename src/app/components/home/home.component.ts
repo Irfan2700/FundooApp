@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   showNotes() {
+    this.arr = [];
     this.myService.get("notes/getNotesList").subscribe(
       response => {
         console.log("Data is Successfully Fetched!!", response);
@@ -35,8 +36,10 @@ export class HomeComponent implements OnInit {
         console.log("fresh",response["data"].data);
 
         for (var i = response["data"].data.length - 1; i >= 0; i--) {
+          if(response["data"].data[i].isDeleted === false){
           this.arr.push(response["data"].data[i]);
-          // this.arr = response['data'].data;
+          // this.arr = response['data'].data;app-more-options
+          }
         }
 
         console.log("the array one",this.arr);
@@ -51,7 +54,15 @@ export class HomeComponent implements OnInit {
     if (event) {
       console.log("event triggered");
       // this.showNotes();
-      this.arr = [];
+      // this.arr = [];
+      this.showNotes();
+    }
+  }
+
+  deleteUpdate(event){
+    if(event) {
+      console.log("delete home event triggered")
+      // this.arr = [];
       this.showNotes();
     }
   }

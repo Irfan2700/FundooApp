@@ -67,6 +67,19 @@ export class ServicesService {
     return this.http.post(this.url + "/" + urlPart, this.getFormUrlEncoded(body), httpAuth1Options)
   }
 
+  httpPostJson(urlPart,body){
+
+    var httpAuth1Options = {
+
+      headers: new HttpHeaders({
+
+        'Content-Type': 'application/json',
+        'Authorization': this.auth.getToken()
+      })
+    };
+    return this.http.post(this.url + "/" + urlPart, body, httpAuth1Options)
+  }
+
 
 
   public getFormUrlEncoded(toConvert) {

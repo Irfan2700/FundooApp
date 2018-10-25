@@ -1,0 +1,80 @@
+.colorBut{
+  opacity: 0.7;
+}
+.colorBut:hover{
+  opacity: 6;
+}
+
+.color1 {
+  background: white;
+}
+
+
+.color2 {
+  background: lightgreen;
+
+}
+
+
+.color3 {
+  background: rgb(246, 110, 246);
+
+}
+
+
+.color4 {
+  background: lightcoral;
+
+}
+
+
+.color5 {
+  background: rgb(5, 246, 246);
+
+}
+
+
+.color6 {
+  background: lightpink;
+
+}
+
+
+.color7 {
+  background: rgb(255, 198, 93);
+
+}
+
+
+.color8 {
+  background: lightblue;
+
+}
+
+
+.color9 {
+  background:#c68c53;
+
+}
+
+
+
+.color10 {
+  background: rgb(255, 255, 129);
+
+}
+
+
+
+.color11 {
+  background: rgb(123, 123, 192);
+
+}
+
+
+
+.color12 {
+  background: rgb(190, 190, 190);
+
+}
+
