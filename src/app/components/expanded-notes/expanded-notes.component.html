@@ -1,0 +1,36 @@
+<!-- <div >
+    <mat-dialog-content> -->
+
+      <div fxLayoutAlign="space-between" fxLayout="column">
+        <div fxLayout="row">
+          <div contenteditable="true" placeholder="Title" class="titleNote" id="updateTitle" [innerHTML]="data.title"></div>
+          <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPined">
+              <mat-icon>fiber_pin</mat-icon>
+            </button></div>
+        </div>
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="updateDesc" [innerHTML]="data.description"></div><br>
+      </div>
+      <div fxLayoutAlign="space-between" fxLayout="row">
+        <button mat-icon-button class="touchBut">
+          <mat-icon>touch_app</mat-icon>
+        </button>
+        <button mat-icon-button class="addBut">
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button class="colorBut">
+          <mat-icon>palette</mat-icon>
+        </button>
+        <button mat-icon-button class="archiveBut">
+          <mat-icon>archive</mat-icon>
+        </button>
+        <div fxLayoutAlign="space-between">
+          <button mat-icon-button class="moreBut">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <button mat-button cdkFocusInitial (click)="updataData()"  style="opacity: 1.5"><b>close</b></button>
+        </div>
+      </div>
+
+<!-- </mat-dialog-content>
+</div> -->

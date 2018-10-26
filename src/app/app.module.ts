@@ -45,6 +45,8 @@ import { TrashComponent } from './components/trash/trash.component';
 import { CreateNoteComponent } from './components/create-note/create-note.component';
 import { MoreOptionsComponent } from './components/more-options/more-options.component';
 import { PaletteComponent } from './components/palette/palette.component';
+import { CreateArchiveComponent } from './components/create-archive/create-archive.component';
+import { ExpandedNotesComponent } from './components/expanded-notes/expanded-notes.component';
 
 
 
@@ -70,6 +72,8 @@ import { PaletteComponent } from './components/palette/palette.component';
     CreateNoteComponent,
     MoreOptionsComponent,
     PaletteComponent,
+    CreateArchiveComponent,
+    ExpandedNotesComponent,
 
 
   ],
@@ -101,7 +105,7 @@ import { PaletteComponent } from './components/palette/palette.component';
     // ServicesService
   ],
 
-  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent],
+  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent, ExpandedNotesComponent, NotesComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

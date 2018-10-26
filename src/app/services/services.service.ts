@@ -41,9 +41,7 @@ export class ServicesService {
   }
 
   httpPostEncoded(urlPart,body){
-    var options={
 
-    }
     var httpAuthOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -78,6 +76,19 @@ export class ServicesService {
       })
     };
     return this.http.post(this.url + "/" + urlPart, body, httpAuth1Options)
+  }
+
+  httpGetJson(urlPart){
+
+    var httpAuthptions = {
+
+      headers: new HttpHeaders({
+
+        'Content-Type': 'application/json',
+        'Authorization': this.auth.getToken()
+      })
+    };
+    return this.http.post(this.url + "/" + urlPart, httpAuthptions)
   }
 
 

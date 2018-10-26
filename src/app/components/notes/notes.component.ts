@@ -1,3 +1,5 @@
+import { ExpandedNotesComponent } from './../expanded-notes/expanded-notes.component';
+import { MatDialog } from '@angular/material';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,21 +9,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NotesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   @Input() model: object;
   @Output() updateList = new EventEmitter();
 
-  noteId(id){
+  noteId(id) {
     console.log(id);
   }
   flag = false;
 
-  deleteNote(event){
-    if(event){
+  deleteNote(event) {
+    if (event) {
       this.flag = true;
 
-      if(this.flag){
+      if (this.flag) {
         this.updateList.emit({});
       }
     }
@@ -29,12 +31,37 @@ export class NotesComponent implements OnInit {
 
   updateColor;
 
-  updateBackground(event){
+  updateBackground(event) {
 
-    if(event){
+    if (event) {
       this.updateList.emit({});
     }
   }
+
+  archiveNote(event) {
+    if (event) {
+      this.updateList.emit({});
+    }
+  }
+
+  openDialog(item) {
+    const dialogRef = this.dialog.open(ExpandedNotesComponent,
+      {
+        data: item
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.updateList.emit({});
+      },
+      error => {
+        console.log("Error Occurs...");
+      }
+    )
+  }
+
+  
 
 
   ngOnInit() {

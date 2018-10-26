@@ -1,3 +1,4 @@
+import { ServicesService } from './../../services/services.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor() { }
+  constructor(private myService: ServicesService) { }
+
+  arr=[];
+
+  showArchives(){
+
+    this.myService.httpGetJson("notes/getArchiveNotesList").subscribe(
+      response => {
+        console.log("Archive Success");
+
+        
+      },
+      error => {
+        console.log("Error Occurs");
+      }
+    )
+
+  }
 
   ngOnInit() {
+    this.showArchives();
   }
 
 }

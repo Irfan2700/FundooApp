@@ -47,7 +47,7 @@
   flex:1 0 auto;
   /* height: fit-content; */
   margin: -7px -9px 0px -8px;
-  background: lightgrey;
+  /* background: lightgrey; */
   min-height: max-content;
 
 }
@@ -119,6 +119,7 @@ input:focus{
   background: lightgray;
   position: fixed;
   z-index: 2;
+  margin-top: 65px;
 
 
 }
