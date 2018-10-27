@@ -1,6 +1,7 @@
+import { CreateLabelComponent } from './../create-label/create-label.component';
 import { Router } from '@angular/router';
 import { ServicesService } from './../../services/services.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -23,7 +24,8 @@ export class TopToolbarComponent implements OnInit {
     private auth: AuthService,
     public snackBar: MatSnackBar,
     private myService: ServicesService,
-    private myRoute: Router) {}
+    private myRoute: Router,
+    public dialog: MatDialog) {}
 
     logout(){
       this.myService.httpPostlogout("user/logout",'').subscribe(
@@ -39,6 +41,25 @@ export class TopToolbarComponent implements OnInit {
         }
       )
     }
+
+    imageReloader = false;
+    // console.log("0st one",this.imageReloader);
+    updateReload(event){
+    //   console.log("1st one",this.imageReloader);
+      if(event){
+        setTimeout(() => {
+    //       console.log("2nd one",this.imageReloader);
+          this.imageReloader = true
+        }, 3000)
+        this.imageReloader = false;
+      }
+    }
+
+    addLabel(){
+
+      this.dialog.open(CreateLabelComponent);
+    }
+
 
   ngOnInit() {
 

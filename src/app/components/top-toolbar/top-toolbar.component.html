@@ -54,14 +54,17 @@
       </div> -->
         <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
-          <button style="outline:none" class="refresh" mat-icon-button>
+          <button style="outline:none" class="refresh" (click)="imageReloader" mat-icon-button>
             <mat-icon aria-label="refresh" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">refresh</mat-icon>
           </button>
+          <!-- <mat-spinner [hidden]="!imageReloader" aria-label="refresh" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
+              ngStyle.lg="font-size:25px;"  ></mat-spinner> -->
+          
         </div>
         <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
-          <button style="outline:none" mat-icon-button class="gridView">
+          <button style="outline:none" mat-icon-button class="gridView" >
             <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">view_list</mat-icon>
           </button>
@@ -109,7 +112,7 @@
 
             <router-outlet name="sideBarOutlet"></router-outlet>
 
-            <a mat-list-item>
+            <a mat-list-item (click)="addLabel()">
               <mat-icon aria-label="plus">add</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Create new label
             </a>
@@ -145,7 +148,7 @@
         </mat-sidenav>
         <mat-sidenav-content ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:22px"
           ngStyle.lg="font-size:25px">
-          <router-outlet></router-outlet>
+          <router-outlet (reloaderUpdate)= "updateReload($event)"></router-outlet>
         </mat-sidenav-content>
       </mat-sidenav-container>
     </div>

@@ -26,7 +26,7 @@ export class NotesComponent implements OnInit {
       this.flag = true;
 
       if (this.flag) {
-        this.updateList.emit({});
+        this.updateList.emit(true);
       }
     }
   }
@@ -36,13 +36,13 @@ export class NotesComponent implements OnInit {
   updateBackground(event) {
 
     if (event) {
-      this.updateList.emit({});
+      this.updateList.emit(true);
     }
   }
 
   archiveNote(event) {
     if (event) {
-      this.updateList.emit({});
+      this.updateList.emit(true);
     }
   }
 
@@ -57,7 +57,7 @@ export class NotesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       result => {
-        this.updateList.emit({});
+        this.updateList.emit(true);
       },
       error => {
         console.log("Error Occurs...");
@@ -65,7 +65,7 @@ export class NotesComponent implements OnInit {
     );
 
     dialogRef.componentInstance.updateDialog.subscribe(() => {
-      this.updateList.emit({});
+      this.updateList.emit(true);
     })
   }
   

@@ -47,6 +47,7 @@ import { MoreOptionsComponent } from './components/more-options/more-options.com
 import { PaletteComponent } from './components/palette/palette.component';
 import { CreateArchiveComponent } from './components/create-archive/create-archive.component';
 import { ExpandedNotesComponent } from './components/expanded-notes/expanded-notes.component';
+import { CreateLabelComponent } from './components/create-label/create-label.component';
 
 
 
@@ -74,6 +75,7 @@ import { ExpandedNotesComponent } from './components/expanded-notes/expanded-not
     PaletteComponent,
     CreateArchiveComponent,
     ExpandedNotesComponent,
+    CreateLabelComponent,
 
 
   ],
@@ -100,12 +102,13 @@ import { ExpandedNotesComponent } from './components/expanded-notes/expanded-not
     MatMenuModule,
     LayoutModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    
 
     // ServicesService
   ],
 
-  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent, ExpandedNotesComponent, NotesComponent],
+  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent, ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,13 @@
+<mat-card class="dialogCard">
+  <div fxLayout="column" fxLayoutAlign="space-between">
+  <mat-card-title>Create Label</mat-card-title>
+
+  <form>
+  <div>
+    <button mat-icon-button type="reset" (click)="cross()"><mat-icon>clear</mat-icon></button><input class="labelInput" name="label" [(ngModel)]="labelInput" placeholder="Lable name" (click)="hidden = false"><button mat-icon-button [hidden]="hidden" (click)="addLabel()"><mat-icon>done</mat-icon></button>
+  </div>
+  </form>
+
+
+  </div>
+</mat-card>

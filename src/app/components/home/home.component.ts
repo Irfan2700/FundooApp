@@ -4,7 +4,9 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  Output,
+  EventEmitter
 } from "@angular/core";
 
 @Component({
@@ -16,7 +18,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private myService: ServicesService,
     private resolver: ComponentFactoryResolver
-  ) {}
+  ) { }
+
+  @Output() reloaderUpdate = new EventEmitter();
 
   noteCard = false;
 
@@ -61,10 +65,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  deleteUpdate(event) {
+  reload(event) {
     if (event) {
-      console.log("delete home event triggered");
+      // console.log("delete home event triggered");
       // this.arr = [];
+      this.reloaderUpdate.emit(event);
       this.showNotes();
     }
   }
