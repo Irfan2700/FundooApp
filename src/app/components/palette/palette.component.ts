@@ -85,7 +85,7 @@ export class PaletteComponent implements OnInit {
     this.myService.httpPostJson("notes/changesColorNotes",body).subscribe(
       response => {
         console.log("colour change successfully", this.newColor);
-        this.resp.emit({});
+        this.resp.emit(this.index);
       },
       error => {
         console.log("error occur")

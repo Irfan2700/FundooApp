@@ -14,6 +14,8 @@ export class NotesComponent implements OnInit {
   @Input() model: object;
   @Output() updateList = new EventEmitter();
 
+  isPinned = false;
+
   noteId(id) {
     console.log(id);
   }
@@ -47,7 +49,9 @@ export class NotesComponent implements OnInit {
   openDialog(item) {
     const dialogRef = this.dialog.open(ExpandedNotesComponent,
       {
-        data: item
+        data: item,
+        width: '550px',
+        
       }
     );
 
@@ -58,8 +62,13 @@ export class NotesComponent implements OnInit {
       error => {
         console.log("Error Occurs...");
       }
-    )
+    );
+
+    dialogRef.componentInstance.updateDialog.subscribe(() => {
+      this.updateList.emit({});
+    })
   }
+  
 
   
 

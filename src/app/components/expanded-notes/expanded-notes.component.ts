@@ -1,15 +1,15 @@
 import { Router } from '@angular/router';
 import { ServicesService } from './../../services/services.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { NotesComponent } from '../notes/notes.component';
 
-export interface DialogData {
+// export interface DialogData {
 
-  title: string,
-  description: string,
-  id: string
-}
+//   title: string,
+//   description: string,
+//   id: string
+// }
 
 @Component({
   selector: 'app-expanded-notes',
@@ -18,12 +18,13 @@ export interface DialogData {
 })
 export class ExpandedNotesComponent implements OnInit {
 
+  @Output() updateDialog = new EventEmitter();
 
   public title;
   public description;
   constructor(private myService: ServicesService,
     public dialogRef: MatDialogRef<NotesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private myRoute: Router) { }
 
   // public arr = this.data;
@@ -54,6 +55,33 @@ export class ExpandedNotesComponent implements OnInit {
     )
     this.dialogRef.close();
   }
+
+  deleteNote(event) {
+    if (event) {
+     
+        this.updateDialog.emit({});
+        this.dialogRef.close();
+    }
+  }
+
+  updateColor = this.data.color;
+
+  updateBackground(event) {
+
+    
+    if (event) {
+      this.updateColor = event;
+      this.updateDialog.emit({});
+    }
+  }
+
+  archiveNote(event) {
+    if (event) {
+      this.updateDialog.emit({});
+      this.dialogRef.close();
+    }
+  }
+
 
 
   ngOnInit() {

@@ -16,12 +16,12 @@
   </mat-card>
 </div>
 <div [hidden]="!noteCard">
-  <mat-card class="expandNoteCard">
+  <mat-card class="expandNoteCard" [ngStyle]="{'background': index}">
     <form>
       <div fxLayoutAlign="space-between" fxLayout="column">
         <div fxLayout="row">
           <div contenteditable="true" placeholder="Title" class="titleNote" id="title"></div>
-          <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPined">
+          <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned" [ngClass]="isPinned ? 'solid' : 'blur'">
               <mat-icon>fiber_pin</mat-icon>
             </button></div>
         </div><br>
@@ -34,10 +34,46 @@
         <button mat-icon-button class="addBut">
           <mat-icon>person_add</mat-icon>
         </button>
-        <button mat-icon-button class="colorBut">
-          <mat-icon>palette</mat-icon>
-        </button>
-        <button mat-icon-button class="archiveBut">
+
+<!-- color palette selection -->
+        <button mat-icon-button class="colorBut" [matMenuTriggerFor]="colourMenu">
+  <mat-icon>palette</mat-icon></button>
+  <mat-menu #colourMenu="matMenu" style="border-radius: 40px;" yPosition="above" [overlapTrigger]='false'>
+
+      <div >
+      <button mat-mini-fab class="color1" (click)="changeColor(1)"></button>
+      <button mat-mini-fab class="color4" (click)="changeColor(4)"></button>
+      <button mat-mini-fab class="color7" (click)="changeColor(7)"></button>
+      <button mat-mini-fab class="color10" (click)="changeColor(10)"></button>
+
+
+        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+      </div>
+
+      <div >
+          <button mat-mini-fab class="color2" (click)="changeColor(2)"></button>
+        <button mat-mini-fab class="color5" (click)="changeColor(5)"></button>
+        <button mat-mini-fab class="color8" (click)="changeColor(8)"></button>
+        <button mat-mini-fab class="color11" (click)="changeColor(11)"></button>
+
+        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+      </div>
+      <div >
+        <button mat-mini-fab class="color3" (click)="changeColor(3)"></button>
+        <button mat-mini-fab class="color6" (click)="changeColor(6)"></button>
+        <button mat-mini-fab class="color9" (click)="changeColor(9)"></button>
+        <button mat-mini-fab class="color12" (click)="changeColor(12)"></button>
+        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+      </div>
+      
+
+  </mat-menu>
+
+<!-- color palette ends-->
+
+
+
+        <button mat-icon-button class="archiveBut" (click)="archiveIt()">
           <mat-icon>archive</mat-icon>
         </button>
         <div fxLayoutAlign="space-between">

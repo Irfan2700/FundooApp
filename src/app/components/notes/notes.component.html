@@ -3,9 +3,13 @@
 
 
     <mat-card style="width: 340px; margin: 15px; border-radius: 8px" [style.backgroundColor]="item.color">
+      <div fxLayout="row" fxLayoutAlign="space-between">
       <mat-card-title [innerHTML]="item.title" (click)="openDialog(item)">
 
-      </mat-card-title>
+      </mat-card-title><button mat-icon-button (click)="isPinned = !isPined" style="opacity: 0.4">
+          <mat-icon>fiber_pin</mat-icon>
+        </button>
+        </div>
       <mat-card-content class="messgCard" [innerHTML]="item.description" (click)="openDialog(item)">
 
       </mat-card-content>
