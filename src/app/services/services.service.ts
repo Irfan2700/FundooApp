@@ -80,7 +80,7 @@ export class ServicesService {
 
   httpGetJson(urlPart){
 
-    var httpAuthptions = {
+    var httpAuthoptions = {
 
       headers: new HttpHeaders({
 
@@ -88,7 +88,22 @@ export class ServicesService {
         'Authorization': this.auth.getToken()
       })
     };
-    return this.http.post(this.url + "/" + urlPart, httpAuthptions)
+    return this.http.get(this.url + "/" + urlPart, httpAuthoptions)
+  }
+
+
+  httpDeleteJson(urlPart){
+
+    var httpAuth1Options = {
+
+      headers: new HttpHeaders({
+
+        'Content-Type': 'application/json',
+        'Authorization': this.auth.getToken()
+      })
+    };
+    
+    return this.http.delete(this.url + "/" + urlPart, httpAuth1Options)
   }
 
 
