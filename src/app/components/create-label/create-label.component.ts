@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { ServicesService } from './../../services/services.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-create-label',
@@ -12,7 +12,9 @@ export class CreateLabelComponent implements OnInit {
   constructor(private myService: ServicesService,
     private auth: AuthService) { }
 
-  public labelInput;
+  @ViewChild('myDiv') myDiv: ElementRef;
+  
+    public labelInput;
 
   hidden = false;
   labelId;
@@ -29,6 +31,13 @@ export class CreateLabelComponent implements OnInit {
       "isDeleted": false,
       "userId": this.auth.getId()
     }
+
+for(var i=0; i<this.labelDisplay.length; i++){
+
+    if(body.label === this.labelDisplay[i].label){
+      return;
+    }
+}
     this.myService.httpPostJson("noteLabels", body).subscribe(
       response => {
         console.log("Label is added", response['label']);
@@ -75,9 +84,17 @@ export class CreateLabelComponent implements OnInit {
     )
   }
 
-  edit() {
+  
 
+  textEdit;
+  flag = false;
+
+  edit(id) {
+
+    this.textEdit = id;
+    this.flag = true;
     this.editHid = !this.editHid;
+
 
     // var body = {
     //   "label": 
@@ -90,10 +107,29 @@ export class CreateLabelComponent implements OnInit {
 
   editLabel(id){
 
-    // var body = {
-    //   "label": 
-    // }
-    // this.myService.httpPostJson("noteLabels/"+id+"/updateNoteLabel",)
+    var temp = this.myDiv.nativeElement.innerHTML
+    var body = {
+      "label": this.myDiv.nativeElement.innerHTML,
+      "isDeleted": false,
+      "id": id,
+      "userId": this.auth.getId()
+    }
+    this.myService.httpPostJson("noteLabels/"+id+"/updateNoteLabel",body).subscribe(
+      response => {
+        console.log("Label Name Updated SuccessFully!!",response);
+
+        for(var i=0; i<this.labelDisplay.length; i++){
+
+          if(this.labelDisplay[i].id === id){
+            this.labelDisplay[i].label = temp
+          }
+        }
+
+      },
+      error => {
+        console.log("Error Occured!!");
+      }
+    )
     
   }
 

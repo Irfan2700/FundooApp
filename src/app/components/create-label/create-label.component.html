@@ -2,39 +2,65 @@
   <div fxLayout="column" fxLayoutAlign="space-between start">
     <mat-card-title>Create Label</mat-card-title>
 
-    <form>
-      <div>
-        <button mat-icon-button type="reset" (click)="cross()">
-          <mat-icon>clear</mat-icon>
-        </button><input class="labelInput" name="label" [(ngModel)]="labelInput" placeholder="Label name" (click)="hidden = false"><button
-          mat-icon-button [hidden]="hidden" (click)="addLabel()">
-          <mat-icon>done</mat-icon>
-        </button>
-      </div>
-    </form>
-
-    <div *ngFor="let item of labelReverseDiplay" fxLayout="column">
-      <div fxLayout="row" fxLayoutAlign="space-around" class="labelList">
+    <div fxLayoutAlign="space-between start">
+      <form>
         <div>
-        <span>
-          <mat-icon class="labelIcon">label</mat-icon>
-        </span>
-        <span class="labelText" [hidden]="editHid">{{item.label}}</span>
-        <span [hidden]="!editHid"><input class="labelInput" name="labelEdit" [(ngModel)]="editedName" placeholder="label name" ></span>
+          <button mat-icon-button type="reset" (click)="cross()">
+            <mat-icon>clear</mat-icon>
+          </button><input class="labelInput" name="label" [(ngModel)]="labelInput" placeholder="Label name" (click)="hidden = false"><button
+            mat-icon-button [hidden]="hidden" (click)="addLabel()">
+            <mat-icon>done</mat-icon>
+          </button>
         </div>
-        <div [hidden]="editHid">
-        <span><button mat-icon-button (click)="deleteLabel(item.id)" class="overlay">
-            <mat-icon>delete</mat-icon>
-          </button></span> <span><button mat-icon-button (click)="edit()" class="overlay">
-            <mat-icon>edit</mat-icon>
-          </button></span>
-          </div>
-          <button mat-icon-button [hidden]="!editHid" (click)="editLabel(item.id)" (click)="editHid =false">
+      </form>
+    </div>
+
+    <div *ngFor="let item of labelReverseDiplay" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="labelList">
+
+        <div fxFlex="25">
+          
+            <mat-icon class="labelIcon">label</mat-icon>
+          
+        </div>
+        <!-- <div fxFlex="10"></div> -->
+        <div fxFlex="75" fxLayout="row">
+          <!-- <span class="labelText" [hidden]="editHid">{{item.label}}</span> -->
+          <!-- <div class="labelText" *ngIf="item.id === textEdit"><input class="labelInput" name="labelEdit" [(ngModel)]="editedName"
+              placeholder="label name"></div> -->
+              <div contenteditable="true" #myDiv class="labelText" *ngIf="item.id === textEdit" [innerHTML]=item.label></div>
+          <div class="labelText" *ngIf="!(item.id === textEdit)" [innerHTML]="item.label" ></div>
+        </div>
+
+
+
+        <div *ngIf="editHid === false || item.id !== textEdit" fxLayout="row">
+          <div><button mat-icon-button (click)="deleteLabel(item.id)" class="overlay">
+              <mat-icon>delete</mat-icon>
+            </button></div><div><button mat-icon-button (click)="edit(item.id)" class="overlay">
+              <mat-icon>edit</mat-icon>
+            </button></div>
+        </div>
+
+        <button mat-icon-button *ngIf="editHid === true && item.id === textEdit" (click)="editLabel(item.id)" (click)="editHid =false">
           <mat-icon>done</mat-icon>
         </button>
-          <div>
 
-          </div>
+        <!-- <div [hidden]="editHid">
+            <span><button mat-icon-button (click)="deleteLabel(item.id)" class="overlay">
+                <mat-icon>delete</mat-icon>
+              </button></span> <span><button mat-icon-button (click)="edit(item.id)" class="overlay">
+                <mat-icon>edit</mat-icon>
+              </button></span>
+              </div> -->
+
+
+        <!-- <button mat-icon-button *ngIf="editHid === true" (click)="editLabel(item.id)" (click)="editHid =false">
+          <mat-icon>done</mat-icon>
+        </button> -->
+        <div>
+
+        </div>
       </div>
     </div>
 

@@ -26,6 +26,13 @@
             </button></div>
         </div><br>
         <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="desc"></div><br>
+        
+        <div *ngFor="let item of array">
+            <mat-checkbox><div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="desc" [innerHTML]=item></div></mat-checkbox>
+          </div>
+        <mat-checkbox><input type="text" name="check" (keydown)="nextLine($event)" [(ngModel)]="textValue"></mat-checkbox>
+
+          
       </div>
       <div fxLayoutAlign="space-between" fxLayout="row">
         <button mat-icon-button class="touchBut">

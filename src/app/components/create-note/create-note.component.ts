@@ -131,9 +131,25 @@ export class CreateNoteComponent implements OnInit {
     )
   }
 
+  count = 0;
+  array = [];
+
+  checkInput: any;
+  textValue: string = '';
+
+  nextLine(event){
+    
+    if(event.keyCode == 13){
+      console.log(this.textValue)
+    this.array.push(this.textValue)
+    this.textValue = ''
+    }
+    
+  }
   
 
   ngOnInit() {
   }
+  
 
 }

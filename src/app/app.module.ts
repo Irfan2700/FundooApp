@@ -48,6 +48,7 @@ import { PaletteComponent } from './components/palette/palette.component';
 import { CreateArchiveComponent } from './components/create-archive/create-archive.component';
 import { ExpandedNotesComponent } from './components/expanded-notes/expanded-notes.component';
 import { CreateLabelComponent } from './components/create-label/create-label.component';
+import { ChecklistModule } from 'angular-checklist';
 
 
 
@@ -78,6 +79,7 @@ import { CreateLabelComponent } from './components/create-label/create-label.com
     CreateLabelComponent,
 
 
+
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,8 @@ import { CreateLabelComponent } from './components/create-label/create-label.com
     LayoutModule,
     MatListModule,
     MatExpansionModule,
-    
+    ChecklistModule,
+  
 
     // ServicesService
   ],
