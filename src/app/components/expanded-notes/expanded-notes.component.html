@@ -2,8 +2,8 @@
   <mat-card [ngStyle]="{'background': updateColor}">
 <div >
   <div fxLayoutAlign="space-between" fxLayout="column" >
-    <div fxLayout="row">
-      <div contenteditable="true" placeholder="Title" class="titleNote" id="updateTitle" [innerHTML]="data.title"></div>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <mat-card-title contenteditable="true" placeholder="Title" class="titleNote" id="updateTitle" [innerHTML]="data.title"></mat-card-title>
       <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPined">
           <mat-icon>fiber_pin</mat-icon>
         </button></div>
@@ -12,10 +12,9 @@
       [innerHTML]="data.description"></div>
       <div class="messgCard" *ngIf="data.noteCheckLists.length !== 0">
         
-          <mat-card-content *ngFor="let checklists of data.noteCheckLists" [innerHTML]="checklists.itemName">
-            
-          </mat-card-content>
-  
+          <div *ngFor="let checklists of data.noteCheckLists; let i = index" id = "updateList{{i}}" >
+            <mat-checkbox><textarea rows="1" cols=auto class="takeNoteExpand" style="clear:left; resize: none" [innerHTML]="checklists.itemName"></textarea></mat-checkbox>
+          </div> 
         </div>
       <br>
   </div>

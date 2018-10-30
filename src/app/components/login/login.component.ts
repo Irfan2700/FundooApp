@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
 
   loginSubmit(){
-
+    // debugger;
     let body = {
       email: this.log.email,
       password: this.log.password

@@ -37,22 +37,41 @@ export class ExpandedNotesComponent implements OnInit {
 
     
      this.title =  document.getElementById("updateTitle").innerHTML;
-     this.description = document.getElementById("updateDesc").innerHTML;
-    console.log(this.title, this.description);
+    //  this.description = document.getElementById("updateDesc").innerHTML;
+    console.log(this.title,);
 
-    this.myService.httpPostEncoded("notes/updateNotes",{
+    
+    console.log("Test starts!!")
+      console.log("innerHTML div" ,document.getElementById("updateList1").innerHTML)
+      console.log("Test ends!!")
+
+    var body;
+  if(this.data.noteCheckLists.length === 0){
+     body = {
       "noteId": [this.data.id],
       "title": this.title,
       "description":this.description
-    }).subscribe(
-      response => {
-        console.log("Data Successfully Updated!!");
-        this.myRoute.navigate['note'];
-      },
-      error => {
-        console.log("Error occured!!");
-      }
-    )
+    }
+  }else{
+
+    body = {
+      "noteId": [this.data.id],
+      "checklistId": []
+    }
+  }
+    // this.myService.httpPostEncoded("notes/updateNotes",{
+    //   "noteId": [this.data.id],
+    //   "title": this.title,
+    //   "description":this.description
+    // }).subscribe(
+    //   response => {
+    //     console.log("Data Successfully Updated!!");
+    //     this.myRoute.navigate['note'];
+    //   },
+    //   error => {
+    //     console.log("Error occured!!");
+    //   }
+    // )
     this.dialogRef.close();
   }
 

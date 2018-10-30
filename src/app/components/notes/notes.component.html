@@ -15,9 +15,9 @@
         </mat-card-content></div>
         <div class="messgCard" *ngIf="item.noteCheckLists.length !== 0">
         
-        <mat-card-content *ngFor="let checklists of item.noteCheckLists" [innerHTML]="checklists.itemName" (click)="openDialog(item)">
-          
-        </mat-card-content>
+        <div *ngFor="let checklists of item.noteCheckLists" (click)="openDialog(item)">
+          <mat-checkbox><mat-card-content [innerHTML]="checklists.itemName"></mat-card-content></mat-checkbox>
+        </div>
 
       </div>
       

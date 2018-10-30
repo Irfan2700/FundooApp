@@ -151,6 +151,8 @@ export class CreateNoteComponent implements OnInit {
         document.getElementById("desc").innerHTML = "";
         }
 
+        this.tempArr = []
+
       this.open.emit({});
         console.log("terminate")
       },
