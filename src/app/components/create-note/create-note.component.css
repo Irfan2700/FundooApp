@@ -235,3 +235,10 @@ div[contenteditable=true] {
 .solid{
   opacity: 1;
 }
+
+.checkInput{
+
+  font-size: 18px;
+  border: none;
+  outline: none;
+}

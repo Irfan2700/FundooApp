@@ -21,6 +21,8 @@ export class NotesComponent implements OnInit {
   }
   flag = false;
 
+  
+
   deleteNote(event) {
     if (event) {
       this.flag = true;

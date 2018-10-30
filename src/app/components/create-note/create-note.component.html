@@ -1,9 +1,9 @@
 <!-- <div fxLayout="row" fxLayoutAlign="center center" > -->
 <div [hidden]="noteCard">
   <mat-card class="addNote">
-    <input type="text" placeholder="take a note..." class="takeNote" autofocus (click)="noteCard = true">
+    <input type="text" placeholder="take a note..." class="takeNote" autofocus (click)="noteCard = true" (click)="checkToggle = false">
     <button mat-icon-button class="listBut">
-      <mat-icon>list</mat-icon>
+      <mat-icon (click)="checkToggle = true" (click)="noteCard = true">list</mat-icon>
     </button>
 
     <button mat-icon-button class="imageBut">
@@ -21,18 +21,24 @@
       <div fxLayoutAlign="space-between" fxLayout="column">
         <div fxLayout="row">
           <div contenteditable="true" placeholder="Title" class="titleNote" id="title"></div>
-          <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned" [ngClass]="isPinned ? 'solid' : 'blur'">
+          <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned"
+              [ngClass]="isPinned ? 'solid' : 'blur'">
               <mat-icon>fiber_pin</mat-icon>
             </button></div>
         </div><br>
-        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="desc"></div><br>
-        
-        <div *ngFor="let item of array">
-            <mat-checkbox><div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="desc" [innerHTML]=item></div></mat-checkbox>
-          </div>
-        <mat-checkbox><input type="text" name="check" (keydown)="nextLine($event)" [(ngModel)]="textValue"></mat-checkbox>
-
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="desc" *ngIf="checkToggle === false"></div><br>
+        <div *ngIf="checkToggle === true && array !== []">
           
+          <div *ngFor="let item of array">
+            <mat-checkbox name="checkbox" (click)="currentTick(item)" >
+              <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left"
+                [innerHTML]=item.checkText></div>
+            </mat-checkbox>​
+          
+          </div>
+          <mat-checkbox >&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)" [(ngModel)]="checkText"></mat-checkbox>
+        </div>
+
       </div>
       <div fxLayoutAlign="space-between" fxLayout="row">
         <button mat-icon-button class="touchBut">
@@ -42,41 +48,42 @@
           <mat-icon>person_add</mat-icon>
         </button>
 
-<!-- color palette selection -->
+        <!-- color palette selection -->
         <button mat-icon-button class="colorBut" [matMenuTriggerFor]="colourMenu">
-  <mat-icon>palette</mat-icon></button>
-  <mat-menu #colourMenu="matMenu" style="border-radius: 40px;" yPosition="above" [overlapTrigger]='false'>
+          <mat-icon>palette</mat-icon>
+        </button>
+        <mat-menu #colourMenu="matMenu" style="border-radius: 40px;" yPosition="above" [overlapTrigger]='false'>
 
-      <div >
-      <button mat-mini-fab class="color1" (click)="changeColor(1)"></button>
-      <button mat-mini-fab class="color4" (click)="changeColor(4)"></button>
-      <button mat-mini-fab class="color7" (click)="changeColor(7)"></button>
-      <button mat-mini-fab class="color10" (click)="changeColor(10)"></button>
+          <div>
+            <button mat-mini-fab class="color1" (click)="changeColor(1)"></button>
+            <button mat-mini-fab class="color4" (click)="changeColor(4)"></button>
+            <button mat-mini-fab class="color7" (click)="changeColor(7)"></button>
+            <button mat-mini-fab class="color10" (click)="changeColor(10)"></button>
 
 
-        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
-      </div>
+            <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+          </div>
 
-      <div >
-          <button mat-mini-fab class="color2" (click)="changeColor(2)"></button>
-        <button mat-mini-fab class="color5" (click)="changeColor(5)"></button>
-        <button mat-mini-fab class="color8" (click)="changeColor(8)"></button>
-        <button mat-mini-fab class="color11" (click)="changeColor(11)"></button>
+          <div>
+            <button mat-mini-fab class="color2" (click)="changeColor(2)"></button>
+            <button mat-mini-fab class="color5" (click)="changeColor(5)"></button>
+            <button mat-mini-fab class="color8" (click)="changeColor(8)"></button>
+            <button mat-mini-fab class="color11" (click)="changeColor(11)"></button>
 
-        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
-      </div>
-      <div >
-        <button mat-mini-fab class="color3" (click)="changeColor(3)"></button>
-        <button mat-mini-fab class="color6" (click)="changeColor(6)"></button>
-        <button mat-mini-fab class="color9" (click)="changeColor(9)"></button>
-        <button mat-mini-fab class="color12" (click)="changeColor(12)"></button>
-        <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
-      </div>
-      
+            <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+          </div>
+          <div>
+            <button mat-mini-fab class="color3" (click)="changeColor(3)"></button>
+            <button mat-mini-fab class="color6" (click)="changeColor(6)"></button>
+            <button mat-mini-fab class="color9" (click)="changeColor(9)"></button>
+            <button mat-mini-fab class="color12" (click)="changeColor(12)"></button>
+            <!-- <button mat-menu-item ><button mat-mini-fab class="color1"></button></button> -->
+          </div>
 
-  </mat-menu>
 
-<!-- color palette ends-->
+        </mat-menu>
+
+        <!-- color palette ends-->
 
 
 
@@ -88,7 +95,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
 
-          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()"><b>close</b></button>
+          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" (click)="array = []"><b>close</b></button>
         </div>
       </div>
     </form>

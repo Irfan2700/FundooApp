@@ -86,7 +86,7 @@ export class CreateNoteComponent implements OnInit {
       }
     }
   }
-
+  tempArr = [];
   archive = false;
 
   archiveIt(){
@@ -99,18 +99,46 @@ export class CreateNoteComponent implements OnInit {
       }
     }
   }
+  temp: any;
 
   addNote(){
     // console.log(this.title);
     // console.log(this.desc);
     console.log("Pinn is : ", this.isPinned)
+    console.log(JSON.stringify(this.tempArr))
 
-    var body = {
-      "title": document.getElementById("title").innerHTML,
-      "description": document.getElementById("desc").innerHTML,
-      "isPined": this.isPinned,
-      "color": this.index,
-      "isArchived": this.archive
+    // if(this.tempArr.length !== 0){
+    //   document.getElementById("desc").innerHTML = ""
+    // }
+    // this.temp = "[";
+    // for(var i=0; i<this.tempArr.length-1; i++){
+    //   this.temp += "{itemName:"+"},"
+    // }
+    // this.temp += "]";
+
+    console.log(this.tempArr.length)
+
+
+    var body;
+
+    if(this.tempArr.length !== 0){
+
+      body = {
+        "title": document.getElementById("title").innerHTML,
+        "isPined": this.isPinned,
+        "color": this.index,
+        "isArchived": this.archive,
+        "checklist": JSON.stringify(this.tempArr)
+      }
+    }else{
+      body = {
+        "title": document.getElementById("title").innerHTML,
+        "description": document.getElementById("desc").innerHTML,
+        "isPined": this.isPinned,
+        "color": this.index,
+        "isArchived": this.archive
+        
+      }
     }
 
     this.myService.httpPostEncoded("notes/addNotes", body).subscribe(
@@ -119,8 +147,9 @@ export class CreateNoteComponent implements OnInit {
 
         // this.myroute.navigate(["home"]);
         document.getElementById("title").innerHTML = "";
+        if(this.tempArr.length === 0){
         document.getElementById("desc").innerHTML = "";
-       
+        }
 
       this.open.emit({});
         console.log("terminate")
@@ -131,21 +160,64 @@ export class CreateNoteComponent implements OnInit {
     )
   }
 
-  count = 0;
+  checkToggle = false;
+
+  currentTick(ele){
+    for(var i=0; i<this.array.length; i++){
+
+      if(ele.id == this.array[i].id){
+        this.array[i].isChecked = "close";
+      }
+    }
+  }
+
   array = [];
 
   checkInput: any;
-  textValue: string = '';
+  
+    isChecked= "open";
+    checkText;
+
+  count= 0;
+  
+  
 
   nextLine(event){
     
-    if(event.keyCode == 13){
-      console.log(this.textValue)
-    this.array.push(this.textValue)
-    this.textValue = ''
-    }
+    if(event.keyCode == 13 && this.checkText !== ""){
+      console.log(this.checkText)
+      var textValue = {
+        "id": this.count,
+        "isChecked": this.isChecked,
+        "checkText": this.checkText
+      }
+    this.array.push(textValue)
+    this.count++;
     
+
+    
+      this.tempArr.push({
+        "itemName": this.checkText,
+        "status": this.isChecked
+      })
+    
+
+    this.checkText = ''
+    console.log(this.array)
+
+    
+    }
+
+      if(event.keyCode === 46){
+        console.log("Delete is hitting")
+        this.array.pop();
+        this.tempArr.pop();
+      }
+
+
   }
+
+
   
 
   ngOnInit() {

@@ -10,9 +10,17 @@
           <mat-icon>fiber_pin</mat-icon>
         </button>
         </div>
+        <div *ngIf="item.noteCheckLists.length === 0">
       <mat-card-content class="messgCard" [innerHTML]="item.description" (click)="openDialog(item)">
+        </mat-card-content></div>
+        <div class="messgCard" *ngIf="item.noteCheckLists.length !== 0">
+        
+        <mat-card-content *ngFor="let checklists of item.noteCheckLists" [innerHTML]="checklists.itemName" (click)="openDialog(item)">
+          
+        </mat-card-content>
 
-      </mat-card-content>
+      </div>
+      
       <div class="panal">
         <button mat-icon-button class="touchBut">
           <mat-icon>touch_app</mat-icon>
