@@ -12,8 +12,8 @@
       [innerHTML]="data.description"></div>
       <div class="messgCard" *ngIf="data.noteCheckLists.length !== 0">
         
-          <div *ngFor="let checklists of data.noteCheckLists; let i = index" id = "updateList{{i}}" >
-            <mat-checkbox><textarea rows="1" cols=auto class="takeNoteExpand" style="clear:left; resize: none" [innerHTML]="checklists.itemName"></textarea></mat-checkbox>
+          <div *ngFor="let checklists of data.noteCheckLists">
+            <mat-checkbox><div contenteditable="true" placeholder="list" class="takeNoteExpand" style="clear:left; resize: none" (click)="updateList(checklists)" [innerHTML]="checklists.itemName"></div></mat-checkbox>
           </div> 
         </div>
       <br>

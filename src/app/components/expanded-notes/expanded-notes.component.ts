@@ -94,6 +94,13 @@ export class ExpandedNotesComponent implements OnInit {
     }
   }
 
+  editToggle;
+
+  updateList(list){
+
+    this.editToggle = list["id"];
+  }
+
   archiveNote(event) {
     if (event) {
       this.updateDialog.emit({});
