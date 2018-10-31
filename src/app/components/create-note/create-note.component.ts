@@ -167,8 +167,11 @@ export class CreateNoteComponent implements OnInit {
   currentTick(ele){
     for(var i=0; i<this.array.length; i++){
 
-      if(ele.id == this.array[i].id){
+      if(ele.id == this.array[i].id && this.array[i].isChecked === "open"){
+        
         this.array[i].isChecked = "close";
+      }else{
+        this.array[i].isChecked = "open";
       }
     }
   }

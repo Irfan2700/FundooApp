@@ -11,17 +11,18 @@ export class NotesComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  @Input() model: object;
+  @Input() model: any=[];
   @Output() updateList = new EventEmitter();
 
   isPinned = false;
+  newModel= [];
 
   noteId(id) {
     console.log(id);
   }
   flag = false;
+  modelArr = this.model;
 
-  
 
   deleteNote(event) {
     if (event) {
@@ -53,7 +54,7 @@ export class NotesComponent implements OnInit {
       {
         data: item,
         width: '550px',
-        
+
       }
     );
 
@@ -70,16 +71,30 @@ export class NotesComponent implements OnInit {
       this.updateList.emit(true);
     })
   }
-  
 
-  
+
+
 
 
   ngOnInit() {
 
+  //   console.log("these is the ole model", this.modelArr)
 
+  //   for (var i = 0; i < this.model.length; i++) {
 
-  }
+  //     for (var j = 0; j < this.model[i].noteCheckLists.length; j++) {
+
+  //       if (this.model[i].noteCheckLists[j].isDeleted === false) {
+
+  //         this.newModel.push(this.model[i])
+  //         console.log("list array display inner")
+  //       }
+  //       console.log("list array display outer")
+  //     }
+  //   }
+
+  //   console.log("New Model Array is :----", this.newModel)
+  // }
 
 }
-
+}

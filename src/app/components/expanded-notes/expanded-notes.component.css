@@ -65,7 +65,7 @@ div[contenteditable=true] {
   font-size: 18px;
   width: 486px;
   outline: none;
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 
 .takeNote:hover{
@@ -160,4 +160,25 @@ div[contenteditable=true] {
     min-height: inherit;
     max-height: inherit;
     overflow-y: hidden;
+}
+
+.takeNoteExpandEdit{
+
+  border: none;
+  height: auto;
+  font-size: 18px;
+  width: 470px;
+  outline: none;
+  /* margin-top: -11px */
+}
+
+.editDiv{
+  /* margin-top: 10px */
+}
+
+.checkInput{
+
+  font-size: 18px;
+  border: none;
+  outline: none;
 }
