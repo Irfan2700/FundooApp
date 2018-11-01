@@ -1,6 +1,7 @@
+import { ServicesService } from './../../services/services.service';
 import { ExpandedNotesComponent } from './../expanded-notes/expanded-notes.component';
 import { MatDialog } from '@angular/material';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-notes',
@@ -9,13 +10,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NotesComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  @Input() model: any = [];
 
-  @Input() model: any=[];
+  constructor(public dialog: MatDialog, private elementRef: ElementRef,
+    private myService: ServicesService) {
+    // let newModel = elementRef.nativeElement.getAttribute('model');
+    // this.model = newModel
+  }
+  @ViewChild('itemName') itemName: ElementRef;
+
   @Output() updateList = new EventEmitter();
 
   isPinned = false;
-  newModel= [];
+
+  tick;
 
   noteId(id) {
     console.log(id);
@@ -72,29 +80,79 @@ export class NotesComponent implements OnInit {
     })
   }
 
+  // currentTick(checklist){
+
+  // }
 
 
+  checkBoxChange(checklist, item) {
+
+    // for(var i=0; i<item.length; i++){
+    //   if(item[i].id === checklist.id){
+    //     if(checklist.status === "open"){
+    //       for(var j=0; j<this.model.length; j++){
+    //         for(var k=0; k<this.model[j].noteCheckLists.length; k++){
+    //           if(checklist.id === this.model[j].noteCheckLists[k].id){
+    //             this.model[j].noteCheckLists[k].status = "close";
+    //           }
+    //         }
+    //       }
+    //     }else if(checklist.status === "close"){
+    //       for(var j=0; j<this.model.length; j++){
+    //         for(var k=0; k<this.model[j].noteCheckLists.length; k++){
+    //           if(checklist.id === this.model[j].noteCheckLists[k].id){
+    //             this.model[j].noteCheckLists[k].status = "open";
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+  }
+
+
+  checkTick(checklist, item, i, j) {
+
+    console.log(checklist)
+
+    var body = {
+      "itemName": this.model[i].noteCheckLists[j].itemName,
+      "status": checklist.status
+    }
+
+    this.myService.httpPostJson("notes/" + this.model[i].noteCheckLists[j].notesId + "/checklist/" + this.model[i].noteCheckLists[j].id + "/update", JSON.stringify(body)).subscribe(
+      response => {
+        console.log("checklist Line is Successfully Updated!!");
+        this.updateList.emit({})
+      },
+      error => {
+        console.log("error Occured");
+      }
+    )
+  }
 
 
   ngOnInit() {
 
-  //   console.log("these is the ole model", this.modelArr)
+    // console.log("newModel array",this.model)
 
-  //   for (var i = 0; i < this.model.length; i++) {
+    //   console.log("these is the ole model", this.modelArr)
 
-  //     for (var j = 0; j < this.model[i].noteCheckLists.length; j++) {
+    //   for (var i = 0; i < this.model.length; i++) {
 
-  //       if (this.model[i].noteCheckLists[j].isDeleted === false) {
+    //     for (var j = 0; j < this.model[i].noteCheckLists.length; j++) {
 
-  //         this.newModel.push(this.model[i])
-  //         console.log("list array display inner")
-  //       }
-  //       console.log("list array display outer")
-  //     }
-  //   }
+    //       if (this.model[i].noteCheckLists[j].isDeleted === false) {
 
-  //   console.log("New Model Array is :----", this.newModel)
-  // }
+    //         this.newModel.push(this.model[i])
+    //         console.log("list array display inner")
+    //       }
+    //       console.log("list array display outer")
+    //     }
+    //   }
 
-}
+    //   console.log("New Model Array is :----", this.newModel)
+    // }
+
+  }
 }

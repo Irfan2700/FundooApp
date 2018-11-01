@@ -1,5 +1,5 @@
 import { ServicesService } from './../../services/services.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterLink, RouteReuseStrategy } from '@angular/router';
 
 @Component({
@@ -12,6 +12,10 @@ export class CreateNoteComponent implements OnInit {
 
   constructor(private myService: ServicesService,
     private myroute: Router) { }
+
+    @ViewChild('title') title: ElementRef;
+    @ViewChild('desc') desc: ElementRef;
+    
 
     isPinned = false;
   noteCard = false;
@@ -91,8 +95,8 @@ export class CreateNoteComponent implements OnInit {
 
   archiveIt(){
 
-    if(document.getElementById("title").innerHTML !== ""){
-      if(document.getElementById("desc").innerHTML !== ""){
+    if(this.title.nativeElement.innerHTML !== ""){
+      if(this.desc.nativeElement.innerHTML !== ""){
 
         this.archive = true;
         this.addNote();
@@ -123,32 +127,41 @@ export class CreateNoteComponent implements OnInit {
 
     if(this.tempArr.length !== 0){
 
+      // if(this.title.nativeElement.innerHTML === null){
+      //   return
+      // }
       body = {
-        "title": document.getElementById("title").innerHTML,
+        "title": this.title.nativeElement.innerHTML,
         "isPined": this.isPinned,
         "color": this.index,
         "isArchived": this.archive,
         "checklist": JSON.stringify(this.tempArr)
       }
+    
     }else{
+     
       body = {
-        "title": document.getElementById("title").innerHTML,
-        "description": document.getElementById("desc").innerHTML,
+        "title": this.title.nativeElement.innerHTML,
+        "description": this.desc.nativeElement.innerHTML,
         "isPined": this.isPinned,
         "color": this.index,
         "isArchived": this.archive
         
       }
+    
+    
     }
+
+    if(body.title !== ''){
 
     this.myService.httpPostEncoded("notes/addNotes", body).subscribe(
       data => {
         console.log("Data Saved Successfully", data);
 
         // this.myroute.navigate(["home"]);
-        document.getElementById("title").innerHTML = "";
+        this.title.nativeElement.innerHTML = "";
         if(this.tempArr.length === 0){
-        document.getElementById("desc").innerHTML = "";
+        this.desc.nativeElement.innerHTML = "";
         }
 
         this.tempArr = []
@@ -160,18 +173,24 @@ export class CreateNoteComponent implements OnInit {
         console.log("Error occur");
       }
     )
+    }
   }
 
   checkToggle = false;
 
   currentTick(ele){
+    // debugger;
     for(var i=0; i<this.array.length; i++){
 
       if(ele.id == this.array[i].id && this.array[i].isChecked === "open"){
         
         this.array[i].isChecked = "close";
-      }else{
+        this.tempArr[i].status = "close"
+        console.log(this.array[i].isChecked)
+      }else if(ele.id == this.array[i].id && this.array[i].isChecked === "close"){
         this.array[i].isChecked = "open";
+        this.tempArr[i].status = "open"
+        console.log(this.array[i].isChecked)
       }
     }
   }

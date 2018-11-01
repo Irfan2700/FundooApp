@@ -31,50 +31,58 @@ export class ExpandedNotesComponent implements OnInit {
 
   array = [];
   tempArr = [];
+  switch = false;
 
   updataData() {
-    // this.title = document.getElementById("updateTitle").innerHTML;
-    // console.log(this.title);
+
+    if (this.tempArr.length === 0) {
+      this.title = document.getElementById("updateTitle").innerHTML;
+      console.log(this.title);
 
 
-    this.title = document.getElementById("updateTitle").innerHTML;
-    //  this.description = document.getElementById("updateDesc").innerHTML;
-    console.log(this.title);
+      this.title = document.getElementById("updateTitle").innerHTML;
+      //  this.description = document.getElementById("updateDesc").innerHTML;
+      console.log(this.title);
 
 
-    console.log("Test starts!!")
-    console.log("innerHTML div", document.getElementById("updateList1").innerHTML)
-    console.log("Test ends!!")
+      console.log("Test starts!!")
+      console.log("innerHTML div", document.getElementById("updateList1").innerHTML)
+      console.log("Test ends!!")
 
-    var body;
-    // if(this.data.noteCheckLists.length === 0){
-    //    body = {
-    //     "noteId": [this.data.id],
-    //     "title": this.title,
-    //     "description":this.description
-    //   }
-    // }else if(this.data.noteCheckLists.length === this.tempArr.length){
+      var body;
+      if (this.data.noteCheckLists.length === 0) {
+        body = {
+          "noteId": [this.data.id],
+          "title": this.title,
+          "description": this.description
+        }
+      }
+      // else if(this.data.noteCheckLists.length === this.tempArr.length){
 
-    //   body = {
-    //     "noteId": [this.data.id],
-    //     "checklistId": ,
-    //     "checklist": JSON.stringify(this.tempArr)
-    //   }
-    // }
-    //   this.myService.httpPostEncoded("notes/updateNotes",{
-    //     "noteId": [this.data.id],
-    //     "title": this.title,
-    //     "description":this.description
-    //   }).subscribe(
-    //     response => {
-    //       console.log("Data Successfully Updated!!");
-    //       this.myRoute.navigate['note'];
-    //     },
-    //     error => {
-    //       console.log("Error occured!!");
-    //     }
-    //   )
-    this.dialogRef.close();
+      //   // body = {
+      //   //   "noteId": [this.data.id],
+      //   //   "checklistId": ,
+      //   //   "checklist": JSON.stringify(this.tempArr)
+      //   // }
+
+      // }
+      this.myService.httpPostEncoded("notes/updateNotes", {
+        "noteId": [this.data.id],
+        "title": this.title,
+        "description": this.description
+      }).subscribe(
+        response => {
+          console.log("Data Successfully Updated!!");
+          this.myRoute.navigate['note'];
+        },
+        error => {
+          console.log("Error occured!!");
+        }
+      )
+      this.dialogRef.close();
+    }else{
+      this.dialogRef.close();
+    }
   }
 
   deleteNote(event) {
@@ -114,10 +122,18 @@ export class ExpandedNotesComponent implements OnInit {
 
 
   currentTick(ele) {
+
+    console.log(ele)
     for (var i = 0; i < this.array.length; i++) {
 
       if (ele.id == this.array[i].id) {
-        this.array[i].isChecked = "close";
+        if (this.array[i].isChecked === 'open') {
+          this.array[i].isChecked = "close";
+          this.tempArr[i].status = "close"
+        } else if (this.array[i].isChecked === 'close') {
+          this.array[i].isChecked = "open";
+          this.tempArr[i].status = "open"
+        }
       }
     }
   }
@@ -140,6 +156,19 @@ export class ExpandedNotesComponent implements OnInit {
         "itemName": this.checkText,
         "status": this.isChecked
       })
+
+      this.myService.httpPostJson("notes/" + this.data.noteCheckLists[0].notesId + "/checklist/add", {
+        "itemName": this.checkText,
+        "status": this.isChecked
+      }).subscribe(
+        response => {
+          console.log("The New line in the Checklist is Succeddfully Added!!");
+          this.dialogRef.close();
+        },
+        error => {
+          console.log("Error Occured")
+        }
+      )
 
 
       this.checkText = ''
@@ -190,15 +219,15 @@ export class ExpandedNotesComponent implements OnInit {
         this.updateDialog.emit({});
         var temp = [];
         for (var i = 0; i < this.array.length; i++) {
-          if (this.array[item.id].id === item.id) {
+          if (this.array[i].id === item.id) {
             continue;
           }
           temp.push(this.array[i])
         }
         console.log(temp)
         this.array = temp
-        
-        
+
+
       },
       error => {
         console.log("Error Occured!!");
@@ -217,6 +246,69 @@ export class ExpandedNotesComponent implements OnInit {
       this.dialogRef.close();
     }
   }
+
+
+  checkTick(item, i) {
+
+
+
+
+    var body = {
+      "itemName": item.checkText,
+      "status": this.array[i].isChecked
+    }
+    this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/update", JSON.stringify(body)).subscribe(
+      response => {
+        console.log("checklist Line is Successfully Updated!!");
+
+        this.updateDialog.emit({})
+        this.dialogRef.close();
+
+      },
+      error => {
+        console.log("error Occured");
+      }
+    )
+  }
+
+  tick(item) {
+
+  }
+
+  // updateNewCheckList() {
+  //   // debugger;
+  //   var body = []
+  //   // console.log("I am detected")
+  //   // console.log("TempARR length",this.tempArr.length);
+  //   // console.log("Data length",this.data.length);
+  //   // console.log("data value",this.data);
+
+  //   if (this.tempArr.length > this.data.noteCheckLists.length) {
+
+
+  //     var n = (this.tempArr.length) - (this.data.noteCheckLists.length);
+  //     for (var i = 0; i < n; i++) {
+  //       body.push(this.tempArr[this.tempArr.length - 1 - i]);
+  //     }
+  //     body.reverse();
+  //     console.log("body is", body);
+
+  //     var finalBody = {
+  //       "noteId": [this.data.noteCheckLists[0].notesId],
+  //       "data": JSON.stringify(body)
+  //     }
+
+  //     this.myService.httpPostJson("notes/" + this.data.noteCheckLists[0].notesId + "/checklist/add", finalBody).subscribe(
+  //       response => {
+  //         console.log("The New line in the Checklist is Succeddfully Added!!");
+  //         this.dialogRef.close();
+  //       },
+  //       error => {
+  //         console.log("Error Occured")
+  //       }
+  //     )
+  //   }
+  // }
 
 
 
@@ -246,6 +338,8 @@ export class ExpandedNotesComponent implements OnInit {
         })
       }
     }
+
+
 
     console.log("Preloaded List", this.array)
 

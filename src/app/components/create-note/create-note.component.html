@@ -20,13 +20,13 @@
     <form>
       <div fxLayoutAlign="space-between" fxLayout="column">
         <div fxLayout="row">
-          <div contenteditable="true" placeholder="Title" class="titleNote" id="title"></div>
+          <div contenteditable="true" placeholder="Title" class="titleNote" #title> </div>
           <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned"
               [ngClass]="isPinned ? 'solid' : 'blur'">
               <mat-icon>fiber_pin</mat-icon>
             </button></div>
         </div><br>
-        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="desc" *ngIf="checkToggle === false"></div><br>
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" #desc *ngIf="checkToggle === false"> </div><br>
         <div *ngIf="checkToggle === true && array !== []">
           
           <div *ngFor="let item of array">
