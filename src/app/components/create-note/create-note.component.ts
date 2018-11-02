@@ -20,6 +20,12 @@ export class CreateNoteComponent implements OnInit {
     isPinned = false;
   noteCard = false;
 
+  labelUpdate = []
+  isCheckedLabel = {
+    "id": String,
+    "ischecked": false
+  };
+
   arr = [];
 
 
@@ -185,11 +191,11 @@ export class CreateNoteComponent implements OnInit {
       if(ele.id == this.array[i].id && this.array[i].isChecked === "open"){
         
         this.array[i].isChecked = "close";
-        this.tempArr[i].status = "close"
+        this.tempArr[i].status = "close";
         console.log(this.array[i].isChecked)
       }else if(ele.id == this.array[i].id && this.array[i].isChecked === "close"){
         this.array[i].isChecked = "open";
-        this.tempArr[i].status = "open"
+        this.tempArr[i].status = "open";
         console.log(this.array[i].isChecked)
       }
     }
@@ -239,6 +245,31 @@ export class CreateNoteComponent implements OnInit {
       }
 
 
+  }
+  
+
+  updateLabel(event){
+
+    var temp = [];
+    if(event){
+      if(event.isChecked === true){
+      this.labelUpdate.push(event);
+      console.log(this.labelUpdate)
+      
+      // console.log("Parent side is also change",this.isCheckedLabel)
+    }else{
+      for(var i=0; i<this.labelUpdate.length; i++){
+
+        if(this.labelUpdate[i].id === this.isChecked['id']){
+          continue;
+        }
+        temp.push(this.labelUpdate)
+      }
+      this.labelUpdate = temp;
+      
+    }
+  }
+    
   }
 
 

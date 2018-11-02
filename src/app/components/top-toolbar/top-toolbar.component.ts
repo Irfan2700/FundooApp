@@ -1,3 +1,4 @@
+import { DataShareService } from 'src/app/services/data-share.service';
 import { CreateLabelComponent } from './../create-label/create-label.component';
 import { Router } from '@angular/router';
 import { ServicesService } from './../../services/services.service';
@@ -25,43 +26,53 @@ export class TopToolbarComponent implements OnInit {
     public snackBar: MatSnackBar,
     private myService: ServicesService,
     private myRoute: Router,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog,
+    private dataShare: DataShareService) { }
 
-    logout(){
-      this.myService.httpPostlogout("user/logout",'').subscribe(
-        data => {
-          console.log("logout Successfully");
-          this.auth.removeToken();
-          this.auth.removeId();
+  logout() {
+    this.myService.httpPostlogout("user/logout", '').subscribe(
+      data => {
+        console.log("logout Successfully");
+        this.auth.removeToken();
+        this.auth.removeId();
 
-          this.myRoute.navigate(["login"]);
-        },
-        error => {
-          console.log("Error occur")
-        }
-      )
-    }
-
-    imageReloader = false;
-    // console.log("0st one",this.imageReloader);
-    updateReload(event){
-    //   console.log("1st one",this.imageReloader);
-      if(event){
-        setTimeout(() => {
-    //       console.log("2nd one",this.imageReloader);
-          this.imageReloader = true
-        }, 3000)
-        this.imageReloader = false;
+        this.myRoute.navigate(["login"]);
+      },
+      error => {
+        console.log("Error occur")
       }
-    }
+    )
+  }
 
-    addLabel(){
-
-      this.dialog.open(CreateLabelComponent);
+  imageReloader = false;
+  // console.log("0st one",this.imageReloader);
+  updateReload(event) {
+    //   console.log("1st one",this.imageReloader);
+    if (event) {
+      setTimeout(() => {
+        //       console.log("2nd one",this.imageReloader);
+        this.imageReloader = true
+      }, 3000)
+      this.imageReloader = false;
     }
+  }
+
+  addLabel() {
+
+    this.dialog.open(CreateLabelComponent);
+  }
+
 
 
   ngOnInit() {
 
+    this.myService.httpGetJson("noteLabels/getNoteLabelList").subscribe(
+      response => {
+        this.dataShare.sendData1(response);
+      },
+      error => {
+        console.log("Error Occured")
+      }
+    )
   }
 }

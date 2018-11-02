@@ -198,6 +198,7 @@ export class ExpandedNotesComponent implements OnInit {
       response => {
         console.log("checklist Line is Successfully Updated!!");
         this.updateDialog.emit({})
+        this.dialogRef.close()
       },
       error => {
         console.log("error Occured");

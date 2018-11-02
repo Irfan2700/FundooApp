@@ -1,13 +1,12 @@
 <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu" [overlapTrigger]=false>
-        <button mat-menu-item (click)="delete()">Delete Note</button>
         <button mat-menu-item [matMenuTriggerFor]="addLabel">Add Label</button>
         <button mat-menu-item>Make a Copy</button>
       </mat-menu>
 
       <mat-menu #addLabel="matMenu">
         <input mat-menu-item type="search" placeholder="search">
-        <div *ngFor="let item of labelArr">
-        <mat-checkbox (click)="$event.stopPropagation()" (click)="addlabelNotes()" [checked]="">{{item.label}}</mat-checkbox>
+        <div *ngFor="let item of tempArr; let i=index">
+        <mat-checkbox (click)="$event.stopPropagation()"(click)="addlabel(item, i)">{{item.label}}</mat-checkbox>
         </div>
       </mat-menu>

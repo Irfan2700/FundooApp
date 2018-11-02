@@ -25,9 +25,9 @@ export class NotesComponent implements OnInit {
 
   tick;
 
-  noteId(id) {
-    console.log(id);
-  }
+  // noteId(id) {
+  //   console.log(id);
+  // }
   flag = false;
   modelArr = this.model;
 

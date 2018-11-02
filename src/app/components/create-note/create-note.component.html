@@ -92,7 +92,7 @@
         </button>
         <div fxLayoutAlign="space-between">
           <button mat-icon-button class="moreBut">
-            <mat-icon>more_vert</mat-icon>
+            <app-creat-note-more-option [isCheck] ="labelUpdate" (labelAdds)="updateLabel($event)"></app-creat-note-more-option>
           </button>
 
           <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" (click)="array = []"><b>close</b></button>

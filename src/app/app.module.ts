@@ -1,7 +1,7 @@
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guard/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -15,24 +15,26 @@ import { HttpClientModule } from '@angular/common/http';
 // import { ServicesService } from './services/services.service';
 import { FormsModule } from '@angular/forms';
 
-import {MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatRadioModule,
-        MatCheckboxModule,
-        MatDialogModule,
-        MatButtonToggleModule,
-        MatSnackBarModule,
-        MatProgressSpinnerModule,
-        MatSidenavModule,
-        MatMenuModule,
-        MatListModule,
-        MatExpansionModule,
-        } from '@angular/material';
-import { ResetPasswordComponent,  ResetPasswordSetComponent} from './components/reset-password/reset-password.component';
+
+import {
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatRadioModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatButtonToggleModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatSidenavModule,
+  MatMenuModule,
+  MatListModule,
+  MatExpansionModule,
+} from '@angular/material';
+import { ResetPasswordComponent, ResetPasswordSetComponent } from './components/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
 import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
@@ -49,6 +51,7 @@ import { CreateArchiveComponent } from './components/create-archive/create-archi
 import { ExpandedNotesComponent } from './components/expanded-notes/expanded-notes.component';
 import { CreateLabelComponent } from './components/create-label/create-label.component';
 import { ChecklistModule } from 'angular-checklist';
+import { CreatNoteMoreOptionComponent } from './creat-note-more-option/creat-note-more-option.component';
 
 
 
@@ -77,6 +80,8 @@ import { ChecklistModule } from 'angular-checklist';
     CreateArchiveComponent,
     ExpandedNotesComponent,
     CreateLabelComponent,
+    CreatNoteMoreOptionComponent,
+    
 
 
 
@@ -106,10 +111,12 @@ import { ChecklistModule } from 'angular-checklist';
     MatListModule,
     MatExpansionModule,
     ChecklistModule,
-  
+
 
     // ServicesService
   ],
+
+  schemas: [NO_ERRORS_SCHEMA],
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent, ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent],
   providers: [],

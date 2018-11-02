@@ -1,3 +1,4 @@
+import { DataShareService } from './../../services/data-share.service';
 import { AuthService } from './../../services/auth.service';
 import { ServicesService } from './../../services/services.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -10,7 +11,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class CreateLabelComponent implements OnInit {
 
   constructor(private myService: ServicesService,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private data: DataShareService) { }
 
   @ViewChild('myDiv') myDiv: ElementRef;
   
@@ -152,6 +154,8 @@ for(var i=0; i<this.labelDisplay.length; i++){
         }
 
         this.labelReverseDiplay = updateList;
+        
+        // this.data.sendData(this.labelReverseDiplay)
       },
       error => {
         console.log("Error Occured!!");
