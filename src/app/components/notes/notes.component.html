@@ -32,6 +32,10 @@
 
       </div>
 
+      <div>
+        <!-- <mat-chip>{{item.labelIdList}}</mat-chip> -->
+      </div>
+
       <div class="panal">
         <button mat-icon-button class="touchBut">
           <mat-icon>touch_app</mat-icon>
@@ -41,7 +45,7 @@
         </button>&nbsp;&nbsp;
         <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>&nbsp;&nbsp;
         <app-create-archive [archiveInput]="item.id" (reloadNote)=archiveNote($event)></app-create-archive>&nbsp;&nbsp;
-        <app-more-options [note]="item" (update)="deleteNote($event)"></app-more-options>
+        <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)"></app-more-options>
         <!-- <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item >Delete Note</button>

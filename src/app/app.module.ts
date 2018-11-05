@@ -33,6 +33,7 @@ import {
   MatMenuModule,
   MatListModule,
   MatExpansionModule,
+  MatChipsModule,
 } from '@angular/material';
 import { ResetPasswordComponent, ResetPasswordSetComponent } from './components/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
@@ -111,6 +112,7 @@ import { CreatNoteMoreOptionComponent } from './creat-note-more-option/creat-not
     MatListModule,
     MatExpansionModule,
     ChecklistModule,
+    MatChipsModule
 
 
     // ServicesService

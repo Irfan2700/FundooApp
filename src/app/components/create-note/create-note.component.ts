@@ -6,26 +6,27 @@ import { Router, RouterLink, RouteReuseStrategy } from '@angular/router';
   selector: 'app-create-note',
   templateUrl: './create-note.component.html',
   styleUrls: ['./create-note.component.css'],
-  outputs:['open']
+  outputs: ['open']
 })
 export class CreateNoteComponent implements OnInit {
 
   constructor(private myService: ServicesService,
     private myroute: Router) { }
 
-    @ViewChild('title') title: ElementRef;
-    @ViewChild('desc') desc: ElementRef;
-    
+  @ViewChild('title') title: ElementRef;
+  @ViewChild('desc') desc: ElementRef;
 
-    isPinned = false;
+
+  isPinned = false;
   noteCard = false;
 
   labelUpdate = []
   isCheckedLabel = {
     "id": String,
-    "ischecked": false
+    "isChecked": false
   };
 
+  isCheck;
   arr = [];
 
 
@@ -34,13 +35,13 @@ export class CreateNoteComponent implements OnInit {
   nowColor = 1;
   index = "#ffffff";
 
-  
 
-  changeColor(paint){
+
+  changeColor(paint) {
     this.nowColor = paint;
 
 
-    switch(this.nowColor){
+    switch (this.nowColor) {
 
       case 1: {
         this.index = "#ffffff";
@@ -98,11 +99,12 @@ export class CreateNoteComponent implements OnInit {
   }
   tempArr = [];
   archive = false;
+  labelArr = [];
 
-  archiveIt(){
+  archiveIt() {
 
-    if(this.title.nativeElement.innerHTML !== ""){
-      if(this.desc.nativeElement.innerHTML !== ""){
+    if (this.title.nativeElement.innerHTML !== "") {
+      if (this.desc.nativeElement.innerHTML !== "") {
 
         this.archive = true;
         this.addNote();
@@ -111,11 +113,19 @@ export class CreateNoteComponent implements OnInit {
   }
   temp: any;
 
-  addNote(){
+ 
+  
+
+  addNote() {
     // console.log(this.title);
     // console.log(this.desc);
     console.log("Pinn is : ", this.isPinned)
     console.log(JSON.stringify(this.tempArr))
+
+    for(let i=0; i<this.labelUpdate.length; i++){
+
+      this.labelArr.push(this.labelUpdate[i].id)
+    }
 
     // if(this.tempArr.length !== 0){
     //   document.getElementById("desc").innerHTML = ""
@@ -129,71 +139,75 @@ export class CreateNoteComponent implements OnInit {
     console.log(this.tempArr.length)
 
 
-    var body;
+    let requestBody;
 
-    if(this.tempArr.length !== 0){
+    if (this.tempArr.length !== 0) {
 
       // if(this.title.nativeElement.innerHTML === null){
       //   return
       // }
-      body = {
+      requestBody = {
         "title": this.title.nativeElement.innerHTML,
         "isPined": this.isPinned,
         "color": this.index,
         "isArchived": this.archive,
-        "checklist": JSON.stringify(this.tempArr)
+        "checklist": JSON.stringify(this.tempArr),
+        "labelIdList": JSON.stringify(this.labelArr)
+        
       }
-    
-    }else{
-     
-      body = {
+
+    } else {
+
+      requestBody = {
         "title": this.title.nativeElement.innerHTML,
         "description": this.desc.nativeElement.innerHTML,
         "isPined": this.isPinned,
         "color": this.index,
-        "isArchived": this.archive
-        
+        "isArchived": this.archive,
+        "labelIdList": JSON.stringify(this.labelArr)
+
+
       }
-    
-    
+
+
     }
 
-    if(body.title !== ''){
+    if (requestBody.title !== '') {
 
-    this.myService.httpPostEncoded("notes/addNotes", body).subscribe(
-      data => {
-        console.log("Data Saved Successfully", data);
+      this.myService.httpPostEncoded("notes/addNotes", requestBody).subscribe(
+        data => {
+          console.log("Data Saved Successfully", data);
 
-        // this.myroute.navigate(["home"]);
-        this.title.nativeElement.innerHTML = "";
-        if(this.tempArr.length === 0){
-        this.desc.nativeElement.innerHTML = "";
+          // this.myroute.navigate(["home"]);
+          this.title.nativeElement.innerHTML = "";
+          if (this.tempArr.length === 0) {
+            this.desc.nativeElement.innerHTML = "";
+          }
+
+          this.tempArr = []
+
+          this.open.emit({});
+          console.log("terminate")
+        },
+        error => {
+          console.log("Error occur");
         }
-
-        this.tempArr = []
-
-      this.open.emit({});
-        console.log("terminate")
-      },
-      error => {
-        console.log("Error occur");
-      }
-    )
+      )
     }
   }
 
   checkToggle = false;
 
-  currentTick(ele){
+  currentTick(ele) {
     // debugger;
-    for(var i=0; i<this.array.length; i++){
+    for (var i = 0; i < this.array.length; i++) {
 
-      if(ele.id == this.array[i].id && this.array[i].isChecked === "open"){
-        
+      if (ele.id == this.array[i].id && this.array[i].isChecked === "open") {
+
         this.array[i].isChecked = "close";
         this.tempArr[i].status = "close";
         console.log(this.array[i].isChecked)
-      }else if(ele.id == this.array[i].id && this.array[i].isChecked === "close"){
+      } else if (ele.id == this.array[i].id && this.array[i].isChecked === "close") {
         this.array[i].isChecked = "open";
         this.tempArr[i].status = "open";
         console.log(this.array[i].isChecked)
@@ -204,79 +218,95 @@ export class CreateNoteComponent implements OnInit {
   array = [];
 
   checkInput: any;
-  
-    isChecked= "open";
-    checkText;
 
-  count= 0;
-  
-  
+  isChecked = "open";
+  checkText;
 
-  nextLine(event){
-    
-    if(event.keyCode == 13 && this.checkText !== ""){
+  count = 0;
+
+
+
+  nextLine(event) {
+
+    if (event.keyCode == 13 && this.checkText !== "") {
       console.log(this.checkText)
       var textValue = {
         "id": this.count,
         "isChecked": this.isChecked,
         "checkText": this.checkText
       }
-    this.array.push(textValue)
-    this.count++;
-    
+      this.array.push(textValue)
+      this.count++;
 
-    
+
+
       this.tempArr.push({
         "itemName": this.checkText,
         "status": this.isChecked
       })
-    
 
-    this.checkText = ''
-    console.log(this.array)
 
-    
+      this.checkText = ''
+      console.log(this.array)
+
+
     }
 
-      if(event.keyCode === 46){
-        console.log("Delete is hitting")
-        this.array.pop();
-        this.tempArr.pop();
-      }
+    if (event.keyCode === 46) {
+      console.log("Delete is hitting")
+      this.array.pop();
+      this.tempArr.pop();
+    }
 
 
   }
-  
 
-  updateLabel(event){
+  // removeLabelChip(item, i){
 
-    var temp = [];
-    if(event){
-      if(event.isChecked === true){
-      this.labelUpdate.push(event);
-      console.log(this.labelUpdate)
-      
-      // console.log("Parent side is also change",this.isCheckedLabel)
-    }else{
-      for(var i=0; i<this.labelUpdate.length; i++){
+  //   // debugger;
 
-        if(this.labelUpdate[i].id === this.isChecked['id']){
-          continue;
+  //   if(item.isChecked === true){
+  //     item.isChecked = false;
+  //    this.labelUpdate[i].isChecked = false;
+  //   this.labelUpdate.splice(i,1);
+  //   this.isCheckedLabel.id = item.id;
+  //   this.isCheckedLabel.isChecked = item.isChecked;
+  //   console.log("removing chip", this.labelUpdate)
+  //   }
+  // }
+
+  updateLabel(event) {
+    // debugger;
+
+
+    if (event) {
+      if (event.isChecked === true) {
+        this.labelUpdate.push(event);
+        console.log("Before reduction", this.labelUpdate)
+
+        // console.log("Parent side is also change",this.isCheckedLabel)
+      } else if (event.isChecked === false) {
+        var temp = [];
+        for (var i = 0; i < this.labelUpdate.length; i++) {
+
+          if (this.labelUpdate[i].id === event['id']) {
+            this.labelUpdate.splice(i, 1);
+          }
+          // temp.push(this.labelUpdate[i])
+          console.log("Reduce labelList", this.labelUpdate)
         }
-        temp.push(this.labelUpdate)
+        // this.labelUpdate = temp;
+
       }
-      this.labelUpdate = temp;
-      
     }
-  }
-    
+
   }
 
 
-  
+
 
   ngOnInit() {
   }
-  
+
 
 }

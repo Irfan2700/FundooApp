@@ -32,7 +32,7 @@ export class NotesComponent implements OnInit {
   modelArr = this.model;
 
 
-  deleteNote(event) {
+  updateOptionsNote(event) {
     if (event) {
       this.flag = true;
 
@@ -40,6 +40,10 @@ export class NotesComponent implements OnInit {
         this.updateList.emit(true);
       }
     }
+  }
+
+  updateOptionLabel(event){
+    
   }
 
   updateColor;
@@ -87,27 +91,7 @@ export class NotesComponent implements OnInit {
 
   checkBoxChange(checklist, item) {
 
-    // for(var i=0; i<item.length; i++){
-    //   if(item[i].id === checklist.id){
-    //     if(checklist.status === "open"){
-    //       for(var j=0; j<this.model.length; j++){
-    //         for(var k=0; k<this.model[j].noteCheckLists.length; k++){
-    //           if(checklist.id === this.model[j].noteCheckLists[k].id){
-    //             this.model[j].noteCheckLists[k].status = "close";
-    //           }
-    //         }
-    //       }
-    //     }else if(checklist.status === "close"){
-    //       for(var j=0; j<this.model.length; j++){
-    //         for(var k=0; k<this.model[j].noteCheckLists.length; k++){
-    //           if(checklist.id === this.model[j].noteCheckLists[k].id){
-    //             this.model[j].noteCheckLists[k].status = "open";
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
+
   }
 
 
@@ -153,6 +137,8 @@ export class NotesComponent implements OnInit {
 
     //   console.log("New Model Array is :----", this.newModel)
     // }
+
+
 
   }
 }

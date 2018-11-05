@@ -16,6 +16,7 @@ export class MoreOptionsComponent implements OnInit {
 
     @Input() note;
     @Output() update = new EventEmitter();
+    @Output() updateLabel = new EventEmitter();
 
     labelArr;
 
@@ -55,7 +56,7 @@ export class MoreOptionsComponent implements OnInit {
       data => {
         // console.log(data)
         this.labelArr = data['data'].details;
-        
+        this.updateLabel.emit(this.labelArr);
       })
     
     
