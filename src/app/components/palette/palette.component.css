@@ -5,6 +5,10 @@
   opacity: 6;
 }
 
+.menu {
+  border-radius: 40px;
+}
+
 .color1 {
   background: white;
 }

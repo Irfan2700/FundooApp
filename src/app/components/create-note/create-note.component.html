@@ -26,7 +26,8 @@
               <mat-icon>fiber_pin</mat-icon>
             </button></div>
         </div><br>
-        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" #desc *ngIf="checkToggle === false">
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" 
+        #desc *ngIf="checkToggle === false">
         </div><br>
         <div *ngIf="checkToggle === true && array !== []">
 
@@ -37,7 +38,8 @@
             </mat-checkbox>​
 
           </div>
-          <mat-checkbox>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)"
+          <mat-checkbox>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" 
+            (keydown)="nextLine($event)"
               [(ngModel)]="checkText"></mat-checkbox>
         </div>
 
@@ -105,10 +107,12 @@
         </button>
         <div fxLayoutAlign="space-between">
           <button mat-icon-button class="moreBut">
-            <app-creat-note-more-option [isCheck]="labelUpdate" (labelAdds)="updateLabel($event)"></app-creat-note-more-option>
+            <app-creat-note-more-option [isCheck]="labelUpdate" (labelAdds)="updateLabel($event)">
+            </app-creat-note-more-option>
           </button>
 
-          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" (click)="array = []"><b>close</b></button>
+          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" 
+          (click)="array = []"><b>close</b></button>
         </div>
       </div>
     </form>

@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   showNotes() {
     this.myService.get("notes/getNotesList").subscribe(
       response => {
-        console.log("Data is Successfully Fetched!!", response);
+        // console.log("Data is Successfully Fetched!!", response);
 
         console.log("fresh", response["data"].data);
 
@@ -48,19 +48,18 @@ export class HomeComponent implements OnInit {
           }
         }
 
-        console.log("the array one", this.arr);
+        // console.log("the array one", this.arr);
       },
       error => {
-        console.log("Error in Data Fetching...");
+        // console.log("Error in Data Fetching...");
       }
     );
   }
 
   updateNotes(event) {
     if (event) {
-      console.log("event triggered");
-      // this.showNotes();
-      // this.arr = [];
+      // console.log("event triggered");
+      
       this.showNotes();
     }
   }

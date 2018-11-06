@@ -1,6 +1,5 @@
-import { ServicesService } from './../services/services.service';
+import { ServicesService } from './../../services/services.service';
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
-import { DataShareService } from '../services/data-share.service';
 
 @Component({
   selector: 'app-creat-note-more-option',
@@ -31,14 +30,14 @@ export class CreatNoteMoreOptionComponent implements OnInit {
 
       
       this.tempArr[index].isChecked = false;
-      console.log("Unticked")
-      console.log("temARRY ", this.tempArr[index])
+      // console.log("Unticked")
+      // console.log("temARRY ", this.tempArr[index])
       this.labelAdds.emit(this.tempArr[index])
     // this.tempArr
   }else if(item.isChecked === false){
     this.tempArr[index].isChecked = true;
-    console.log("Ticked")
-    console.log("temARRY ", this.tempArr[index])
+    // console.log("Ticked")
+    // console.log("temARRY ", this.tempArr[index])
     this.labelAdds.emit(this.tempArr[index])
   }
 }
@@ -60,9 +59,9 @@ ngOnChanges(changes: SimpleChanges): void {
 
     this.myService.httpGetJson("noteLabels/getNoteLabelList").subscribe(
       response => {
-        console.log("response show", response['data'].details)
+        // console.log("response show", response['data'].details)
         this.labelArr = response['data'].details
-        console.log("label Array",this.labelArr)
+        // console.log("label Array",this.labelArr)
         for(var i=0; i<this.labelArr.length; i++){
           this.tempArr.push({
             "isChecked": false,
@@ -72,7 +71,7 @@ ngOnChanges(changes: SimpleChanges): void {
         }
       },
       error => {
-        console.log("Error Occured")
+        // console.log("Error Occured")
       }
     )
 

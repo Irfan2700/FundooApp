@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { ServicesService } from './../../services/services.service';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { NotesComponent } from '../notes/notes.component';
+
 
 // export interface DialogData {
 
@@ -23,7 +23,7 @@ export class ExpandedNotesComponent implements OnInit {
   public title;
   public description;
   constructor(private myService: ServicesService,
-    public dialogRef: MatDialogRef<NotesComponent>,
+    public dialogRef: MatDialogRef<ExpandedNotesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private myRoute: Router) { }
 
@@ -34,29 +34,30 @@ export class ExpandedNotesComponent implements OnInit {
   switch = false;
 
   updataData() {
+    // debugger;
 
     if (this.tempArr.length === 0) {
       this.title = document.getElementById("updateTitle").innerHTML;
-      console.log(this.title);
+      // console.log(this.title);
 
-
+      if(document.getElementById("updateTitle").innerHTML){
       this.title = document.getElementById("updateTitle").innerHTML;
-      //  this.description = document.getElementById("updateDesc").innerHTML;
-      console.log(this.title);
-
-
-      console.log("Test starts!!")
-      console.log("innerHTML div", document.getElementById("updateList1").innerHTML)
-      console.log("Test ends!!")
-
-      var body;
-      if (this.data.noteCheckLists.length === 0) {
-        body = {
-          "noteId": [this.data.id],
-          "title": this.title,
-          "description": this.description
-        }
+      if(document.getElementById("updateDesc").innerHTML){
+       this.description = document.getElementById("updateDesc").innerHTML;
       }
+    }
+      // console.log(this.title);
+
+
+      
+      // var body;
+      // if (this.data.noteCheckLists.length === 0 ) {
+      //   body = {
+      //     "noteId": [this.data.id],
+      //     "title": this.title,
+      //     "description": this.description
+      //   }
+      // }
       // else if(this.data.noteCheckLists.length === this.tempArr.length){
 
       //   // body = {
@@ -72,11 +73,13 @@ export class ExpandedNotesComponent implements OnInit {
         "description": this.description
       }).subscribe(
         response => {
-          console.log("Data Successfully Updated!!");
+          // console.log("Data Successfully Updated!!");
           this.myRoute.navigate['note'];
+          this.dialogRef.close();
         },
         error => {
-          console.log("Error occured!!");
+          // console.log("Error occured!!");
+          this.dialogRef.close();
         }
       )
       this.dialogRef.close();
@@ -114,7 +117,7 @@ export class ExpandedNotesComponent implements OnInit {
 
   updateList(list) {
 
-    console.log(list['id'])
+    // console.log(list['id'])
 
     this.editToggle = list["id"];
     this.disabled = true;
@@ -123,7 +126,7 @@ export class ExpandedNotesComponent implements OnInit {
 
   currentTick(ele) {
 
-    console.log(ele)
+    // console.log(ele)
     for (var i = 0; i < this.array.length; i++) {
 
       if (ele.id == this.array[i].id) {
@@ -141,7 +144,7 @@ export class ExpandedNotesComponent implements OnInit {
   nextLine(event) {
 
     if (event.keyCode == 13 && this.checkText !== "") {
-      console.log(this.checkText)
+      // console.log(this.checkText)
       var textValue = {
         "id": this.count,
         "isChecked": this.isChecked,
@@ -162,23 +165,23 @@ export class ExpandedNotesComponent implements OnInit {
         "status": this.isChecked
       }).subscribe(
         response => {
-          console.log("The New line in the Checklist is Succeddfully Added!!");
+          // console.log("The New line in the Checklist is Succeddfully Added!!");
           this.dialogRef.close();
         },
         error => {
-          console.log("Error Occured")
+          // console.log("Error Occured")
         }
       )
 
 
       this.checkText = ''
-      console.log(this.array)
+      // console.log(this.array)
 
 
     }
 
     if (event.keyCode === 46) {
-      console.log("Delete is hitting")
+      // console.log("Delete is hitting")
       this.array.pop();
       this.tempArr.pop();
     }
@@ -196,12 +199,12 @@ export class ExpandedNotesComponent implements OnInit {
 
     this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/update", JSON.stringify(body)).subscribe(
       response => {
-        console.log("checklist Line is Successfully Updated!!");
+        // console.log("checklist Line is Successfully Updated!!");
         this.updateDialog.emit({})
         this.dialogRef.close()
       },
       error => {
-        console.log("error Occured");
+        // console.log("error Osccured");
       }
     )
   }
@@ -215,7 +218,7 @@ export class ExpandedNotesComponent implements OnInit {
 
     this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/remove", body).subscribe(
       response => {
-        console.log("Checklist line is successfully Deleted!!");
+        // console.log("Checklist line is successfully Deleted!!");
 
         this.updateDialog.emit({});
         var temp = [];
@@ -225,13 +228,13 @@ export class ExpandedNotesComponent implements OnInit {
           }
           temp.push(this.array[i])
         }
-        console.log(temp)
+        // console.log(temp)
         this.array = temp
 
 
       },
       error => {
-        console.log("Error Occured!!");
+        // console.log("Error Occured!!");
       }
     )
   }
@@ -260,14 +263,14 @@ export class ExpandedNotesComponent implements OnInit {
     }
     this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/update", JSON.stringify(body)).subscribe(
       response => {
-        console.log("checklist Line is Successfully Updated!!");
+        // console.log("checklist Line is Successfully Updated!!");
 
         this.updateDialog.emit({})
         this.dialogRef.close();
 
       },
       error => {
-        console.log("error Occured");
+        // console.log("error Occsured");
       }
     )
   }

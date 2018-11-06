@@ -113,16 +113,16 @@ export class CreateNoteComponent implements OnInit {
   }
   temp: any;
 
- 
-  
+
+
 
   addNote() {
     // console.log(this.title);
     // console.log(this.desc);
-    console.log("Pinn is : ", this.isPinned)
-    console.log(JSON.stringify(this.tempArr))
+    // console.log("Pinn is : ", this.isPinned)
+    // console.log(JSON.stringify(this.tempArr))
 
-    for(let i=0; i<this.labelUpdate.length; i++){
+    for (let i = 0; i < this.labelUpdate.length; i++) {
 
       this.labelArr.push(this.labelUpdate[i].id)
     }
@@ -136,7 +136,7 @@ export class CreateNoteComponent implements OnInit {
     // }
     // this.temp += "]";
 
-    console.log(this.tempArr.length)
+    // console.log(this.tempArr.length)
 
 
     let requestBody;
@@ -153,7 +153,7 @@ export class CreateNoteComponent implements OnInit {
         "isArchived": this.archive,
         "checklist": JSON.stringify(this.tempArr),
         "labelIdList": JSON.stringify(this.labelArr)
-        
+
       }
 
     } else {
@@ -176,7 +176,7 @@ export class CreateNoteComponent implements OnInit {
 
       this.myService.httpPostEncoded("notes/addNotes", requestBody).subscribe(
         data => {
-          console.log("Data Saved Successfully", data);
+          // console.log("Data Saved Successfully", data);
 
           // this.myroute.navigate(["home"]);
           this.title.nativeElement.innerHTML = "";
@@ -187,10 +187,10 @@ export class CreateNoteComponent implements OnInit {
           this.tempArr = []
 
           this.open.emit({});
-          console.log("terminate")
+          // console.log("terminate")
         },
         error => {
-          console.log("Error occur");
+          // console.log("Error occur");
         }
       )
     }
@@ -206,11 +206,11 @@ export class CreateNoteComponent implements OnInit {
 
         this.array[i].isChecked = "close";
         this.tempArr[i].status = "close";
-        console.log(this.array[i].isChecked)
+        // console.log(this.array[i].isChecked)
       } else if (ele.id == this.array[i].id && this.array[i].isChecked === "close") {
         this.array[i].isChecked = "open";
         this.tempArr[i].status = "open";
-        console.log(this.array[i].isChecked)
+        // console.log(this.array[i].isChecked)
       }
     }
   }
@@ -229,7 +229,7 @@ export class CreateNoteComponent implements OnInit {
   nextLine(event) {
 
     if (event.keyCode == 13 && this.checkText !== "") {
-      console.log(this.checkText)
+      // console.log(this.checkText)
       var textValue = {
         "id": this.count,
         "isChecked": this.isChecked,
@@ -247,33 +247,19 @@ export class CreateNoteComponent implements OnInit {
 
 
       this.checkText = ''
-      console.log(this.array)
+      // console.log(this.array)
 
 
     }
 
     if (event.keyCode === 46) {
-      console.log("Delete is hitting")
+      // console.log("Delete is hitting")
       this.array.pop();
       this.tempArr.pop();
     }
 
 
   }
-
-  // removeLabelChip(item, i){
-
-  //   // debugger;
-
-  //   if(item.isChecked === true){
-  //     item.isChecked = false;
-  //    this.labelUpdate[i].isChecked = false;
-  //   this.labelUpdate.splice(i,1);
-  //   this.isCheckedLabel.id = item.id;
-  //   this.isCheckedLabel.isChecked = item.isChecked;
-  //   console.log("removing chip", this.labelUpdate)
-  //   }
-  // }
 
   updateLabel(event) {
     // debugger;
@@ -282,7 +268,7 @@ export class CreateNoteComponent implements OnInit {
     if (event) {
       if (event.isChecked === true) {
         this.labelUpdate.push(event);
-        console.log("Before reduction", this.labelUpdate)
+        // console.log("Before reduction", this.labelUpdate)
 
         // console.log("Parent side is also change",this.isCheckedLabel)
       } else if (event.isChecked === false) {
@@ -293,7 +279,7 @@ export class CreateNoteComponent implements OnInit {
             this.labelUpdate.splice(i, 1);
           }
           // temp.push(this.labelUpdate[i])
-          console.log("Reduce labelList", this.labelUpdate)
+          // console.log("Reduce labelList", this.labelUpdate)
         }
         // this.labelUpdate = temp;
 

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
       },
       error => {
-        console.log("Error occur While login");
+        // console.log("Error occur While login");
       },
 
     );
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
 
     let obsGet = this._loginService.getData("user");
     obsGet.subscribe((response) => {
-      console.log(response);
+      // console.log(response);
     })
     if(this.auth.getToken()){
       this.myRoute.navigate(["home"]);

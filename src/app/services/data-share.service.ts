@@ -13,7 +13,7 @@ export class DataShareService {
   constructor() { }
 
   sendData1(data: any){
-    console.log("data from service", data)
+    
     this.dataSource.next(data);
   }
 

@@ -38,7 +38,6 @@ import {
 import { ResetPasswordComponent, ResetPasswordSetComponent } from './components/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
-import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NotesComponent } from './components/notes/notes.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
@@ -52,7 +51,7 @@ import { CreateArchiveComponent } from './components/create-archive/create-archi
 import { ExpandedNotesComponent } from './components/expanded-notes/expanded-notes.component';
 import { CreateLabelComponent } from './components/create-label/create-label.component';
 import { ChecklistModule } from 'angular-checklist';
-import { CreatNoteMoreOptionComponent } from './creat-note-more-option/creat-note-more-option.component';
+import { CreatNoteMoreOptionComponent } from './components/creat-note-more-option/creat-note-more-option.component';
 
 
 
@@ -69,7 +68,6 @@ import { CreatNoteMoreOptionComponent } from './creat-note-more-option/creat-not
     ResetPasswordSetComponent,
     HomeComponent,
     TopToolbarComponent,
-    LeftSidebarComponent,
     NotesComponent,
     ReminderComponent,
     LabelComponent,

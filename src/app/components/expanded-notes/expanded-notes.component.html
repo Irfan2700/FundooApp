@@ -70,7 +70,7 @@
       <div fxLayoutAlign="space-between">
         <app-more-options [noteId]="data.id" (update)="deleteNote($event)"></app-more-options>
 
-        <button mat-button disableClose="true" cdkFocusInitial (click)="switch = true" (click)="updataData()"  style="opacity: 1.5"><b>close</b></button>
+        <button mat-button cdkFocusInitial (click)="switch = true" (click)="updataData()"  style="opacity: 1.5"><b>close</b></button>
       </div>
     </div>
 

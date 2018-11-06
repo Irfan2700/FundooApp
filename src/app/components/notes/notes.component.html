@@ -19,7 +19,8 @@
         <div *ngFor="let checklists of item.noteCheckLists;  let j=index">
           <div *ngIf="checklists.isDeleted === false">
             <div fxLayout="row">
-              <mat-checkbox fxFlex="10" [checked]="checklists.status === 'close'" (click)="checklists.status === 'close' ? (checklists.status = 'open') : (checklists.status = 'close')"
+              <mat-checkbox fxFlex="10" [checked]="checklists.status === 'close'" 
+              (click)="checklists.status === 'close' ? (checklists.status = 'open') : (checklists.status = 'close')"
                 (click)="checkTick(checklists, item , i, j)">
 
               </mat-checkbox>
@@ -31,9 +32,12 @@
         </div>
 
       </div>
-
-      <div>
-        <!-- <mat-chip>{{item.labelIdList}}</mat-chip> -->
+      <div fxLayout="row">
+        <!-- <div *ngFor="let label of item.labelIdList"> -->
+          <div *ngFor="let labelName of labelUpdate">
+            <mat-chip >{{labelName.label}}</mat-chip>
+          </div>
+        <!-- </div> -->
       </div>
 
       <div class="panal">
@@ -45,7 +49,7 @@
         </button>&nbsp;&nbsp;
         <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>&nbsp;&nbsp;
         <app-create-archive [archiveInput]="item.id" (reloadNote)=archiveNote($event)></app-create-archive>&nbsp;&nbsp;
-        <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)"></app-more-options>
+        <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)" ></app-more-options>
         <!-- <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item >Delete Note</button>

@@ -22,13 +22,13 @@ export class CreateArchiveComponent implements OnInit {
 
     this.myService.httpPostJson("notes/archiveNotes", body).subscribe(
       response => {
-        console.log("Note Successfully archived");
+        // console.log("Note Successfully archived");
 
         this.reloadNote.emit({});
 
       },
       error => {
-        console.log("Error is occur");
+        // console.log("Error is occur");
       }
     )
   }

@@ -23,6 +23,7 @@ export class NotesComponent implements OnInit {
 
   isPinned = false;
 
+  labelArr = [];
   tick;
 
   // noteId(id) {
@@ -30,7 +31,8 @@ export class NotesComponent implements OnInit {
   // }
   flag = false;
   modelArr = this.model;
-
+  labelUpdate = []
+  labelList;
 
   updateOptionsNote(event) {
     if (event) {
@@ -42,8 +44,20 @@ export class NotesComponent implements OnInit {
     }
   }
 
-  updateOptionLabel(event){
+  updateOptionLabel(event) {
+    // debugger;
+    if (event) {
+      // this.labelArr = [];
+
+for(let i=0; i<this.model.length; i++){
+  if(this.model[i].noteLabels !== undefined){
+      this.labelUpdate.push(this.model[i].noteLabels);
+     }
     
+}
+      // console.log(this.labelUpdate)
+
+    }
   }
 
   updateColor;
@@ -75,7 +89,7 @@ export class NotesComponent implements OnInit {
         this.updateList.emit(true);
       },
       error => {
-        console.log("Error Occurs...");
+        // console.log("Error Occurs...");
       }
     );
 
@@ -97,7 +111,7 @@ export class NotesComponent implements OnInit {
 
   checkTick(checklist, item, i, j) {
 
-    console.log(checklist)
+    // console.log(checklist)
 
     var body = {
       "itemName": this.model[i].noteCheckLists[j].itemName,
@@ -106,39 +120,17 @@ export class NotesComponent implements OnInit {
 
     this.myService.httpPostJson("notes/" + this.model[i].noteCheckLists[j].notesId + "/checklist/" + this.model[i].noteCheckLists[j].id + "/update", JSON.stringify(body)).subscribe(
       response => {
-        console.log("checklist Line is Successfully Updated!!");
+        // console.log("checklist Line is Successfully Updated!!");
         this.updateList.emit({})
       },
       error => {
-        console.log("error Occured");
+        // console.log("error Occured");
       }
     )
   }
 
 
   ngOnInit() {
-
-    // console.log("newModel array",this.model)
-
-    //   console.log("these is the ole model", this.modelArr)
-
-    //   for (var i = 0; i < this.model.length; i++) {
-
-    //     for (var j = 0; j < this.model[i].noteCheckLists.length; j++) {
-
-    //       if (this.model[i].noteCheckLists[j].isDeleted === false) {
-
-    //         this.newModel.push(this.model[i])
-    //         console.log("list array display inner")
-    //       }
-    //       console.log("list array display outer")
-    //     }
-    //   }
-
-    //   console.log("New Model Array is :----", this.newModel)
-    // }
-
-
 
   }
 }

@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
       }
       this.arrClick[i].select = false;
     }
-    console.log(this.serv)
+    
   }
 
   constructor(
@@ -120,13 +120,13 @@ export class SignupComponent implements OnInit {
 
     obsAdd.subscribe(
       data => {
-        console.log("Post is work", data);
+        // console.log("Post is work", data);
         this.snackBar.open('Sign Up', 'SUCCESS!!', {
           duration: 3000
         });
       },
       error => {
-        console.log("Error occur", error);
+        // console.log("Error occur", error);
         this.snackBar.open('Sign Up', 'FAILED!!', {
           duration: 4000
         });
@@ -186,19 +186,21 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
 
-     console.log(this.serv);
+    //  console.log(this.serv);
     // if (this.reg.email !== "" || this.reg.firstName !== "null") {
 
       let obsGet = this._signupService.getData("user");
-      console.log(typeof this.arrClick);
+      
 
-      obsGet.subscribe(response => console.log(response));
+      obsGet.subscribe(response =>
+         console.log(response)
+         );
 
       // this.formSubmit();
 
       let obsGetService = this._signupService.getData("user/service");
       obsGetService.subscribe(response => {
-        console.log(response["data"].data);
+        // console.log(response["data"].data);
         let res = response["data"].data;
 
         for (var i = 0; i < res.length; i++) {

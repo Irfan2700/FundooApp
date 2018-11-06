@@ -33,7 +33,7 @@ export class ResetPasswordComponent implements OnInit {
 
     obsResetEmail.subscribe(
       data => {
-        console.log("Reset Link Sent Successfully!!", data);
+        // console.log("Reset Link Sent Successfully!!", data);
         this.snackBar.open("Success!!", data["message"], {
           duration: 4000,
           panelClass: ["emailSnack-bar"],
@@ -44,7 +44,7 @@ export class ResetPasswordComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error => {
-        console.log("Email is not Register...");
+        
         this.snackBar.open("Failed", "Email is not Register.. Please Sign-up first!!", {
           duration: 5000,
           panelClass: ["emailSnack-bar"],
@@ -137,7 +137,7 @@ export class ResetPasswordSetComponent {
         this.auth.removeToken();
       },
       error => {
-        console.log("Error occur");
+        // console.log("Error occur");
         this.snackBar.open("Failed", "Error occur while reseting Password",{
           duration: 5000,
           panelClass: ['emailSnack-bar'],

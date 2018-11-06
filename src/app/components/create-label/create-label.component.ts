@@ -43,7 +43,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
     this.myService.httpPostJson("noteLabels", body).subscribe(
       response => {
         console.log("Label is added", response['label']);
-        console.log(this.labelDisplay)
+        // console.log(this.labelDisplay)
         this.labelDisplay.push(response);
         var updateLabelDisplay = [];
         for (var i = this.labelDisplay.length - 1; i >= 0; i--) {
@@ -56,7 +56,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
       },
       error => {
-        console.log("Error occured!!");
+        // console.log("Error occured!!");
       }
     )
   }
@@ -69,7 +69,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
     this.myService.httpDeleteJson("noteLabels/" + id + "/deleteNoteLabel").subscribe(
       response => {
-        console.log("label deleted!!", response);
+        // console.log("label deleted!!", response);
         var updatedLabel = [];
         for (var i = this.labelDisplay.length - 1; i >= 0; i--) {
           if (this.labelDisplay[i].id === id) {
@@ -129,18 +129,18 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
       },
       error => {
-        console.log("Error Occured!!");
+        // console.log("Error Occured!!");
       }
     )
     
   }
 
   ngOnInit() {
-    console.log(this.hidden)
+    // console.log(this.hidden)
 
     this.myService.httpGetJson("noteLabels/getNoteLabelList").subscribe(
       response => {
-        console.log("Label display", response);
+        // console.log("Label display", response);
         for (var i = 0; i < response['data'].details.length; i++) {
           if (response['data'].details[i].isDeleted === false) {
             this.labelDisplay.push(response['data'].details[i]);
@@ -158,7 +158,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
         // this.data.sendData(this.labelReverseDiplay)
       },
       error => {
-        console.log("Error Occured!!");
+        // console.log("Error Occured!!");
       }
     )
   }

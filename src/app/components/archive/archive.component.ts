@@ -16,12 +16,12 @@ export class ArchiveComponent implements OnInit {
 
     this.myService.httpGetJson("notes/getArchiveNotesList").subscribe(
       response => {
-        console.log("Archive Success");
+        // console.log("Archive Success");
 
         
       },
       error => {
-        console.log("Error Occurs");
+        // console.log("Error Occurs");
       }
     )
 

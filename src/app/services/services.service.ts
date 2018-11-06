@@ -31,12 +31,12 @@ export class ServicesService {
   }
 
   addData(nextUrl, body) {
-    console.log(body);
+    // console.log(body);
     return this.http.post(this.url + "/" + nextUrl, body);
   }
 
   post(nextUrl, body) {
-    console.log(body);
+    // console.log(body);
     return this.http.post(this.url + "/" + nextUrl, body)
   }
 

@@ -32,14 +32,14 @@ export class TopToolbarComponent implements OnInit {
   logout() {
     this.myService.httpPostlogout("user/logout", '').subscribe(
       data => {
-        console.log("logout Successfully");
+        // console.log("logout Successfully");
         this.auth.removeToken();
         this.auth.removeId();
 
         this.myRoute.navigate(["login"]);
       },
       error => {
-        console.log("Error occur")
+        // console.log("Error occur")
       }
     )
   }
@@ -71,7 +71,7 @@ export class TopToolbarComponent implements OnInit {
         this.dataShare.sendData1(response);
       },
       error => {
-        console.log("Error Occured")
+        // console.log("Error Occured")
       }
     )
   }
