@@ -45,19 +45,21 @@ export class NotesComponent implements OnInit {
   }
 
   updateOptionLabel(event) {
-    // debugger;
-    if (event) {
-      // this.labelArr = [];
+//     // debugger;
+//     if (event) {
+//       // this.labelArr = [];
 
-for(let i=0; i<this.model.length; i++){
-  if(this.model[i].noteLabels !== undefined){
-      this.labelUpdate.push(this.model[i].noteLabels);
-     }
+// // for(let i=0; i<this.model.length; i++){
+// //   if(this.model[i].noteLabels !== undefined){
+// // //     if()
+// // //       this.labelUpdate.push(this.model[i].noteLabels);
+// //      }
     
-}
-      // console.log(this.labelUpdate)
-
-    }
+// // }
+// //       // console.log(this.labelUpdate)
+// //       // console.log("its hitting")
+// //       // this.updateList.emit(true)
+//     }
   }
 
   updateColor;

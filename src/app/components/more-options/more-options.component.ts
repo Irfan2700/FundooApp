@@ -47,7 +47,7 @@ export class MoreOptionsComponent implements OnInit {
 
   addlabelNotes(item,index){
 
-    console.log("here are the Notes",this.note)
+    // console.log("here are the Notes",this.note)
     
     if(item.isChecked === false){
 
@@ -56,9 +56,10 @@ export class MoreOptionsComponent implements OnInit {
       this.myService.httpPostJson("notes/"+this.note.id+"/addLabelToNotes/"+item.labelInfo.id+"/add",null).subscribe(
         response => {
 
-          console.log("Label added Successfull",response);
+          // console.log("Label added Successfull",response);
+          // console.log("labelArr .... ", this.labelArr)
           this.updateLabel.emit(this.labelArr);
-
+          this.update.emit({});
         },
         error => { }
       )
@@ -70,9 +71,9 @@ export class MoreOptionsComponent implements OnInit {
       this.myService.httpPostJson("notes/"+this.note.id+"/addLabelToNotes/"+item.labelInfo.id+"/remove",null).subscribe(
         response => {
 
-          console.log("Label remove Successfull",response);
+          // console.log("Label remove Successfull",response);
           this.updateLabel.emit(this.labelArr);
-
+          this.update.emit({});
         },
         error => { }
       )
@@ -96,13 +97,13 @@ export class MoreOptionsComponent implements OnInit {
         }
         this.updateLabel.emit(this.labelArr);
       })
-      // console.log(this.labelArr)
+      // console.log("this the note ",this.note)
     
     for(let i=0; i<this.labelArr.length; i++){
-      if(this.note.labelIdList !== undefined){
-      for(let j=0; j<this.note.labelIdList.length; j++){
+      if(this.note.noteLabels !== undefined){
+      for(let j=0; j<this.note.noteLabels.length; j++){
         
-        if(this.note.labelIdList[j] === this.labelArr[i].labelInfo.id){
+        if(this.note.noteLabels[j].id === this.labelArr[i].labelInfo.id){
           this.labelArr[i].isChecked = true;
         }
       }

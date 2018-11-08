@@ -52,6 +52,7 @@ import { ExpandedNotesComponent } from './components/expanded-notes/expanded-not
 import { CreateLabelComponent } from './components/create-label/create-label.component';
 import { ChecklistModule } from 'angular-checklist';
 import { CreatNoteMoreOptionComponent } from './components/creat-note-more-option/creat-note-more-option.component';
+import { LoggerService } from './core/services/logger.service';
 
 
 
@@ -119,7 +120,7 @@ import { CreatNoteMoreOptionComponent } from './components/creat-note-more-optio
   schemas: [NO_ERRORS_SCHEMA],
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent, ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent],
-  providers: [],
+  providers: [LoggerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
