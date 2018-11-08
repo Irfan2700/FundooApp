@@ -26,7 +26,7 @@ import { TrashComponent } from './components/trash/trash.component';
       {path: 'reminders', component: ReminderComponent},
       {path: 'archive', component: ArchiveComponent},
       {path: 'trash', component: TrashComponent},
-      {path: '/label/:labelName', component: LabelComponent}
+      {path: 'label/:labelName', component: LabelComponent}
 
     ]},
     {path: 'test', component: HomeComponent, outlet: 'test'},

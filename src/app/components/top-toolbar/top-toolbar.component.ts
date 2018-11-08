@@ -1,9 +1,9 @@
-import { DataShareService } from 'src/app/services/data-share.service';
+import { DataShareService } from 'src/app/core/services/data-share.service';
 import { CreateLabelComponent } from './../create-label/create-label.component';
 import { Router } from '@angular/router';
-import { ServicesService } from './../../services/services.service';
+import { ServicesService } from '../../core/services/services.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';

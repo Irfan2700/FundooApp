@@ -1,12 +1,12 @@
-import { AuthService } from './services/auth.service';
+import { AuthService } from './core/services/auth.service';
 import { AuthGuard } from './guard/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+
 // import { TermsDialog } from './component/signup/signup.component';
-import { SignupComponent, TermsDialog } from './components/signup/signup.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // import {ScrollDispatchModule} from '@angular/cdk/scrolling';
@@ -15,27 +15,37 @@ import { HttpClientModule } from '@angular/common/http';
 // import { ServicesService } from './services/services.service';
 import { FormsModule } from '@angular/forms';
 
+/**
+ *    Angular Material Imports
+ */
 
 import {
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule,
-  MatCardModule,
-  MatIconModule,
-  MatToolbarModule,
-  MatRadioModule,
-  MatCheckboxModule,
-  MatDialogModule,
-  MatButtonToggleModule,
-  MatSnackBarModule,
-  MatProgressSpinnerModule,
-  MatSidenavModule,
-  MatMenuModule,
-  MatListModule,
-  MatExpansionModule,
-  MatChipsModule,
-} from '@angular/material';
+          MatFormFieldModule,
+          MatInputModule,
+          MatButtonModule,
+          MatCardModule,
+          MatIconModule,
+          MatToolbarModule,
+          MatRadioModule,
+          MatCheckboxModule,
+          MatDialogModule,
+          MatButtonToggleModule,
+          MatSnackBarModule,
+          MatProgressSpinnerModule,
+          MatSidenavModule,
+          MatMenuModule,
+          MatListModule,
+          MatExpansionModule,
+          MatChipsModule} from '@angular/material';
+
+
+/**
+ * SubCommponents
+ */
+
 import { ResetPasswordComponent, ResetPasswordSetComponent } from './components/reset-password/reset-password.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent, TermsDialog } from './components/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -119,7 +129,8 @@ import { LoggerService } from './core/services/logger.service';
 
   schemas: [NO_ERRORS_SCHEMA],
 
-  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent, ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent],
+  entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
+                     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent],
   providers: [LoggerService],
   bootstrap: [AppComponent]
 })

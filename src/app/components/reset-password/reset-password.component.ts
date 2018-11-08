@@ -1,6 +1,6 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { MatSnackBar } from "@angular/material";
-import { ServicesService } from "./../../services/services.service";
+import { ServicesService } from "../../core/services/services.service";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 

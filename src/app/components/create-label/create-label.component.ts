@@ -1,6 +1,6 @@
-import { DataShareService } from './../../services/data-share.service';
-import { AuthService } from './../../services/auth.service';
-import { ServicesService } from './../../services/services.service';
+import { DataShareService } from '../../core/services/data-share.service';
+import { AuthService } from '../../core/services/auth.service';
+import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
