@@ -35,15 +35,13 @@
                     </button>
                 </div>
             </div>
-            <mat-checkbox >&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)" [(ngModel)]="checkText"></mat-checkbox>
-            <s></s>
+            <hr>
             <div fxLayout="row wrap">
-              <!-- <div *ngFor="let label of item.labelIdList"> -->
-                <div *ngFor="let labelName of data.noteLabels">
-                  <mat-chip >{{labelName.label}}</mat-chip>
-                </div>
-              <!-- </div> -->
+            <mat-icon>add</mat-icon>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)" [(ngModel)]="checkText">
             </div>
+            <hr>
+            <s></s>
+           
            
         <!-- <div *ngFor="let checklists of data.noteCheckLists">
           <div fxLayout="row" fxLayoutAlign="space-between">
@@ -62,10 +60,17 @@
           </div>
         </div> -->
       </div>
+      <div fxLayout="row wrap">
+        <!-- <div *ngFor="let label of item.labelIdList"> -->
+          <div *ngFor="let labelName of data.noteLabels">
+            <mat-chip >{{labelName.label}}</mat-chip>
+          </div>
+        <!-- </div> -->
+      </div>
       <br>
     </mat-card-content>
     </div>
-    <div fxLayoutAlign="space-between" fxLayout="row">
+    <div fxLayoutAlign="space-between" *ngIf="data.isDeleted === false" fxLayout="row">
       <button mat-icon-button class="touchBut">
         <mat-icon>touch_app</mat-icon>
       </button>
@@ -79,6 +84,9 @@
 
         <button mat-button cdkFocusInitial (click)="switch = true" (click)="updataData()"  style="opacity: 1.5"><b>close</b></button>
       </div>
+    </div>
+    <div class="panal" *ngIf="data.isDeleted === true">
+      <app-trash-more-option [note]="data" (update)="deleteNote($event)"></app-trash-more-option>
     </div>
 
   </div>

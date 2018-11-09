@@ -49,13 +49,10 @@
   margin: -7px -9px 0px -8px;
   /* background: lightgrey; */
   min-height: max-content;
-
+  
 }
 
-.SearchDiv{
 
-
-}
 
 .searchForm{
   width: 100%;
@@ -93,6 +90,15 @@ input:focus{
 
 }
 
+.content{
+  position:fixed; 
+  height:100%; 
+  width:100%;
+  background-color: lightgray;
+  margin: 0px 0 0 0;
+
+}
+
 .searchButtonNew{
 
   float: right;
@@ -100,17 +106,9 @@ input:focus{
 
 }
 
-.container1{
+.accountMenu{
 
-  /* display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%; */
-
+  margin-top: 10px
 }
 
 .sidenav {

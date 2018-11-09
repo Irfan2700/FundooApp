@@ -1,4 +1,4 @@
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service'
 //import { element } from 'protractor';
 import { HttpClient ,HttpHeaders} from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -45,6 +45,18 @@ export class ServicesService {
     var httpAuthOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': this.auth.getToken()
+      })
+
+    };
+    return this.http.post(this.url + "/" + urlPart, this.getFormUrlEncoded(body), httpAuthOptions)
+  }
+
+  httpPostEncoded2(urlPart,body){
+
+    var httpAuthOptions = {
+      headers: new HttpHeaders({
+        
         'Authorization': this.auth.getToken()
       })
 

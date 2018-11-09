@@ -6,15 +6,21 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataShareService {
 
-  private dataSource = new BehaviorSubject([]);
-  showData1 = this.dataSource.asObservable();
-  // showData2 = this.dataSource.asObservable();
+  private dataSource1 = new BehaviorSubject([]);
+  private dataSource2 = new BehaviorSubject("Default");
+
+  showData1 = this.dataSource1.asObservable();
+  showData2 = this.dataSource2.asObservable();
 
   constructor() { }
 
   sendData1(data: any){
     
-    this.dataSource.next(data);
+    this.dataSource1.next(data);
+  }
+
+  sendData2(data: any){
+    this.dataSource2.next(data);
   }
 
   sendData

@@ -1,2 +1,4 @@
-<button mat-icon-button class="archiveBut" (click)="archiveIt()">
+<button mat-icon-button class="archiveBut" (click)="archiveIt()" *ngIf="flag === false">
   <mat-icon>archive</mat-icon></button>
+  <button mat-icon-button class="archiveBut" (click)="unArchiveIt()" *ngIf="flag === true">
+    <mat-icon>unarchive</mat-icon></button>

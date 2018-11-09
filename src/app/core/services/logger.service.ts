@@ -7,8 +7,8 @@ export class LoggerService {
 
   constructor() { }
 
-  static log(msg: string, obj:any):void {
-    console.log(msg, obj);
+  static log(msg: any):void {
+    console.log(msg);
   }
 
   static error(msg: string, obj = {}): void{

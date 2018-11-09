@@ -1,0 +1,28 @@
+<div fxLayout="column" class="dash" fxLayoutAlign="space-between">
+  <div></div>
+  <div></div>
+  <div></div>
+
+   <div fxFlex="15" fxLayout="row" fxLayoutAlign="center center" >
+
+    <!-- <router-outlet name="createnote"></router-outlet> -->
+    <app-create-note (open)="updateNotes($event)"></app-create-note>
+
+
+  </div>
+
+  <div fxFlex="85" (click)="noteCard = false">
+    <br>
+    <!-- <br><br> -->
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <!-- <div *ngFor="let item of arr"> -->
+
+      <app-notes [model]= "arr" (updateList)= "reload($event)"></app-notes>
+
+    <!-- </div> -->
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,7 @@
+<button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu">
+<mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu" [overlapTrigger]=false>
+  <button mat-menu-item (click)="restore()">restore Note</button>
+  <button mat-menu-item (click)="perDelete()">Permanent Delete</button>
+</mat-menu>

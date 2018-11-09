@@ -1,4 +1,6 @@
-import { ServicesService } from './../../services/services.service';
+import { LoggerService } from './../../core/services/logger.service';
+import { DataShareService } from 'src/app/core/services/data-share.service';
+import { ServicesService } from '../../core/services/services.service';
 import { ExpandedNotesComponent } from './../expanded-notes/expanded-notes.component';
 import { MatDialog } from '@angular/material';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
@@ -13,19 +15,22 @@ export class NotesComponent implements OnInit {
   @Input() model: any = [];
 
   constructor(public dialog: MatDialog, private elementRef: ElementRef,
-    private myService: ServicesService) {
+    private myService: ServicesService,
+    private dataShare: DataShareService) {
     // let newModel = elementRef.nativeElement.getAttribute('model');
     // this.model = newModel
   }
   @ViewChild('itemName') itemName: ElementRef;
 
   @Output() updateList = new EventEmitter();
+  // @Input() NoteArray;
+  @Input() searchInput;
 
   isPinned = false;
 
   labelArr = [];
   tick;
-
+  // SearchInput;
   // noteId(id) {
   //   console.log(id);
   // }
@@ -111,6 +116,8 @@ export class NotesComponent implements OnInit {
   }
 
 
+
+
   checkTick(checklist, item, i, j) {
 
     // console.log(checklist)
@@ -133,6 +140,13 @@ export class NotesComponent implements OnInit {
 
 
   ngOnInit() {
+
+    // this.dataShare.showData2.subscribe(
+    //   response => {
+    //     LoggerService.log(response);
+    //     this.SearchInput = response;
+    //   }
+    // )
 
   }
 }

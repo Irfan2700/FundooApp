@@ -1,12 +1,6 @@
-import { ServicesService } from "./../../services/services.service";
+import { ServicesService } from "../../core/services/services.service";
 import {
-  Component,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-  ComponentFactoryResolver,
-  Output,
-  EventEmitter
+  Component, OnInit, Output, EventEmitter
 } from "@angular/core";
 
 @Component({
@@ -16,8 +10,7 @@ import {
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private myService: ServicesService,
-    private resolver: ComponentFactoryResolver
+    private myService: ServicesService
   ) { }
 
   @Output() reloaderUpdate = new EventEmitter();
@@ -59,7 +52,7 @@ export class HomeComponent implements OnInit {
   updateNotes(event) {
     if (event) {
       // console.log("event triggered");
-      
+
       this.showNotes();
     }
   }

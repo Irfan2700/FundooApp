@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl:""
+  // baseUrl:"",
+  imageURL:"http://34.213.106.173/"
 };
 
 /*

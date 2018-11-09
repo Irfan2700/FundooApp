@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { ServicesService } from './../../services/services.service';
+import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 

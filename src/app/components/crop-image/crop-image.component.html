@@ -1,0 +1,11 @@
+<image-cropper
+  [imageChangedEvent]="imageChangedEvent"
+  [maintainAspectRatio]="false"
+  [resizeToWidth]="0"
+  format="png"
+  (imageCropped)="imageCropped($event)"
+  (imageLoaded)="imageLoaded()"
+  (loadImageFailed)="loadImageFailed()"
+></image-cropper>
+
+<button mat-button [mat-dialog-close]="croppedImage" cdkFocusInitial>Set Image</button>

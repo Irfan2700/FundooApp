@@ -1,8 +1,8 @@
-<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="space-evenly center" fxLayoutGap="10px">
-  <div *ngFor="let item of model; let i=index">
+<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="center center" fxLayoutGap="10px">
+  <div *ngFor="let item of model | filter: searchInput; let i=index">
 
 
-    <mat-card style="width: 340px; margin: 15px; border-radius: 8px" [style.backgroundColor]="item.color">
+    <mat-card style="width: 340px; margin: 10px; border-radius: 8px"  [style.backgroundColor]="item.color">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card-title [innerHTML]="item.title" (click)="openDialog(item)">
 
@@ -40,15 +40,15 @@
         <!-- </div> -->
       </div>
 
-      <div class="panal">
+      <div class="panal" *ngIf="item.isDeleted === false" fxLayoutAlign="space-between">
         <button mat-icon-button class="touchBut">
           <mat-icon>touch_app</mat-icon>
-        </button>&nbsp;&nbsp;
+        </button>
         <button mat-icon-button class="addBut">
           <mat-icon>person_add</mat-icon>
-        </button>&nbsp;&nbsp;
-        <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>&nbsp;&nbsp;
-        <app-create-archive [archiveInput]="item.id" (reloadNote)=archiveNote($event)></app-create-archive>&nbsp;&nbsp;
+        </button>
+        <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>
+        <app-create-archive [note]="item" (reloadNote)=archiveNote($event)></app-create-archive>
         <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)" ></app-more-options>
         <!-- <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu">
@@ -56,6 +56,9 @@
         <button mat-menu-item>Add Label</button>
         <button mat-menu-item>Make a Copy</button>
       </mat-menu> -->
+      </div>
+      <div class="panal" *ngIf="item.isDeleted === true">
+        <app-trash-more-option [note]="item" (update)="updateOptionsNote($event)"></app-trash-more-option>
       </div>
     </mat-card>
 

@@ -4,16 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-// import { TermsDialog } from './component/signup/signup.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-// import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
-
-// import { ServicesService } from './services/services.service';
 import { FormsModule } from '@angular/forms';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 /**
  *    Angular Material Imports
@@ -40,7 +36,7 @@ import {
 
 
 /**
- * SubCommponents
+ *     SubCommponents Imports
  */
 
 import { ResetPasswordComponent, ResetPasswordSetComponent } from './components/reset-password/reset-password.component';
@@ -63,6 +59,10 @@ import { CreateLabelComponent } from './components/create-label/create-label.com
 import { ChecklistModule } from 'angular-checklist';
 import { CreatNoteMoreOptionComponent } from './components/creat-note-more-option/creat-note-more-option.component';
 import { LoggerService } from './core/services/logger.service';
+import { FilterPipe } from './core/pipe/filter.pipe';
+import { SearchComponent } from './components/search/search.component';
+import { TrashMoreOptionComponent } from './components/trash-more-option/trash-more-option.component';
+import { CropImageComponent } from './components/crop-image/crop-image.component';
 
 
 
@@ -91,6 +91,10 @@ import { LoggerService } from './core/services/logger.service';
     ExpandedNotesComponent,
     CreateLabelComponent,
     CreatNoteMoreOptionComponent,
+    FilterPipe,
+    SearchComponent,
+    TrashMoreOptionComponent,
+    CropImageComponent,
     
 
 
@@ -121,7 +125,8 @@ import { LoggerService } from './core/services/logger.service';
     MatListModule,
     MatExpansionModule,
     ChecklistModule,
-    MatChipsModule
+    MatChipsModule,
+    ImageCropperModule
 
 
     // ServicesService
@@ -130,7 +135,7 @@ import { LoggerService } from './core/services/logger.service';
   schemas: [NO_ERRORS_SCHEMA],
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
-                     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent],
+                     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent],
   providers: [LoggerService],
   bootstrap: [AppComponent]
 })

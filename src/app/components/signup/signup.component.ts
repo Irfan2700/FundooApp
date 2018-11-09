@@ -1,4 +1,4 @@
-import { ServicesService } from '../../services/services.service';
+import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
 

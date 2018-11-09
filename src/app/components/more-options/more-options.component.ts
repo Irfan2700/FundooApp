@@ -1,7 +1,7 @@
-import { AuthService } from './../../services/auth.service';
-import { ServicesService } from './../../services/services.service';
+import { AuthService } from '../../core/services/auth.service';
+import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { DataShareService } from 'src/app/services/data-share.service';
+import { DataShareService } from 'src/app/core/services/data-share.service';
 
 @Component({
   selector: 'app-more-options',
