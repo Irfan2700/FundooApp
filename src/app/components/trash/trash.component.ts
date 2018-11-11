@@ -1,7 +1,7 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { ActivatedRoute } from '@angular/router';
-import { ServicesService } from 'src/app/core/services/services.service';
 
 @Component({
   selector: 'app-trash',
@@ -11,7 +11,7 @@ import { ServicesService } from 'src/app/core/services/services.service';
 export class TrashComponent implements OnInit {
 
   
-  constructor(private myService: ServicesService) { }
+  constructor(private noteService: NoteServicesService) { }
 
   arr = [];
   labelName;
@@ -24,7 +24,7 @@ export class TrashComponent implements OnInit {
 
 
   showNotes() {
-    this.myService.httpGetJson("notes/getTrashNotesList").subscribe(
+    this.noteService.getTrashNoteList().subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 

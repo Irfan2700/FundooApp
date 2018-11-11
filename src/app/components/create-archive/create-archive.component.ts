@@ -1,3 +1,4 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -9,7 +10,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CreateArchiveComponent implements OnInit {
 
-  constructor(private myService: ServicesService) { }
+  constructor(private myService: ServicesService,
+    private noteService: NoteServicesService) { }
 
   @Input() note;
   @Output() reloadNote = new EventEmitter();
@@ -25,7 +27,7 @@ export class CreateArchiveComponent implements OnInit {
         "noteIdList": [this.note.id]
       }
 
-      this.myService.httpPostJson("notes/archiveNotes", body).subscribe(
+      this.noteService.archiveNote(body).subscribe(
         response => {
           // console.log("Note Successfully archived");
 
@@ -49,7 +51,7 @@ export class CreateArchiveComponent implements OnInit {
         "noteIdList": [this.note.id]
       }
 
-      this.myService.httpPostJson("notes/archiveNotes", requestBody).subscribe(
+      this.noteService.archiveNote(requestBody).subscribe(
         response => {
           // console.log("Note Successfully archived");
           LoggerService.log("Note Successfully archived");

@@ -1,10 +1,11 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
+import { UserServicesService } from 'src/app/core/services/user-services.service';
 import { CropImageComponent } from './../crop-image/crop-image.component';
 import { environment } from './../../../environments/environment';
 import { DataShareService } from './../../core/services/data-share.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { CreateLabelComponent } from './../create-label/create-label.component';
 import { Router } from '@angular/router';
-import { ServicesService } from '../../core/services/services.service';
 import { MatSnackBar, MatDialog, MatDialogModule } from '@angular/material';
 import { AuthService } from '../../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -27,22 +28,24 @@ export class TopToolbarComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
     private auth: AuthService,
     public snackBar: MatSnackBar,
-    private myService: ServicesService,
     private myRoute: Router,
     public dialog: MatDialog,
     public cropDialog: MatDialog,
     private dataShare: DataShareService,
+    private userService: UserServicesService,
+    private noteService: NoteServicesService
     ) { }
 
     arr;
     searchInput;
 
   logout() {
-    this.myService.httpPostlogout("user/logout", '').subscribe(
+    this.userService.userLogout().subscribe(
       data => {
         // console.log("logout Successfully");
         this.auth.removeToken();
         this.auth.removeId();
+        
 
         this.myRoute.navigate(["login"]);
       },
@@ -86,7 +89,8 @@ export class TopToolbarComponent implements OnInit {
   }
 
   selectPic: File;
-  showPic;
+  showPic = null;
+  updatePic;
 
   changeProPic(event){
     LoggerService.log("I am here")
@@ -100,14 +104,23 @@ export class TopToolbarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       data => {
-        let requestBody = data
+        
+        console.log("qqq",data)
         LoggerService.log(data);
 
-        this.myService.httpPostEncoded2("user/uploadProfileImage", data).subscribe(
+        let requestBody = new FormData()
+        requestBody.append("file", data, data.name)
+
+        this.userService.profilePicUploader(requestBody).subscribe(
           response => {
     
-            this.showPic = environment.imageURL+response['status'].imageUrl;
-            LoggerService.log("I am here")
+            this.showPic = environment.imageURL + response['status'].imageUrl;
+            
+            this.auth.sendPic(this.showPic)
+            // console.log(response);
+            LoggerService.log(this.showPic);
+
+            this.updatePic = this.auth.getPic();
           }
         )
 
@@ -116,12 +129,12 @@ export class TopToolbarComponent implements OnInit {
     )
   }
 
-  
-
+  currentUser;
+  currentEmail;
 
   ngOnInit() {
 
-    this.myService.httpGetJson("noteLabels/getNoteLabelList").subscribe(
+    this.noteService.getNoteLabelList().subscribe(
       response => {
         this.dataShare.sendData1(response);
         this.arr = response['data']['details'];
@@ -132,6 +145,9 @@ export class TopToolbarComponent implements OnInit {
       }
     )
 
+    this.updatePic = this.auth.getPic();
     
+      this.currentUser = this.auth.getUserName();
+      this.currentEmail = this.auth.getUserEmail();
   }
 }

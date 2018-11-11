@@ -1,8 +1,8 @@
+import { UserServicesService } from './../../core/services/user-services.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
-import { ServicesService } from '../../core/services/services.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +13,11 @@ export class LoginComponent implements OnInit {
 
   hide = true;
 
-  constructor(private _loginService: ServicesService,
+  constructor(
     public snackBar: MatSnackBar,
     private myRoute: Router,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private userServices: UserServicesService) { }
 
 
   log = {
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
     if(body.email !== "" ){
     if(body.password !== ""){
       if((/\S+@\S+\.\S+/).test(body.email)){
-    let obsPost = this._loginService.addData("user/login", body)
+    let obsPost = this.userServices.userLogin(body)
 
     obsPost.subscribe(
       data => {
@@ -43,6 +44,8 @@ export class LoginComponent implements OnInit {
 
         this.auth.sendToken(data["id"]);
         this.auth.sendId(data["userId"]);
+        this.auth.sendUserEmail(body.email);
+        this.auth.sendUserName(data['firstName']+" "+data['lastName']);
 
         this.snackBar.open('Success!!', 'Login Successfully!!', {
           duration: 4000,
@@ -91,7 +94,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-    let obsGet = this._loginService.getData("user");
+    let obsGet = this.userServices.getUserInfo();
     obsGet.subscribe((response) => {
       // console.log(response);
     })

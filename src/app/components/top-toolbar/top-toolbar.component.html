@@ -63,39 +63,54 @@
               ngStyle.lg="font-size:25px;"  ></mat-spinner> -->
 
         </div>
-        <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
+        <div fxFlex="10" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
           <button style="outline:none" mat-icon-button class="gridView">
             <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">view_list</mat-icon>
           </button>
         </div>
-        <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
+        <!-- <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
           <button style="outline:none" mat-icon-button class="notification">
             <mat-icon aria-label="notification" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">notifications</mat-icon>
           </button>
-        </div>
-        <div fxFlex="5"><button style="outline:none" mat-icon-button [matMenuTriggerFor]='menu' class="account">
-            <mat-icon aria-label="account" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
-              ngStyle.lg="font-size:25px;">account_circle</mat-icon>
+        </div> -->
+        <div fxFlex="5">
+          <button style="outline:none"
+          
+            [ngStyle]="{ 'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"
+            
+            mat-mini-fab [matMenuTriggerFor]='menu' class="account">
+            <!-- <button mat-mini-fab ></button> -->
           </button>
-          <mat-menu #menu="matMenu" (click)="$event.stopPropagation()" [overlapTrigger]=false style="background-color:rgb(255, 162, 162); position: relative;">
+          <mat-menu #menu="matMenu" (click)="$event.stopPropagation()" [overlapTrigger]=false style="background-color:rgb(255, 162, 162); position: relative; ">
 
+            <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <div>
-              <button mat-fab (click)=changePic.click() [style.backgroundImage]="'url(showPic)'" (click)="$event.stopPropagation()"></button>
+              <button mat-fab (click)=changePic.click() class="profileFab" (click)="$event.stopPropagation()" [ngStyle]="{'font-size': '25px;' ,'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
+            </div>
+            <div fxLayout="column">
+            <div >
+              {{currentUser}}
+            </div>
+            
+            <div>
+              {{currentEmail}}
+            </div>
+            </div>
             </div>
             <hr>
-            <div fxLayout="row" fxLayoutAlign="space between" class="accountMenu">
+            <div fxLayout="row wrap" fxLayoutAlign="space between" class="accountMenu">
 
-              <mat-icon aria-label="account_Setting">file_upload<input type="file" (change)=changeProPic($event)
-                  (click)="$event.stopPropagation()" style="display: none" value="Upload Profile Pic" #changePic></mat-icon>&nbsp;Upload
-              pic
-
+              <button mat-raised-button (click)=changePic.click() class="uploadButton">
+              <mat-icon aria-label="account_Setting" >file_upload<input type="file" (change)=changeProPic($event)
+                  (click)="$event.stopPropagation()" style="display: none" value="Uploads Pic" #changePic></mat-icon>&nbsp;Upload Image
+               </button>
 
               <hr>
-              <button style="outline:none" mat-button (click)="logout()">
+              <button style="outline:none" mat-raised-button (click)="logout()" class="logoutButton">
                 <mat-icon aria-label="logout">logout</mat-icon>&nbsp;&nbsp;Logout
               </button>
             </div>

@@ -1,5 +1,5 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
-import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,14 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor(private myService: ServicesService) { }
+  constructor(
+    private noteService: NoteServicesService) { }
 
   arr=[];
   archiveList;
 
   showArchives(){
 
-    this.myService.httpGetJson("notes/getArchiveNotesList").subscribe(
+    this.noteService.getNoteArchiveList().subscribe(
       response => {
         // console.log("Archive Success");
         LoggerService.log("Archive Notes Fetching Successful!!");

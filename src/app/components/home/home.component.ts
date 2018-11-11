@@ -1,4 +1,4 @@
-import { ServicesService } from "../../core/services/services.service";
+import { NoteServicesService } from './../../core/services/note-services.service';
 import {
   Component, OnInit, Output, EventEmitter
 } from "@angular/core";
@@ -10,7 +10,7 @@ import {
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private myService: ServicesService
+    private noteService: NoteServicesService
   ) { }
 
   @Output() reloaderUpdate = new EventEmitter();
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   showNotes() {
-    this.myService.get("notes/getNotesList").subscribe(
+    this.noteService.getNotesList().subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 

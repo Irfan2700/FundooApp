@@ -1,4 +1,4 @@
-import { ServicesService } from './../../core/services/services.service';
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit } from '@angular/core';
 import { DataShareService } from '../../core/services/data-share.service';
 
@@ -9,7 +9,8 @@ import { DataShareService } from '../../core/services/data-share.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private dataService: DataShareService, public service: ServicesService) { }
+  constructor(private dataService: DataShareService,
+    private noteService: NoteServicesService) { }
   // public message;
   public searchInput;
   ngOnInit() {
@@ -21,7 +22,7 @@ export class SearchComponent implements OnInit {
   }
   public notes = [];
   public getNotes() {
-    this.service.httpGetJson("notes/getNotesList").subscribe(response => {
+    this.noteService.getNotesList().subscribe(response => {
       if (response) {
         // this.notes = [];
         //whenever  the api call is a success,push the response into an array

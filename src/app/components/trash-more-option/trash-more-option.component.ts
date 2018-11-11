@@ -1,5 +1,5 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
-import { ServicesService } from 'src/app/core/services/services.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -12,7 +12,7 @@ export class TrashMoreOptionComponent implements OnInit {
   @Input() note;
   @Output() update = new EventEmitter();
 
-  constructor(private myService: ServicesService) { }
+  constructor(private noteService: NoteServicesService) { }
 
   restore(){
 
@@ -21,7 +21,7 @@ export class TrashMoreOptionComponent implements OnInit {
       "noteIdList": [this.note.id]
     }
 
-    this.myService.httpPostJson("notes/trashNotes", requestBody).subscribe(
+    this.noteService.trashNotes(requestBody).subscribe(
       response => {
 
         LoggerService.log(response)
@@ -41,14 +41,14 @@ export class TrashMoreOptionComponent implements OnInit {
     "noteIdList": [this.note.id]
    }
 
-   this.myService.httpPostJson("notes/deleteForeverNotes", requestBody).subscribe(
+   this.noteService.deleteNoteForever(requestBody).subscribe(
      response => {
 
       LoggerService.log("Note is Permanently Deleted!!");
       this.update.emit({})
      },
      error => {
-       LoggerService.log("Error Occured")
+       LoggerService.log("Error Occured");
      }
    )
 

@@ -1,3 +1,4 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
@@ -11,7 +12,8 @@ export class PaletteComponent implements OnInit {
   @Input() newColor;
   @Output() resp = new EventEmitter();
 
-  constructor(private myService: ServicesService) { }
+  constructor(private myService: ServicesService,
+    private noteService: NoteServicesService) { }
 
   nowColor = 1;
   index;
@@ -82,7 +84,7 @@ export class PaletteComponent implements OnInit {
       "noteIdList":[this.newColor.id]
     }
 
-    this.myService.httpPostJson("notes/changesColorNotes",body).subscribe(
+    this.noteService.changeNoteColor(body).subscribe(
       response => {
         // console.log("colour change successfully", this.newColor);
         this.resp.emit(this.index);

@@ -1,5 +1,5 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { Router } from '@angular/router';
-import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
@@ -22,10 +22,10 @@ export class ExpandedNotesComponent implements OnInit {
 
   public title;
   public description;
-  constructor(private myService: ServicesService,
-    public dialogRef: MatDialogRef<ExpandedNotesComponent>,
+  constructor(public dialogRef: MatDialogRef<ExpandedNotesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private myRoute: Router) { }
+    private myRoute: Router,
+    private noteService: NoteServicesService) { }
 
   // public arr = this.data;
 
@@ -67,7 +67,7 @@ export class ExpandedNotesComponent implements OnInit {
       //   // }
 
       // }
-      this.myService.httpPostEncoded("notes/updateNotes", {
+      this.noteService.updateNotes({
         "noteId": [this.data.id],
         "title": this.title,
         "description": this.description
@@ -160,7 +160,7 @@ export class ExpandedNotesComponent implements OnInit {
         "status": this.isChecked
       })
 
-      this.myService.httpPostJson("notes/" + this.data.noteCheckLists[0].notesId + "/checklist/add", {
+      this.noteService.updateExtendedNoteChecklist(this.data.noteCheckLists[0].notesId, {
         "itemName": this.checkText,
         "status": this.isChecked
       }).subscribe(
@@ -197,7 +197,7 @@ export class ExpandedNotesComponent implements OnInit {
       "status": item.isChecked
     }
 
-    this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/update", JSON.stringify(body)).subscribe(
+    this.noteService.updateNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, JSON.stringify(body)).subscribe(
       response => {
         // console.log("checklist Line is Successfully Updated!!");
         this.updateDialog.emit({})
@@ -216,7 +216,7 @@ export class ExpandedNotesComponent implements OnInit {
       "checklistId": this.data.noteCheckLists[item.id].id
     }
 
-    this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/remove", body).subscribe(
+    this.noteService.removeNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, body).subscribe(
       response => {
         // console.log("Checklist line is successfully Deleted!!");
 
@@ -261,7 +261,7 @@ export class ExpandedNotesComponent implements OnInit {
       "itemName": item.checkText,
       "status": this.array[i].isChecked
     }
-    this.myService.httpPostJson("notes/" + this.data.noteCheckLists[item.id].notesId + "/checklist/" + this.data.noteCheckLists[item.id].id + "/update", JSON.stringify(body)).subscribe(
+    this.noteService.updateNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, JSON.stringify(body)).subscribe(
       response => {
         // console.log("checklist Line is Successfully Updated!!");
 

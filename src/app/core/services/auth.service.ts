@@ -18,12 +18,36 @@ export class AuthService {
     return localStorage.setItem("UserId", id);
   }
 
+  sendPic(image: string){
+    return localStorage.setItem("ProfilePic", image);
+  }
+
+  sendUserName(name: string){
+    return localStorage.setItem("UserName", name);
+  }
+
+  sendUserEmail(email: string){
+    return localStorage.setItem("UserEmail", email);
+  }
+
   getToken() {
     return localStorage.getItem("UserToken")
   }
 
   getId(){
     return localStorage.getItem("UserId");
+  }
+
+  getPic(){
+    return localStorage.getItem("ProfilePic")
+  }
+
+  getUserName(){
+    return localStorage.getItem("UserName");
+  }
+
+  getUserEmail(){
+    return localStorage.getItem("UserEmail")
   }
 
   removeToken(){

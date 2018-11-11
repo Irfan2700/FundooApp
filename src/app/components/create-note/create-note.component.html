@@ -15,6 +15,7 @@
     </button>
   </mat-card>
 </div>
+
 <div [hidden]="!noteCard">
   <mat-card class="expandNoteCard" [ngStyle]="{'background': index}">
     <form>
@@ -107,7 +108,7 @@
         </button>
         <div fxLayoutAlign="space-between">
           <button mat-icon-button class="moreBut">
-            <app-creat-note-more-option [isCheck]="labelUpdate" (labelAdds)="updateLabel($event)">
+            <app-creat-note-more-option [isCheck]="labelUpdate" [alowCheck]="checkToggle" (labelAdds)="updateLabel($event)" (checkBox)="updateCheckList($event)">
             </app-creat-note-more-option>
           </button>
 

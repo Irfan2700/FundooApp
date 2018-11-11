@@ -1,6 +1,6 @@
-import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
+import { UserServicesService } from 'src/app/core/services/user-services.service';
 
 // import { ToastrService } from "ngx-toastr";
 // import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -39,8 +39,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private _signupService: ServicesService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private userService: UserServicesService
 
   ) {
     this.arrClick = new Array();
@@ -116,7 +116,7 @@ export class SignupComponent implements OnInit {
 
             if(this.pass === this.confirmpass){
 
-    let obsAdd = this._signupService.addData("user/userSignUp", body);
+    let obsAdd = this.userService.userSignup(body);
 
     obsAdd.subscribe(
       data => {
@@ -189,7 +189,7 @@ export class SignupComponent implements OnInit {
     //  console.log(this.serv);
     // if (this.reg.email !== "" || this.reg.firstName !== "null") {
 
-      let obsGet = this._signupService.getData("user");
+      let obsGet = this.userService.getServiceSelect();
       
 
       obsGet.subscribe(response =>
@@ -198,7 +198,7 @@ export class SignupComponent implements OnInit {
 
       // this.formSubmit();
 
-      let obsGetService = this._signupService.getData("user/service");
+      let obsGetService = this.userService.getUserInfo();
       obsGetService.subscribe(response => {
         // console.log(response["data"].data);
         let res = response["data"].data;

@@ -32,7 +32,9 @@ import {
           MatMenuModule,
           MatListModule,
           MatExpansionModule,
-          MatChipsModule} from '@angular/material';
+          MatChipsModule,
+          MatDatepickerModule,
+          MatNativeDateModule} from '@angular/material';
 
 
 /**
@@ -63,6 +65,7 @@ import { FilterPipe } from './core/pipe/filter.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { TrashMoreOptionComponent } from './components/trash-more-option/trash-more-option.component';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
+import { CreateRemainderComponent } from './components/create-remainder/create-remainder.component';
 
 
 
@@ -95,6 +98,7 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
     SearchComponent,
     TrashMoreOptionComponent,
     CropImageComponent,
+    CreateRemainderComponent,
     
 
 
@@ -126,8 +130,9 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
     MatExpansionModule,
     ChecklistModule,
     MatChipsModule,
-    ImageCropperModule
-
+    ImageCropperModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
     // ServicesService
   ],

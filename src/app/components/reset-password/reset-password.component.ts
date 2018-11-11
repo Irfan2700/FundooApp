@@ -1,6 +1,6 @@
+import { UserServicesService } from 'src/app/core/services/user-services.service';
 import { AuthService } from '../../core/services/auth.service';
 import { MatSnackBar } from "@angular/material";
-import { ServicesService } from "../../core/services/services.service";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
@@ -11,9 +11,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class ResetPasswordComponent implements OnInit {
   constructor(
-    private resetPassService: ServicesService,
     public snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private userServices: UserServicesService
   ) {}
 
   res = {
@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
 
       if((/\S+@\S+\.\S+/).test(body.email)){
 
-    let obsResetEmail = this.resetPassService.addData("user/reset", body);
+    let obsResetEmail = this.userServices.resetLink(body);
 
     obsResetEmail.subscribe(
       data => {
@@ -91,11 +91,12 @@ export class ResetPasswordComponent implements OnInit {
 
 export class ResetPasswordSetComponent {
 
-  constructor(private _resetSetPassService: ServicesService,
+  constructor(
     public snackBar: MatSnackBar,
     private router: Router,
     private routerParam: ActivatedRoute,
-    private auth: AuthService){
+    private auth: AuthService,
+    private userServices: UserServicesService){
 
   }
   hide = true;
@@ -122,7 +123,7 @@ export class ResetPasswordSetComponent {
     const field = {"newPassword": this.respass.password}
 
 
-   this._resetSetPassService.httpPostEncoded('user/reset-password',field).subscribe(
+   this.userServices.resetPassword(field).subscribe(
       data => {
         console.log("Password reset Successfully!!", data)
         this.snackBar.open("Success", "Password reset Successfully!!",{

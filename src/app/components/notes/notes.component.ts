@@ -1,6 +1,6 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { DataShareService } from 'src/app/core/services/data-share.service';
-import { ServicesService } from '../../core/services/services.service';
 import { ExpandedNotesComponent } from './../expanded-notes/expanded-notes.component';
 import { MatDialog } from '@angular/material';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
@@ -15,8 +15,8 @@ export class NotesComponent implements OnInit {
   @Input() model: any = [];
 
   constructor(public dialog: MatDialog, private elementRef: ElementRef,
-    private myService: ServicesService,
-    private dataShare: DataShareService) {
+    private dataShare: DataShareService,
+    private noteService: NoteServicesService) {
     // let newModel = elementRef.nativeElement.getAttribute('model');
     // this.model = newModel
   }
@@ -127,7 +127,7 @@ export class NotesComponent implements OnInit {
       "status": checklist.status
     }
 
-    this.myService.httpPostJson("notes/" + this.model[i].noteCheckLists[j].notesId + "/checklist/" + this.model[i].noteCheckLists[j].id + "/update", JSON.stringify(body)).subscribe(
+    this.noteService.updateNotesCheckList(this.model[i].noteCheckLists[j].notesId, this.model[i].noteCheckLists[j].id, JSON.stringify(body)).subscribe(
       response => {
         // console.log("checklist Line is Successfully Updated!!");
         this.updateList.emit({})

@@ -1,5 +1,5 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { AuthService } from '../../core/services/auth.service';
-import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataShareService } from 'src/app/core/services/data-share.service';
 
@@ -10,9 +10,9 @@ import { DataShareService } from 'src/app/core/services/data-share.service';
 })
 export class MoreOptionsComponent implements OnInit {
 
-  constructor(private myService: ServicesService,
-    private auth: AuthService,
-    private data: DataShareService) { }
+  constructor(private auth: AuthService,
+    private data: DataShareService,
+    private noteService: NoteServicesService) { }
 
     @Input() note;
     @Output() update = new EventEmitter();
@@ -29,7 +29,7 @@ export class MoreOptionsComponent implements OnInit {
       "noteIdList": [this.note.id]
     }
 
-    this.myService.httpPostJson("notes/trashNotes", body).subscribe(
+    this.noteService.trashNotes(body).subscribe(
       response => {
 
         console.log("Note Deleted Successfully!!...");
@@ -53,7 +53,7 @@ export class MoreOptionsComponent implements OnInit {
 
       this.labelArr[index].isChecked = false;
 
-      this.myService.httpPostJson("notes/"+this.note.id+"/addLabelToNotes/"+item.labelInfo.id+"/add",null).subscribe(
+      this.noteService.addLabelToNotes(this.note.id, item.labelInfo.id).subscribe(
         response => {
 
           // console.log("Label added Successfull",response);
@@ -68,7 +68,7 @@ export class MoreOptionsComponent implements OnInit {
 
       this.labelArr[index].isChecked = true;
 
-      this.myService.httpPostJson("notes/"+this.note.id+"/addLabelToNotes/"+item.labelInfo.id+"/remove",null).subscribe(
+      this.noteService.removeLabelFromNotes(this.note.id, item.labelInfo.id).subscribe(
         response => {
 
           // console.log("Label remove Successfull",response);

@@ -1,6 +1,6 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { DataShareService } from '../../core/services/data-share.service';
 import { AuthService } from '../../core/services/auth.service';
-import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
@@ -10,9 +10,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class CreateLabelComponent implements OnInit {
 
-  constructor(private myService: ServicesService,
-    private auth: AuthService,
-    private data: DataShareService) { }
+  constructor(private auth: AuthService,
+    private data: DataShareService,
+    private noteService: NoteServicesService) { }
 
   @ViewChild('myDiv') myDiv: ElementRef;
   
@@ -40,7 +40,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
       return;
     }
 }
-    this.myService.httpPostJson("noteLabels", body).subscribe(
+    this.noteService.createLabel(body).subscribe(
       response => {
         console.log("Label is added", response['label']);
         // console.log(this.labelDisplay)
@@ -67,7 +67,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
   deleteLabel(id) {
 
-    this.myService.httpDeleteJson("noteLabels/" + id + "/deleteNoteLabel").subscribe(
+    this.noteService.deleteLabel("noteLabels/" + id + "/deleteNoteLabel").subscribe(
       response => {
         // console.log("label deleted!!", response);
         var updatedLabel = [];
@@ -116,9 +116,11 @@ for(var i=0; i<this.labelDisplay.length; i++){
       "id": id,
       "userId": this.auth.getId()
     }
-    this.myService.httpPostJson("noteLabels/"+id+"/updateNoteLabel",body).subscribe(
+    this.noteService.updateLabelName(id, body).subscribe(
       response => {
         console.log("Label Name Updated SuccessFully!!",response);
+
+        
 
         for(var i=0; i<this.labelDisplay.length; i++){
 
@@ -126,6 +128,8 @@ for(var i=0; i<this.labelDisplay.length; i++){
             this.labelDisplay[i].label = temp
           }
         }
+
+        
 
       },
       error => {
@@ -135,10 +139,8 @@ for(var i=0; i<this.labelDisplay.length; i++){
     
   }
 
-  ngOnInit() {
-    // console.log(this.hidden)
-
-    this.myService.httpGetJson("noteLabels/getNoteLabelList").subscribe(
+  showLabels(){
+    this.noteService.getNoteLabelList().subscribe(
       response => {
         // console.log("Label display", response);
         for (var i = 0; i < response['data'].details.length; i++) {
@@ -161,6 +163,12 @@ for(var i=0; i<this.labelDisplay.length; i++){
         // console.log("Error Occured!!");
       }
     )
+  }
+
+  ngOnInit() {
+    // console.log(this.hidden)
+
+    this.showLabels();
   }
 
 }

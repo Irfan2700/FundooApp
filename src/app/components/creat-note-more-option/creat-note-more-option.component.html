@@ -1,7 +1,8 @@
 <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu" [overlapTrigger]=false>
         <button mat-menu-item [matMenuTriggerFor]="addLabel">Add Label</button>
-        <button mat-menu-item>Make a Copy</button>
+        <button mat-menu-item *ngIf="alowCheck === false" (click)="showCheckList()">Show CheckBox</button>
+        <button mat-menu-item *ngIf="alowCheck === true" (click)="showCheckList()">Hide CheckBox</button>
       </mat-menu>
 
       <mat-menu #addLabel="matMenu">

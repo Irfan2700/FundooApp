@@ -1,6 +1,6 @@
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ServicesService } from './../../core/services/services.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,8 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LabelComponent implements OnInit {
 
-  constructor(private myService: ServicesService,
-    private myRoute: ActivatedRoute) { }
+  constructor(private myRoute: ActivatedRoute,
+    private noteService: NoteServicesService) { }
 
   arr = [];
   labelName;
@@ -32,7 +32,7 @@ export class LabelComponent implements OnInit {
 
   getLabelNotes(item) {
 
-    this.myService.httpPostJson("notes/getNotesListByLabel/" + item, null).subscribe(
+    this.noteService.getNoteListByLabel(item).subscribe(
       response => {
 
         LoggerService.log(response);
@@ -58,7 +58,7 @@ export class LabelComponent implements OnInit {
   }
 
   showNotes() {
-    this.myService.get("notes/getNotesList").subscribe(
+    this.noteService.getNotesList().subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 

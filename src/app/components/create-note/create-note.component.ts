@@ -1,6 +1,5 @@
-import { ServicesService } from '../../core/services/services.service';
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
-import { Router, RouterLink, RouteReuseStrategy } from '@angular/router';
 
 @Component({
   selector: 'app-create-note',
@@ -10,8 +9,8 @@ import { Router, RouterLink, RouteReuseStrategy } from '@angular/router';
 })
 export class CreateNoteComponent implements OnInit {
 
-  constructor(private myService: ServicesService,
-    private myroute: Router) { }
+  constructor(
+    private noteService: NoteServicesService) { }
 
   @ViewChild('title') title: ElementRef;
   @ViewChild('desc') desc: ElementRef;
@@ -19,6 +18,7 @@ export class CreateNoteComponent implements OnInit {
 
   isPinned = false;
   noteCard = false;
+  isCheckListTicked = false;
 
   labelUpdate = []
   isCheckedLabel = {
@@ -174,7 +174,7 @@ export class CreateNoteComponent implements OnInit {
 
     if (requestBody.title !== '') {
 
-      this.myService.httpPostEncoded("notes/addNotes", requestBody).subscribe(
+      this.noteService.addNotes(requestBody).subscribe(
         data => {
           // console.log("Data Saved Successfully", data);
 
@@ -224,7 +224,14 @@ export class CreateNoteComponent implements OnInit {
 
   count = 0;
 
+  updateCheckList(event){
 
+    this.checkToggle = !this.checkToggle;
+    
+    console.log("check status", event)
+  }
+
+  
 
   nextLine(event) {
 
@@ -251,6 +258,7 @@ export class CreateNoteComponent implements OnInit {
 
 
     }
+    
 
     if (event.keyCode === 46) {
       // console.log("Delete is hitting")

@@ -1,4 +1,4 @@
-import { ServicesService } from '../../core/services/services.service';
+import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -8,14 +8,22 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 })
 export class CreatNoteMoreOptionComponent implements OnInit {
 
-  constructor(private myService: ServicesService) { }
+  constructor(private noteService: NoteServicesService) { }
 
   @Input() isCheck;
+  @Input() alowCheck;
   @Output() labelAdds = new EventEmitter();
+  @Output() checkBox = new EventEmitter();
 
   labelArr;
   tempArr = [];
   
+  showCheckList(){
+    // this.alowCheck = true;
+    console.log("alow",this.alowCheck)
+    this.checkBox.emit(true);
+  }
+
 
   addlabel(item, index){
 // debugger;
@@ -55,9 +63,9 @@ ngOnChanges(changes: SimpleChanges): void {
 
   ngOnInit() {
 
+    console.log(this.alowCheck)
 
-
-    this.myService.httpGetJson("noteLabels/getNoteLabelList").subscribe(
+    this.noteService.getNoteLabelList().subscribe(
       response => {
         // console.log("response show", response['data'].details)
         this.labelArr = response['data'].details
