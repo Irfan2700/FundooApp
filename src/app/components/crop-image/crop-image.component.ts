@@ -5,7 +5,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper/src/image-cropper.component
 @Component({
   selector: 'app-crop-image',
   templateUrl: './crop-image.component.html',
-  styleUrls: ['./crop-image.component.css']
+  styleUrls: ['./crop-image.component.scss']
 })
 export class CropImageComponent implements OnInit {
 

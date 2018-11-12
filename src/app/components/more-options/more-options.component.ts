@@ -6,7 +6,7 @@ import { DataShareService } from 'src/app/core/services/data-share.service';
 @Component({
   selector: 'app-more-options',
   templateUrl: './more-options.component.html',
-  styleUrls: ['./more-options.component.css']
+  styleUrls: ['./more-options.component.scss']
 })
 export class MoreOptionsComponent implements OnInit {
 

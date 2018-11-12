@@ -14,7 +14,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-expanded-notes',
   templateUrl: './expanded-notes.component.html',
-  styleUrls: ['./expanded-notes.component.css']
+  styleUrls: ['./expanded-notes.component.scss']
 })
 export class ExpandedNotesComponent implements OnInit {
 

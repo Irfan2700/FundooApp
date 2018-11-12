@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-create-remainder',
   templateUrl: './create-remainder.component.html',
-  styleUrls: ['./create-remainder.component.css']
+  styleUrls: ['./create-remainder.component.scss']
 })
 export class CreateRemainderComponent implements OnInit {
 

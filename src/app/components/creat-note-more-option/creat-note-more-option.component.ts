@@ -4,7 +4,7 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 @Component({
   selector: 'app-creat-note-more-option',
   templateUrl: './creat-note-more-option.component.html',
-  styleUrls: ['./creat-note-more-option.component.css']
+  styleUrls: ['./creat-note-more-option.component.scss']
 })
 export class CreatNoteMoreOptionComponent implements OnInit {
 

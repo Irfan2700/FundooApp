@@ -5,7 +5,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-trash-more-option',
   templateUrl: './trash-more-option.component.html',
-  styleUrls: ['./trash-more-option.component.css']
+  styleUrls: ['./trash-more-option.component.scss']
 })
 export class TrashMoreOptionComponent implements OnInit {
 

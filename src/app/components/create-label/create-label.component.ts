@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 @Component({
   selector: 'app-create-label',
   templateUrl: './create-label.component.html',
-  styleUrls: ['./create-label.component.css']
+  styleUrls: ['./create-label.component.scss']
 })
 export class CreateLabelComponent implements OnInit {
 

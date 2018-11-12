@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild }
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.css']
+  styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
 

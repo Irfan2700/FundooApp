@@ -4,7 +4,7 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef }
 @Component({
   selector: 'app-create-note',
   templateUrl: './create-note.component.html',
-  styleUrls: ['./create-note.component.css'],
+  styleUrls: ['./create-note.component.scss'],
   outputs: ['open']
 })
 export class CreateNoteComponent implements OnInit {

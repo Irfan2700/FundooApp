@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-create-archive',
   templateUrl: './create-archive.component.html',
-  styleUrls: ['./create-archive.component.css']
+  styleUrls: ['./create-archive.component.scss']
 })
 export class CreateArchiveComponent implements OnInit {
 

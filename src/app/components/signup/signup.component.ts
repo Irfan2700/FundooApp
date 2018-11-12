@@ -8,7 +8,7 @@ import { UserServicesService } from 'src/app/core/services/user-services.service
 @Component({
   selector: "app-signup",
   templateUrl: "./signup.component.html",
-  styleUrls: ["./signup.component.css"]
+  styleUrls: ["./signup.component.scss"]
 })
 export class SignupComponent implements OnInit {
   hide = true;

@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-reset-password",
   templateUrl: "./reset-password.component.html",
-  styleUrls: ["./reset-password.component.css"]
+  styleUrls: ["./reset-password.component.scss"]
 })
 export class ResetPasswordComponent implements OnInit {
   constructor(
@@ -86,7 +86,7 @@ export class ResetPasswordComponent implements OnInit {
 @Component({
   selector: "app-reset-set-password",
   templateUrl: "./reset-passwordSet.html",
-  styleUrls: ["./reset-password.component.css"]
+  styleUrls: ["./reset-password.component.scss"]
 })
 
 export class ResetPasswordSetComponent {
