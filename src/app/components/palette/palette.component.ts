@@ -1,5 +1,4 @@
 import { NoteServicesService } from './../../core/services/note-services.service';
-import { ServicesService } from '../../core/services/services.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
@@ -12,8 +11,7 @@ export class PaletteComponent implements OnInit {
   @Input() newColor;
   @Output() resp = new EventEmitter();
 
-  constructor(private myService: ServicesService,
-    private noteService: NoteServicesService) { }
+  constructor(private noteService: NoteServicesService) { }
 
   nowColor = 1;
   index;

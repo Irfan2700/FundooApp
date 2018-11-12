@@ -11,8 +11,10 @@ import { Injectable } from "@angular/core";
 })
 export class ServicesService {
   constructor(private http: HttpClient,
-    private auth: AuthService) {}
+    private auth: AuthService,
+    ) {}
 
+    // environment.
   url = "http://34.213.106.173/api";
 
   getData(nextUrl) {

@@ -83,4 +83,8 @@ export class NoteServicesService {
   deleteNoteForever(body){
     return this.httpService.httpPostJson("notes/deleteForeverNotes", body);
   }
+
+  addRemainder(body){
+    return this.httpService.httpPostJson("notes/addUpdateReminderNotes", body)
+  }
 }
