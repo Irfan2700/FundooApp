@@ -32,6 +32,7 @@
         </div>
 
       </div>
+      <div fxLayout="column" fxLayoutAlign="space-between" >
       <div fxLayout="row wrap">
         <!-- <div *ngFor="let label of item.labelIdList"> -->
           <div *ngFor="let labelName of item.noteLabels">
@@ -39,9 +40,20 @@
           </div>
         <!-- </div> -->
       </div>
+      <br>
+
+      <div fxLayout="row wrap">
+        <!-- <div *ngFor="let label of item.labelIdList"> -->
+          <div *ngFor="let remainderChip of item.reminder">
+            
+            <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}</mat-chip>
+          </div>
+        <!-- </div> -->
+      </div>
+      </div>
 
       <div class="panal" *ngIf="item.isDeleted === false" fxLayoutAlign="space-between">
-        <app-create-remainder></app-create-remainder>
+        <app-create-remainder [note]="item" (update)="updateOptionsNote($event)"></app-create-remainder>
         <button mat-icon-button class="addBut">
           <mat-icon>person_add</mat-icon>
         </button>

@@ -6,19 +6,19 @@
 
   <div *ngIf="flag === false">
     <p>Remainder:</p>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="quickRemainder('8:00 PM')">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <span>Later today</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <span>8:00PM</span>
       </div>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="quickRemainder('8:00 AM')">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <span>Tomorrow</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <span>8:00AM</span>
       </div>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="quickRemainder('MON, 8:00 AM')">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <span>Next week</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <span>Mon, 8:00AM</span>
