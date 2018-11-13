@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { AuthService } from '../services/auth.service'
 //import { element } from 'protractor';
 import { HttpClient ,HttpHeaders} from "@angular/common/http";
@@ -14,7 +15,11 @@ export class ServicesService {
     private auth: AuthService,
     ) {}
 
-    // environment.
+    // ngOnInit(): void {
+    //   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //   //Add 'implements OnInit' to the class.
+    //   url =environment.baseUrl
+    // }
   url = "http://34.213.106.173/api";
 
   getData(nextUrl) {

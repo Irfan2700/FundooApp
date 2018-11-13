@@ -43,51 +43,62 @@
     </div>
     <hr>
     <mat-form-field>
-      <input matInput (click)="$event.stopPropagation()" [matDatepicker]="picker" [(ngModel)]="setDate" [value]="setDate">
+      <input matInput (click)="$event.stopPropagation()" [matDatepicker]="picker" [min]="setDate" [(ngModel)]="setDate" [value]="setDate">
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <div fxLayout="row">
-      <input matInput (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="pickTime" [value]="pickTime">
+      <div>
+      <mat-form-field>
+      <input matInput (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="pickTime" [value]="pickTime" (keydown)=press($event)>
+      </mat-form-field>
+      </div>
       <!-- <button mat-icon-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu"> -->
-      <mat-icon (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" class="timeSet">keyboard_arrow_down</mat-icon>
+      <mat-icon (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" >keyboard_arrow_down</mat-icon>
+    
       <!-- </button> -->
+      
     </div>
+
+    <button mat-button (click)="pickSetTime(null)" style="float: right" [disabled]="saveButtonFlag === true">Save</button>
+
     <mat-menu #timeMenu [overlapTrigger]=false>
       <div fxLayout="column">
-        <button mat-button (click)="pickSetTime('Morning')" (click)="$event.stopPropagation()">
+        <button mat-button (click)="pickSetTime('8:00 AM')" (click)="$event.stopPropagation()">
           <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <span fxFlex="30">Morning</span>
             <span fxFlex="37"></span>
             <span fxFlex="33">8:00 AM</span>
           </div>
         </button>
-        <button mat-button (click)="pickSetTime('Afternoon')">
+        <button mat-button (click)="pickSetTime('1:00 PM')">
           <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <span fxFlex="30">Afternoon</span>
             <span fxFlex="37"></span>
             <span fxFlex="33">1:00 PM</span>
           </div>
         </button>
-        <button mat-button (click)="pickSetTime('Evening')">
+        <button mat-button (click)="pickSetTime('6:00 PM')">
           <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <span fxFlex="30">Evening</span>
             <span fxFlex="37"></span>
             <span fxFlex="33">6:00 PM</span>
           </div>
         </button>
-        <button mat-button (click)="pickSetTime('Night')">
+        <button mat-button (click)="pickSetTime('8:00 PM')">
           <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <span fxFlex="30">Night</span>
             <span fxFlex="37"></span>
             <span fxFlex="33">8:00 PM</span>
           </div>
         </button>
-        <button mat-button>custom</button>
+        <button mat-button (click)="$event.stopPropagation()" (click)="customSet()">custom</button>
 
       </div>
+
+      
     </mat-menu>
   </div>
 </mat-menu>
