@@ -12,7 +12,7 @@ import { ResetPasswordComponent, ResetPasswordSetComponent} from './components/r
 import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.component';
 
 
-import { AuthGuard } from './guard/auth.guard';
+import { AuthGuard } from './core/guard/auth.guard';
 import { TrashComponent } from './components/trash/trash.component';
 
   const routes: Routes = [

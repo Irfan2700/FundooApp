@@ -43,7 +43,7 @@
     </div>
     <hr>
     <mat-form-field>
-      <input matInput (click)="$event.stopPropagation()" [matDatepicker]="picker" [min]="setDate" [(ngModel)]="setDate" [value]="setDate">
+      <input matInput (click)="$event.stopPropagation()" [matDatepicker]="picker" [min]="currentDate" [(ngModel)]="setDate" [formcontrol]="date">
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>

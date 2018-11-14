@@ -1,5 +1,5 @@
 import { AuthService } from './core/services/auth.service';
-import { AuthGuard } from './guard/auth.guard';
+import { AuthGuard } from './core/guard/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 
 /**
@@ -34,9 +35,11 @@ import {
           MatExpansionModule,
           MatChipsModule,
           MatDatepickerModule,
-          MatNativeDateModule} from '@angular/material';
+          MatNativeDateModule,
+          
+          } from '@angular/material';
 
-
+// import { MomentDateAdapter } from '@angular/material-moment-adapter'
 /**
  *     SubCommponents Imports
  */
@@ -132,7 +135,8 @@ import { CreateRemainderComponent } from './components/create-remainder/create-r
     MatChipsModule,
     ImageCropperModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    
 
     // ServicesService
   ],
