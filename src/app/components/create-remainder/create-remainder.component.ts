@@ -94,116 +94,122 @@ export class CreateRemainderComponent implements OnInit {
       return -1;
     }
 
-    
 
-      if (this.pickTime !== '') {
-        this.dateArr = this.pickTime.split(' ')
-        console.log(this.dateArr)
-        let timeArr = this.dateArr[0].split(':');
 
-        let hours = Number(timeArr[0]);
-        let min = Number(timeArr[1]);
+    if (this.pickTime !== '') {
+      this.dateArr = this.pickTime.split(' ')
+      console.log(this.dateArr)
+      let timeArr = this.dateArr[0].split(':');
 
-        if (hours <= 12) {
+      let hours = Number(timeArr[0]);
+      let min = Number(timeArr[1]);
 
-        } else {
-          if (this.dateArr[1].toUpperCase() === 'PM') {
+      if (hours <= 12) {
 
-            hours = hours + 12;
+      } else {
+        if (this.dateArr[1].toUpperCase() === 'PM') {
 
-          } else if (hours > 12) {
+          hours = hours + 12;
 
-            switch (hours) {
+        } else if (hours > 12) {
 
-              case 13: {
-                this.pickTime = '' + 1 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 14: {
-                this.pickTime = '' + 2 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 15: {
-                this.pickTime = '' + 3 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 16: {
-                this.pickTime = '' + 4 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 17: {
-                this.pickTime = '' + 5 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 18: {
-                this.pickTime = '' + 6 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 19: {
-                this.pickTime = '' + 7 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 20: {
-                this.pickTime = '' + 8 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 21: {
-                this.pickTime = '' + 9 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 22: {
-                this.pickTime = '' + 10 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 23: {
-                this.pickTime = '' + 11 + ':' + min + ' ' + 'PM';
-                break;
-              }
-              case 0: {
-                this.pickTime = '' + 12 + ':' + min + ' ' + 'PM';
-                break;
-              }
+          switch (hours) {
 
-              default: {
-                this.pickTime = '' + 12 + ':' + min + ' ' + 'PM';
-                break;
-              }
+            case 13: {
+              this.pickTime = '' + 1 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 14: {
+              this.pickTime = '' + 2 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 15: {
+              this.pickTime = '' + 3 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 16: {
+              this.pickTime = '' + 4 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 17: {
+              this.pickTime = '' + 5 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 18: {
+              this.pickTime = '' + 6 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 19: {
+              this.pickTime = '' + 7 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 20: {
+              this.pickTime = '' + 8 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 21: {
+              this.pickTime = '' + 9 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 22: {
+              this.pickTime = '' + 10 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 23: {
+              this.pickTime = '' + 11 + ':' + min + ' ' + 'PM';
+              break;
+            }
+            case 0: {
+              this.pickTime = '' + 12 + ':' + min + ' ' + 'PM';
+              break;
             }
 
-            this.dateTimeSet();
-
+            default: {
+              this.pickTime = '' + 12 + ':' + min + ' ' + 'PM';
+              break;
+            }
           }
 
-        }
-
-        if (min > 60) {
-          return;
-        } else if (min === 60) {
-          min = 0;
-          hours += 1;
-        }
-        // console.log(this.dateArr[1].toUpperCase())
-
-        if (this.dateArr[1].toUpperCase() === 'AM') {
-
-          if (hours === 12) {
-            hours = 0
-          } else {
-            hours += 0;
-          }
-
+          this.dateTimeSet();
 
         }
 
-        let finalDateTime = new Date(new Date(this.setDate).setHours(hours, min, 0, 0));
-
-        this.saveButtonFlag = false;
-        return finalDateTime;
-      } else {
-        this.saveButtonFlag = true;
-        return -1;
       }
+
+      if (min > 60) {
+        return;
+      } else if (min === 60) {
+        min = 0;
+        hours += 1;
+      }
+      // console.log(this.dateArr[1].toUpperCase())
+
+      if (this.dateArr[1].toUpperCase() === 'AM') {
+
+        if (hours === 12) {
+          hours = 0
+        } else {
+          hours += 0;
+        }
+
+
+      }
+
+      let finalDateTime = new Date(new Date(this.setDate).setHours(hours, min, 0, 0));
+
+      this.saveButtonFlag = false;
+      return finalDateTime;
+    } else {
+      this.saveButtonFlag = true;
+      return -1;
+    }
   }
+
+  dateDisable = {
+    "time": '',
+    "status": false
+  }
+  disableArr = [];
 
   pickSetTime(weekday) {
 
@@ -213,12 +219,25 @@ export class CreateRemainderComponent implements OnInit {
     //  if(new Date().getHours()) new Date(this.dateTimeSet()).getHours()
     //  }
 
-    if((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) === 0){
+    let hours = (new Date(this.dateTimeSet()).getHours());
+    let min = (new Date(this.dateTimeSet()).getMinutes());
 
-      if((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) === 0){
-        if((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) === 0){
+    if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) === 0) {
 
-          
+      if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) === 0) {
+        if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) === 0) {
+
+          console.log("same date is here")
+
+          if((new Date(this.setDate).getHours()) > 8){
+            this.disableArr.push("8:00")
+          }else if((new Date(this.setDate).getHours()) > 13){
+            this.disableArr.push("13:00")
+          }else if((new Date(this.setDate).getHours()) > 18){
+            this.disableArr.push("18:00");
+          }else if((new Date(this.setDate).getHours()) > 20){
+            this.disableArr.push("20:00");
+          }
         }
       }
     }
@@ -228,6 +247,9 @@ export class CreateRemainderComponent implements OnInit {
     if (weekday === "8:00 AM") {
       this.pickTime = "8:00 AM";
       d = this.dateTimeSet();
+      if(!(this.disableArr.indexOf("8:00"))){
+        this.dateDisable = true;
+      }
       console.log()
 
       // this.settingDate = new Date(d.setHours(this.pickTime))
