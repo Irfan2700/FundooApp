@@ -32,7 +32,7 @@
     "ngx-image-cropper": "^1.2.2",
     "ngx-toastr": "^9.1.0",
     "rxjs": "~6.2.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",

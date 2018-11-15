@@ -44,21 +44,36 @@
               [(ngModel)]="checkText"></mat-checkbox>
         </div>
 
+        <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="10px">
         <div>
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let item of labelUpdate; let i=index;">
 
               {{item.label}}
               <!-- <button mat-icon-button (click)="removeLabelChip(item,i)"><mat-icon>cancel</mat-icon></button> -->
-
+              
             </mat-chip>
           </mat-chip-list>
+          
+        </div>
+
+        <div></div>
+
+        <div fxLayout="row wrap">
+          <!-- <div *ngFor="let label of item.labelIdList"> -->
+            <div *ngIf="!(remainder === '')">
+              
+              <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainder | date: "medium"}}
+              <mat-icon (click)="removeRemainder()">cancel</mat-icon></mat-chip>
+            </div>
+          <!-- </div> -->
+        </div>
         </div>
 
       </div>
       <div fxLayoutAlign="space-between" fxLayout="row">
         <button mat-icon-button class="touchBut">
-          <mat-icon>touch_app</mat-icon>
+          <app-create-remainder [allowDate]=dateFlag (addDate)="addReminder($event)"></app-create-remainder>
         </button>
         <button mat-icon-button class="addBut">
           <mat-icon>person_add</mat-icon>

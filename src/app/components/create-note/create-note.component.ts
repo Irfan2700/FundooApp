@@ -1,5 +1,7 @@
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
+import { LoggerService } from 'src/app/core/services/logger.service';
+// import { CreateRemainderComponent } from '../create-remainder/create-remainder.component'
 
 @Component({
   selector: 'app-create-note',
@@ -10,8 +12,7 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef }
 export class CreateNoteComponent implements OnInit {
 
   constructor(
-    private noteService: NoteServicesService) { }
-
+    private noteService: NoteServicesService){}
   @ViewChild('title') title: ElementRef;
   @ViewChild('desc') desc: ElementRef;
 
@@ -19,6 +20,8 @@ export class CreateNoteComponent implements OnInit {
   isPinned = false;
   noteCard = false;
   isCheckListTicked = false;
+  remainder='';
+  
 
   labelUpdate = []
   isCheckedLabel = {
@@ -28,14 +31,13 @@ export class CreateNoteComponent implements OnInit {
 
   isCheck;
   arr = [];
+  dateFlag = true;
 
 
   @Output() open = new EventEmitter();
 
   nowColor = 1;
   index = "#ffffff";
-
-
 
   changeColor(paint) {
     this.nowColor = paint;
@@ -152,7 +154,8 @@ export class CreateNoteComponent implements OnInit {
         "color": this.index,
         "isArchived": this.archive,
         "checklist": JSON.stringify(this.tempArr),
-        "labelIdList": JSON.stringify(this.labelArr)
+        "labelIdList": JSON.stringify(this.labelArr),
+        "reminder": this.remainder
 
       }
 
@@ -164,7 +167,8 @@ export class CreateNoteComponent implements OnInit {
         "isPined": this.isPinned,
         "color": this.index,
         "isArchived": this.archive,
-        "labelIdList": JSON.stringify(this.labelArr)
+        "labelIdList": JSON.stringify(this.labelArr),
+        "reminder": this.remainder
 
 
       }
@@ -197,6 +201,7 @@ export class CreateNoteComponent implements OnInit {
   }
 
   checkToggle = false;
+  
 
   currentTick(ele) {
     // debugger;
@@ -269,6 +274,7 @@ export class CreateNoteComponent implements OnInit {
 
   }
 
+
   updateLabel(event) {
     // debugger;
 
@@ -296,10 +302,25 @@ export class CreateNoteComponent implements OnInit {
 
   }
 
+  addReminder(event){
+
+    if(event){
+
+      this.remainder = event;
+    }
+  }
+
+  
+  removeRemainder(){
+
+    this.remainder = '';
+  }
 
 
 
   ngOnInit() {
+
+    
   }
 
 

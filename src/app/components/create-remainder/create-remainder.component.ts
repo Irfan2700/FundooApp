@@ -1,3 +1,4 @@
+import { DataShareService } from './../../core/services/data-share.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { EventEmitter, Output } from '@angular/core';
 // import { LoggerService } from 'src/app/core/services/logger.service';
@@ -35,17 +36,22 @@ export const MY_FORMATS = {
 })
 export class CreateRemainderComponent implements OnInit {
 
-  constructor(private noteService: NoteServicesService) { }
+  constructor(private noteService: NoteServicesService,
+    private dataShare: DataShareService) { }
 
   @Input() note;
   @Output() update = new EventEmitter();
-
+  @Output() addDate = new EventEmitter();
+  @Input() allowDate;
+// allowDate = false;
+  // note;
   settingDate;
   flag = false;
   date = new FormControl(moment());
   pickTime = "6:00 AM";
   saveButtonFlag = false;
   setDate;
+  isoFomatedDateTime;
 
   requestBody;
   //= {
@@ -55,42 +61,19 @@ export class CreateRemainderComponent implements OnInit {
 
   dat = new Date();
 
-  quickRemainder(time) {
-    if (time === "8:00 PM") {
-      this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 0, 20, 0, 0);
-    } else if (time === "8:00 AM") {
-      this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 1, 8, 0, 0);
-    } else if (time === "MON, 8:00 AM") {
-      this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 7, 8, 0, 0);
-    }
-
-    this.requestBody = {
-      "reminder": this.settingDate,
-      "noteIdList": [this.note.id]
-    }
-
-    this.noteService.addRemainder(this.requestBody).subscribe(
-      response => {
-        LoggerService.logObj("the remainder is added successfully", response)
-        this.update.emit({});
-      },
-      error => {
-        LoggerService.log("Error Occured!!");
-      }
-    )
-  }
+  
   dateArr;
 
-  dateTimeSet() {
+  public dateTimeSet() {
 
     // debugger;
 
-    let reg = /^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM)$/
+    let reg = /^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am|aM)$/
 
     if (!(reg.test(this.pickTime))) {
       LoggerService.log("Time Format is Incorrect!!")
 
-      this.saveButtonFlag = true;
+      // this.saveButtonFlag = true;
       return -1;
     }
 
@@ -98,7 +81,7 @@ export class CreateRemainderComponent implements OnInit {
 
     if (this.pickTime !== '') {
       this.dateArr = this.pickTime.split(' ')
-      console.log(this.dateArr)
+      // console.log(this.dateArr)
       let timeArr = this.dateArr[0].split(':');
 
       let hours = Number(timeArr[0]);
@@ -197,21 +180,29 @@ export class CreateRemainderComponent implements OnInit {
 
       let finalDateTime = new Date(new Date(this.setDate).setHours(hours, min, 0, 0));
 
-      this.saveButtonFlag = false;
+      // this.saveButtonFlag = false;
       return finalDateTime;
     } else {
-      this.saveButtonFlag = true;
+      // this.saveButtonFlag = true;
       return -1;
     }
   }
 
-  dateDisable = {
-    "time": '',
-    "status": false
-  }
+
+
+  dateDisable1 = false;
+  dateDisable2 = false;
+  dateDisable3 = false;
+  dateDisable4 = false;
+  //   "time": '',
+  //   "status": false
+  // }
   disableArr = [];
 
+  // isoFomatedDateTime;
+
   pickSetTime(weekday) {
+    
 
     // if (new Date(new Date(this.currentDate).getDate(), new Date(this.currentDate).getMonth(), new Date(this.currentDate).getFullYear())
     //  === new Date(new Date(this.setDate).getDate(), new Date(this.setDate).getMonth(), new Date(this.setDate).getFullYear())){
@@ -219,38 +210,16 @@ export class CreateRemainderComponent implements OnInit {
     //  if(new Date().getHours()) new Date(this.dateTimeSet()).getHours()
     //  }
 
-    let hours = (new Date(this.dateTimeSet()).getHours());
-    let min = (new Date(this.dateTimeSet()).getMinutes());
-
-    if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) === 0) {
-
-      if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) === 0) {
-        if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) === 0) {
-
-          console.log("same date is here")
-
-          if((new Date(this.setDate).getHours()) > 8){
-            this.disableArr.push("8:00")
-          }else if((new Date(this.setDate).getHours()) > 13){
-            this.disableArr.push("13:00")
-          }else if((new Date(this.setDate).getHours()) > 18){
-            this.disableArr.push("18:00");
-          }else if((new Date(this.setDate).getHours()) > 20){
-            this.disableArr.push("20:00");
-          }
-        }
-      }
-    }
 
     let d;
 
     if (weekday === "8:00 AM") {
       this.pickTime = "8:00 AM";
       d = this.dateTimeSet();
-      if(!(this.disableArr.indexOf("8:00"))){
-        this.dateDisable = true;
-      }
-      console.log()
+
+      // this.dateDisable1 = true;
+
+      // console.log()
 
       // this.settingDate = new Date(d.setHours(this.pickTime))
     } else if (weekday === "1:00 PM") {
@@ -277,24 +246,32 @@ export class CreateRemainderComponent implements OnInit {
       return;
     }
 
-    if (d.toISOString() !== undefined) {
+    this.isoFomatedDateTime = d.toISOString();
+    this.addDate.emit(this.isoFomatedDateTime);
 
-      this.requestBody = {
-        "reminder": d.toISOString(),
-        "noteIdList": [this.note.id]
+    if (!(this.allowDate === true)) {
+      if (d.toISOString() !== undefined) {
+
+        if (!(this.allowDate === true)) {
+        this.requestBody = {
+          "reminder": d.toISOString(),
+          "noteIdList": [this.note.id]
+        }
       }
 
-      this.noteService.addRemainder(this.requestBody).subscribe(
-        response => {
-          LoggerService.logObj("the remainder is added successfully", response)
-          this.update.emit({});
-        },
-        error => {
-          LoggerService.log("Error Occured!!");
-        }
-      )
+        this.noteService.addRemainder(this.requestBody).subscribe(
+          response => {
+            LoggerService.logObj("the remainder is added successfully", response)
+            this.update.emit(this.requestBody.reminder);
+          },
+          error => {
+            LoggerService.log("Error Occured!!");
+          }
+        )
 
 
+
+      }
     }
   }
 
@@ -302,13 +279,71 @@ export class CreateRemainderComponent implements OnInit {
     if (event.keyCode === 13) {
       this.pickSetTime(null);
     }
+
+
   }
+
+  disableSave(event) {
+
+    this.saveButtonFlag = false;
+
+    // if (!((event.keyCode === 16) || (event.keyCode === 17) || (event.keyCode === 18) || (event.keyCode === 32) || (event.keyCode === 16) || (event.keyCode === 13) || (event.keyCode === 8))) {
+    //   if (this.dateTimeSet() === -1) {
+
+    //     this.saveButtonFlag = true;
+
+    // } 
+
+    let reg = /^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am|aM)$/
+    if (!(reg.test(this.pickTime))) {
+      this.saveButtonFlag = true;
+    } else {
+      this.saveButtonFlag = false;
+    }
+
+  }
+  // }
   currentDate;
 
   customFlag = false;
   customSet() {
     this.pickTime = '';
   }
+
+
+  quickRemainder(time) {
+    // debugger;
+    if (time === "8:00 PM") {
+      this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 0, 20, 0, 0);
+    } else if (time === "8:00 AM") {
+      this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 1, 8, 0, 0);
+    } else if (time === "MON, 8:00 AM") {
+      this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 7, 8, 0, 0);
+    }
+
+    if (!(this.allowDate === true)) {
+    this.requestBody = {
+      "reminder": this.settingDate,
+      "noteIdList": [this.note.id]
+    }
+  }
+
+  this.isoFomatedDateTime = this.settingDate
+    this.addDate.emit(this.isoFomatedDateTime);
+
+    if (!(this.allowDate === true)) {
+
+    this.noteService.addRemainder(this.requestBody).subscribe(
+      response => {
+        LoggerService.logObj("the remainder is added successfully", response)
+        this.update.emit(this.settingDate);
+      },
+      error => {
+        LoggerService.log("Error Occured!!");
+      }
+    )
+  }
+}
 
   ngOnInit() {
 
@@ -317,7 +352,50 @@ export class CreateRemainderComponent implements OnInit {
     this.currentDate = new Date();
     // console.log(new Date(new Date(this.setDate).getDate(), new Date(this.setDate).getMonth(), new Date(this.setDate).getFullYear()))
 
+    let hours = (new Date(this.dateTimeSet()).getHours());
+    let min = (new Date(this.dateTimeSet()).getMinutes());
+
+    
+
+    if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) === 0) {
+
+      if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) === 0) {
+        if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) === 0) {
+
+          // console.log("same date is here")
+          // console.log("dateDiable2",(new Date(this.setDate).getHours()));
+
+          if ((new Date(this.setDate).getHours()) > 8) {
+            this.dateDisable1 = true;
+            // console.log("dateDiable1",this.dateDisable1);
+          } if ((new Date(this.setDate).getHours()) > 13) {
+            // console.log("dateDiable2",(new Date(this.setDate).getHours()));
+            this.dateDisable2 = true;
+            
+          } if ((new Date(this.setDate).getHours()) > 18) {
+            this.dateDisable3 = true;
+            // console.log("dateDiable3",this.dateDisable3);
+          } if ((new Date(this.setDate).getHours()) > 20) {
+            this.dateDisable4 = true;
+            // console.log("dateDiable4",this.dateDisable4);
+          }
+        }
+        
+      }
+    }
+
+    // this.dataShare.showData3.subscribe(data => {
+
+    //   this.note = data;
+    // },error => {
+
+    //   LoggerService.log("Error Occured")
+    // })
 
 
   }
+
+
 }
+
+

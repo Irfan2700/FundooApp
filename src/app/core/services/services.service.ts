@@ -20,7 +20,8 @@ export class ServicesService {
     //   //Add 'implements OnInit' to the class.
     //   url =environment.baseUrl
     // }
-  url = "http://34.213.106.173/api";
+  url = environment.baseUrl;
+
 
   getData(nextUrl) {
     return this.http.get(this.url + "/" + nextUrl);

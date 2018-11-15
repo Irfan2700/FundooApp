@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { DataShareService } from 'src/app/core/services/data-share.service';
@@ -16,7 +17,8 @@ export class NotesComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private elementRef: ElementRef,
     private dataShare: DataShareService,
-    private noteService: NoteServicesService) {
+    private noteService: NoteServicesService,
+    private myRoute: Router) {
     // let newModel = elementRef.nativeElement.getAttribute('model');
     // this.model = newModel
   }
@@ -27,6 +29,7 @@ export class NotesComponent implements OnInit {
   @Input() searchInput;
 
   isPinned = false;
+  dateFlag = '';
 
   labelArr = [];
   tick;
@@ -65,6 +68,11 @@ export class NotesComponent implements OnInit {
 // //       // console.log("its hitting")
 // //       // this.updateList.emit(true)
 //     }
+  }
+
+  showLabel(label){
+
+    this.myRoute.navigate(['label/'+ label])
   }
 
   updateColor;
@@ -138,10 +146,25 @@ export class NotesComponent implements OnInit {
     )
   }
 
+  removeRemainder(item){
+
+    // item.reminder = 
+
+    let requestBody = {
+      "reminder": '',
+      "noteIdList": [item.id]
+    }
+    this.noteService.deleteRemainder(requestBody).subscribe(response => {
+
+      LoggerService.log("Remainder remove SuccessFully");
+      this.updateList.emit({});
+    })
+  }
+
 
   ngOnInit() {
 
-    // this.dataShare.showData2.subscribe(
+    // this.dataShare.showData3.subscribe(
     //   response => {
     //     LoggerService.log(response);
     //     this.SearchInput = response;

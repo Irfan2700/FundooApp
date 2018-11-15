@@ -87,4 +87,8 @@ export class NoteServicesService {
   addRemainder(body){
     return this.httpService.httpPostJson("notes/addUpdateReminderNotes", body)
   }
+
+  deleteRemainder(body){
+    return this.httpService.httpPostJson("notes/removeReminderNotes", body);
+  }
 }

@@ -96,6 +96,8 @@ export class ExpandedNotesComponent implements OnInit {
     }
   }
 
+  update
+
   updateColor = this.data.color;
 
   updateBackground(event) {
@@ -313,7 +315,17 @@ export class ExpandedNotesComponent implements OnInit {
   //     )
   //   }
   // }
+  remainderObj;
 
+  updateOptionsNote(event) {
+    
+    if(event){
+
+      this.remainderObj = event
+      this.updateDialog.emit({});
+    }
+  }
+  dataFlag = false;
 
 
   ngOnInit() {
@@ -323,7 +335,7 @@ export class ExpandedNotesComponent implements OnInit {
     //   "isChecked": this.data.status,
     //   "checkText": this.array.itemName
     // }
-
+    this.remainderObj = this.data.reminder;
 
     for (var i = 0; i < this.data.noteCheckLists.length; i++) {
 

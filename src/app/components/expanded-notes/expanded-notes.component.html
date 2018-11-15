@@ -60,6 +60,7 @@
           </div>
         </div> -->
       </div>
+      <div>
       <div fxLayout="row wrap">
         <!-- <div *ngFor="let label of item.labelIdList"> -->
           <div *ngFor="let labelName of data.noteLabels">
@@ -67,12 +68,32 @@
           </div>
         <!-- </div> -->
       </div>
+
+      <div fxLayout="row wrap">
+        <!-- <div *ngFor="let label of item.labelIdList"> -->
+          <div >
+            
+            <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
+              <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
+            </mat-chip>
+          </div>
+
+          <div>
+            
+            <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
+              <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
+            </mat-chip>
+          </div>
+        <!-- </div> -->
+      </div>
+
+      </div>
       <br>
     </mat-card-content>
     </div>
     <div fxLayoutAlign="space-between" *ngIf="data.isDeleted === false" fxLayout="row">
       <button mat-icon-button class="touchBut">
-        <mat-icon>touch_app</mat-icon>
+        <app-create-remainder [note]="data" [allowDate]="dataFlag" (update)="updateOptionsNote($event)"></app-create-remainder>
       </button>
       <button mat-icon-button class="addBut">
         <mat-icon>person_add</mat-icon>

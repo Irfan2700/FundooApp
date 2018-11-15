@@ -1,3 +1,4 @@
+import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import {
   Component, OnInit, Output, EventEmitter
@@ -10,7 +11,8 @@ import {
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private noteService: NoteServicesService
+    private noteService: NoteServicesService,
+    private dataShare: DataShareService
   ) { }
 
   @Output() reloaderUpdate = new EventEmitter();
@@ -42,6 +44,7 @@ export class HomeComponent implements OnInit {
         }
 
         // console.log("the array one", this.arr);
+        this.dataShare.sendData3(this.arr);
       },
       error => {
         // console.log("Error in Data Fetching...");
