@@ -2,6 +2,7 @@ import { NoteServicesService } from './../../core/services/note-services.service
 import { Router } from '@angular/router';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { LoggerService } from 'src/app/core/services/logger.service';
 
 
 // export interface DialogData {
@@ -326,6 +327,23 @@ export class ExpandedNotesComponent implements OnInit {
     }
   }
   dataFlag = false;
+
+  removeRemainder(item){
+
+    // item.reminder = 
+
+    let requestBody = {
+      "reminder": '',
+      "noteIdList": [item.id]
+    }
+    this.noteService.deleteRemainder(requestBody).subscribe(response => {
+
+      LoggerService.log("Remainder remove SuccessFully");
+      this.updateDialog.emit();
+    })
+  }
+
+  
 
 
   ngOnInit() {

@@ -52,7 +52,7 @@
     <div fxLayout="row">
       <div>
       <mat-form-field>
-      <input matInput (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="pickTime" [value]="pickTime"  (keydown)=press($event) (keyup)="disableSave($event)">
+      <input matInput (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="pickTime"   (keydown)=press($event) (keyup)="disableSave($event)">
       </mat-form-field>
       </div>
       <!-- <button mat-icon-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu"> -->

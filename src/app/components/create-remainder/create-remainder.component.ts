@@ -48,7 +48,7 @@ export class CreateRemainderComponent implements OnInit {
   settingDate;
   flag = false;
   date = new FormControl(moment());
-  pickTime = "6:00 AM";
+  pickTime = "9:00 AM";
   saveButtonFlag = false;
   setDate;
   isoFomatedDateTime;
@@ -346,6 +346,16 @@ export class CreateRemainderComponent implements OnInit {
 }
 
   ngOnInit() {
+    // let temp;
+    // if(new Date().getHours() <= 12){
+    //   temp = "AM";
+    // }else{
+    //   temp = "PM";
+    // }
+
+    // this.pickTime = new Date().getHours()+':'+new Date().getMinutes()+' '+temp;
+    // console.log(this.pickTime)
+    // this.pickTime = "9:00 AM"
 
     this.setDate = this.date.value;
 
@@ -391,6 +401,7 @@ export class CreateRemainderComponent implements OnInit {
 
     //   LoggerService.log("Error Occured")
     // })
+    
 
 
   }

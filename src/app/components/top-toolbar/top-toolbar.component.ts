@@ -38,6 +38,7 @@ export class TopToolbarComponent implements OnInit {
 
     arr;
     searchInput;
+    listView = false;
 
   logout() {
     this.userService.userLogout().subscribe(
@@ -53,6 +54,11 @@ export class TopToolbarComponent implements OnInit {
         // console.log("Error occur")
       }
     )
+  }
+
+  listSwitcher(){
+    this.listView = !this.listView;
+    this.dataShare.sendData4(this.listView);
   }
 
   imageReloader = false;
@@ -75,7 +81,7 @@ export class TopToolbarComponent implements OnInit {
 
   showlabelList(item){
 
-    this.myRoute.navigate(['label/'+ item.label])
+    this.myRoute.navigate(['label/'+ item.label]);
   }
 
   searchNotes(){
@@ -139,6 +145,8 @@ export class TopToolbarComponent implements OnInit {
         this.dataShare.sendData1(response);
         this.arr = response['data']['details'];
         LoggerService.log(this.arr);
+
+        
       },
       error => {
         // console.log("Error Occured")

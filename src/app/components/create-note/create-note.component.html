@@ -1,7 +1,17 @@
 <!-- <div fxLayout="row" fxLayoutAlign="center center" > -->
 <div [hidden]="noteCard">
   <mat-card class="addNote">
-    <input type="text" placeholder="take a note..." class="takeNote" autofocus (click)="noteCard = true" (click)="checkToggle = false">
+    <input type="text" placeholder="take a note..." ngStyle.xs="border: none; height: 45px; 
+    font-size: 18px; min-width: 232px; outline: none; border-radius: 8px;"
+    ngStyle.sm="border: none; height: 45px; font-size: 18px; min-width: 232px; outline: none;
+     border-radius: 8px;"
+    ngStyle.md="border: none; height: 45px; font-size: 18px; min-width: 232px; outline: none;
+     border-radius: 8px;"
+     ngStyle.lg="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
+     border-radius: 8px;"
+     ngStyle.xl="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
+     border-radius: 8px;"
+     autofocus (click)="noteCard = true" (click)="checkToggle = false">
     <button mat-icon-button class="listBut">
       <mat-icon (click)="checkToggle = true" (click)="noteCard = true">list</mat-icon>
     </button>

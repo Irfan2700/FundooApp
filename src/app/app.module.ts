@@ -1,3 +1,4 @@
+import { MessagingService } from './core/services/messaging.service';
 import { AuthService } from './core/services/auth.service';
 import { AuthGuard } from './core/guard/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
@@ -145,7 +146,7 @@ import { CreateRemainderComponent } from './components/create-remainder/create-r
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
                      ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent],
-  providers: [LoggerService],
+  providers: [LoggerService, MessagingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

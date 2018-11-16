@@ -72,10 +72,11 @@
   
 }
 
-/* .profileFab{
+ .profileFab{
 
-  size: 100px
-} */
+  height: 93px;
+  width: 93px
+} 
 
 .searchForm{
   width: 100%;
@@ -182,4 +183,15 @@ input:focus{
 
   top:  64px;
   
+}
+
+.userName{
+
+  margin-top: 24px;
+    margin-left: 33px;
+}
+
+.userEmail{
+
+  margin-top: 10px;
 }

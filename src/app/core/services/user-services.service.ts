@@ -41,4 +41,8 @@ export class UserServicesService {
   profilePicUploader(body){
     return this.httpService.httpPostEncoded2("user/uploadProfileImage", body);
   }
+
+  registerPushToken(body){
+    return this.httpService.httpPostJson("user/registerPushToken", body);
+  }
 }

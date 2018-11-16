@@ -91,4 +91,8 @@ export class NoteServicesService {
   deleteRemainder(body){
     return this.httpService.httpPostJson("notes/removeReminderNotes", body);
   }
+
+  getReminderList(){
+    return this.httpService.httpGetJson("notes/getReminderNotesList");
+  }
 }

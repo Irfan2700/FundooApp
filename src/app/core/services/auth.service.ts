@@ -30,6 +30,10 @@ export class AuthService {
     return localStorage.setItem("UserEmail", email);
   }
 
+  sendPushToken(token: string){
+    return localStorage.setItem("PushToken",token)
+  }
+
   getToken() {
     return localStorage.getItem("UserToken")
   }
@@ -57,6 +61,12 @@ export class AuthService {
   removeId(){
     return localStorage.removeItem("UserId");
   }
+
+  getPushToken(){
+    return localStorage.getItem("PushToken");
+  }
+
+
 
   // isLoggedIn() {
   //   return this.getToken() !== null;

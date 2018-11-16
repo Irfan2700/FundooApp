@@ -1,7 +1,7 @@
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import {
-  Component, OnInit, Output, EventEmitter
+  Component, OnInit, Output, EventEmitter, Input
 } from "@angular/core";
 
 @Component({
@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   @Output() reloaderUpdate = new EventEmitter();
+  
 
   noteCard = false;
 

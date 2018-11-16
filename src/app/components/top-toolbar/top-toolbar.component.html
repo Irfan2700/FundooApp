@@ -64,10 +64,18 @@
 
         </div>
         <div fxFlex="10" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
-          ngStyle.lg="font-size:25px;">
-          <button style="outline:none" mat-icon-button class="gridView">
+          ngStyle.lg="font-size:25px;" *ngIf="listView === false">
+          <button style="outline:none" mat-icon-button class="gridView" (click)="listSwitcher()">
             <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px;" ngStyle.md="font-size:22px;"
-              ngStyle.lg="font-size:25px;">view_list</mat-icon>
+              ngStyle.lg="font-size:25px;">view_stream</mat-icon>
+          </button>
+        </div>
+
+        <div fxFlex="10" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
+          ngStyle.lg="font-size:25px;" *ngIf="listView === true">
+          <button style="outline:none" mat-icon-button class="gridView" (click)="listSwitcher()">
+            <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px;" ngStyle.md="font-size:22px;"
+              ngStyle.lg="font-size:25px;">view_module</mat-icon>
           </button>
         </div>
         <!-- <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
@@ -78,7 +86,8 @@
           </button>
         </div> -->
         <div fxFlex="5">
-          <button style="outline:none"
+          <button style="outline:none" ngStyle.xs="width: 18px; height: 18px; margin-top:10px" ngStyle.sm="width: 27px; height: 27px;" ngStyle.md="width: 34px; height: 34px;"
+          ngStyle.lg="width: 50px; height: 50px;"
           
             [ngStyle]="{ 'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"
             
@@ -92,11 +101,11 @@
               <button mat-fab (click)=changePic.click() class="profileFab" (click)="$event.stopPropagation()" [ngStyle]="{'font-size': '25px;' ,'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
             </div>
             <div fxLayout="column">
-            <div >
+            <div class="userName">
               {{currentUser}}
             </div>
             
-            <div>
+            <div class="userEmail">
               {{currentEmail}}
             </div>
             </div>
@@ -190,7 +199,7 @@
         </mat-sidenav>
         <mat-sidenav-content ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:22px"
           ngStyle.lg="font-size:25px" class="content">
-          <router-outlet (reloaderUpdate)="updateReload($event)"></router-outlet>
+          <router-outlet (reloaderUpdate)="updateReload($event)" ></router-outlet>
         </mat-sidenav-content>
       </mat-sidenav-container>
     </div>

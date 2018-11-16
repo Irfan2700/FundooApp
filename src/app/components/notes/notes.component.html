@@ -2,7 +2,7 @@
   <div *ngFor="let item of model | filter: searchInput; let i=index">
 
 
-    <mat-card style="width: 340px; margin: 10px; border-radius: 8px"  [style.backgroundColor]="item.color">
+    <mat-card [style.backgroundColor]="item.color" [ngClass]="viewSwitch ? 'listCardView':'gridCardView'">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card-title [innerHTML]="item.title" (click)="openDialog(item)">
 
@@ -45,11 +45,24 @@
       <div fxLayout="row wrap">
         <!-- <div *ngFor="let label of item.labelIdList"> -->
           <div *ngFor="let remainderChip of item.reminder">
+            <div *ngIf="!(completedReminder(remainderChip))">
             
             <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}
               <mat-icon (click)="removeRemainder(item)">cancel</mat-icon></mat-chip>
           </div>
+          </div>
         <!-- </div> -->
+        
+      </div>
+      <div>
+        
+        <div *ngFor="let remainderChip of item.reminder">
+            <div *ngIf="completedReminder(remainderChip)">
+            
+          <mat-chip style="opacity: 0.4"><mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderChip | date: "medium"}}</del>
+            <mat-icon (click)="removeRemainder(item)">cancel</mat-icon></mat-chip>
+        </div>
+        </div>
       </div>
       </div>
 

@@ -53,26 +53,26 @@ export class NotesComponent implements OnInit {
   }
 
   updateOptionLabel(event) {
-//     // debugger;
-//     if (event) {
-//       // this.labelArr = [];
+    //     // debugger;
+    //     if (event) {
+    //       // this.labelArr = [];
 
-// // for(let i=0; i<this.model.length; i++){
-// //   if(this.model[i].noteLabels !== undefined){
-// // //     if()
-// // //       this.labelUpdate.push(this.model[i].noteLabels);
-// //      }
-    
-// // }
-// //       // console.log(this.labelUpdate)
-// //       // console.log("its hitting")
-// //       // this.updateList.emit(true)
-//     }
+    // // for(let i=0; i<this.model.length; i++){
+    // //   if(this.model[i].noteLabels !== undefined){
+    // // //     if()
+    // // //       this.labelUpdate.push(this.model[i].noteLabels);
+    // //      }
+
+    // // }
+    // //       // console.log(this.labelUpdate)
+    // //       // console.log("its hitting")
+    // //       // this.updateList.emit(true)
+    //     }
   }
 
-  showLabel(label){
+  showLabel(label) {
 
-    this.myRoute.navigate(['label/'+ label])
+    this.myRoute.navigate(['label/' + label])
   }
 
   updateColor;
@@ -116,14 +116,52 @@ export class NotesComponent implements OnInit {
   // currentTick(checklist){
 
   // }
-
+  reminderCompleted = false;
 
   checkBoxChange(checklist, item) {
 
 
   }
+  
+  completedReminder(reminderChip) {
 
+    
+    // if (new Date(reminderChip).getFullYear() === new Date().getFullYear()) {
+    //   if (new Date(reminderChip).getMonth() === new Date().getMonth()) {
+    //     if (new Date(reminderChip).getDay() === new Date().getDay()) {
+    //       if (new Date(reminderChip).getHours() === new Date().getHours()) {
+    //         if(new Date(reminderChip).getMinutes() === new Date().getMinutes()){
+    //           if(new Date(reminderChip).getSeconds() < new Date().getSeconds()){
+    //             this.reminderCompleted = true;
+    //           }
+              
+    //         }else{
+    //           this.reminderCompleted = true;
+    //         }
 
+    //       } else if (new Date(reminderChip).getHours() < new Date().getHours()) {
+
+    //         this.reminderCompleted = true;
+    //       }
+
+    //     } else if (new Date(reminderChip).getDate() < new Date().getDate()) {
+    //       this.reminderCompleted = true;
+    //     }
+
+    //   } else if (new Date(reminderChip).getMonth() < new Date().getMonth()) {
+    //     this.reminderCompleted = true;
+    //   }
+    // } else if (new Date(reminderChip).getFullYear() < new Date().getFullYear()) {
+    //   this.reminderCompleted = true;
+    // }
+    let saved = new Date(reminderChip).getTime();
+    let current = new Date().getTime();
+    if(saved < current){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 
   checkTick(checklist, item, i, j) {
@@ -146,7 +184,7 @@ export class NotesComponent implements OnInit {
     )
   }
 
-  removeRemainder(item){
+  removeRemainder(item) {
 
     // item.reminder = 
 
@@ -160,7 +198,7 @@ export class NotesComponent implements OnInit {
       this.updateList.emit({});
     })
   }
-
+  viewSwitch;
 
   ngOnInit() {
 
@@ -170,6 +208,14 @@ export class NotesComponent implements OnInit {
     //     this.SearchInput = response;
     //   }
     // )
+    this.dataShare.showData4.subscribe(
+      data => {
+        
+        this.viewSwitch = data;
+        
+      }
+    )
+
 
   }
 }

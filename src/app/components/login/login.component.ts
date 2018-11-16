@@ -1,3 +1,4 @@
+import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserServicesService } from './../../core/services/user-services.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -41,11 +42,20 @@ export class LoginComponent implements OnInit {
     obsPost.subscribe(
       data => {
         console.log("Login Successfully!!", data);
-
         this.auth.sendToken(data["id"]);
         this.auth.sendId(data["userId"]);
         this.auth.sendUserEmail(body.email);
         this.auth.sendUserName(data['firstName']+" "+data['lastName']);
+
+        let requestBody = {
+          "pushToken": this.auth.getPushToken()
+        }
+
+        this.userServices.registerPushToken(requestBody).subscribe(
+          respo => {
+            LoggerService.log("One Notification you received")
+          }
+        )
 
         this.snackBar.open('Success!!', 'Login Successfully!!', {
           duration: 4000,
