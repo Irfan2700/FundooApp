@@ -60,27 +60,27 @@
           </div>
         </div> -->
       </div>
-      <div>
+      <div fxLayout="column wrap" fxLayoutAlign="space-between" fxLayoutGap="10px">
       <div fxLayout="row wrap">
         <!-- <div *ngFor="let label of item.labelIdList"> -->
-          <div *ngFor="let labelName of data.noteLabels">
-            <mat-chip >{{labelName.label}}</mat-chip>
+          <div *ngFor="let labelName of data.noteLabels; let i=index;">
+            <mat-chip >{{labelName.label}}<mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon></mat-chip>
           </div>
         <!-- </div> -->
       </div>
 
       <div fxLayout="row wrap">
         <!-- <div *ngFor="let label of item.labelIdList"> -->
-          <div >
+          <div *ngIf="!(completedReminder(remainderObj))">
             
             <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
               <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
             </mat-chip>
           </div>
 
-          <div>
+          <div *ngIf="(completedReminder(remainderObj))">
             
-            <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
+            <mat-chip class="completeReminder"><mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderObj | date: "medium"}}</del>
               <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
             </mat-chip>
           </div>
@@ -103,7 +103,7 @@
       <div fxLayoutAlign="space-between">
         <app-more-options [note]="data" (update)="deleteNote($event)"></app-more-options>
 
-        <button mat-button cdkFocusInitial (click)="switch = true" (click)="updataData()"  style="opacity: 1.5"><b>close</b></button>
+        <button mat-button cdkFocusInitial (click)="switch = true" (click)="updataData()" (click)="nextLine($event)" style="opacity: 1.5"><b>close</b></button>
       </div>
     </div>
     <div class="panal" *ngIf="data.isDeleted === true">

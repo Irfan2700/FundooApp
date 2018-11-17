@@ -35,8 +35,10 @@
       <div fxLayout="column" fxLayoutAlign="space-between" >
       <div fxLayout="row wrap">
         <!-- <div *ngFor="let label of item.labelIdList"> -->
-          <div *ngFor="let labelName of item.noteLabels">
-            <mat-chip (click)="showLabel(labelName.label)">{{labelName.label}}</mat-chip>
+          <div *ngFor="let labelName of item.noteLabels; let k=index">
+            <mat-chip class="width"><div class="labelChip" (click)="showLabel(labelName.label)">
+              <span class="labelChip">{{labelName.label}}</span></div>
+              <mat-icon class="labelCancel" (click)="removeLabel(labelName,item,i); labeldisable = true;">cancel</mat-icon></mat-chip>
           </div>
         <!-- </div> -->
       </div>

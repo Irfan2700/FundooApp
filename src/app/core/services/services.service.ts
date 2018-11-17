@@ -123,7 +123,7 @@ export class ServicesService {
       })
     };
     
-    return this.http.delete(this.url + "/" + urlPart, httpAuth1Options)
+    return this.http.delete(this.url + "/" + urlPart)
   }
 
 

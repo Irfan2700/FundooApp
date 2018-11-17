@@ -83,6 +83,31 @@ export class MoreOptionsComponent implements OnInit {
     
   }
 
+  removeLabelCancel(respo){
+    
+    for(let i=0; i<this.labelArr.length; i++){
+      if(respo['noteLabels'] !== undefined){
+      //  debugsger;
+      
+        console.log("i am here")
+        if(respo['id'] === this.labelArr[i].labelInfo.id){
+          this.labelArr[i].isChecked = false;
+
+          console.log("id is", respo['id'])
+          this.noteService.removeLabelFromNotes(this.note.id,respo['id']).subscribe(
+            response => {
+    
+              // console.log("Label remove Successfull",response);
+              this.updateLabel.emit(this.labelArr);
+              this.update.emit({});
+            },
+            error => { }
+          )
+        }
+      }
+      }
+  }
+
 
   ngOnInit() {
 
@@ -109,6 +134,16 @@ export class MoreOptionsComponent implements OnInit {
       }
       }
     }
+
+    this.data.showDate5.subscribe(
+      respo => {
+        // debugger;
+        // console.log("respo iss here", respo)
+        
+        this.removeLabelCancel(respo)
+
+      }
+    )
    }
 
 }

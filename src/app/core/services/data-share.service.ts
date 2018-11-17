@@ -10,11 +10,16 @@ export class DataShareService {
   private dataSource2 = new BehaviorSubject("Default");
   private dataSource3 = new BehaviorSubject('');
   private dataSource4 = new BehaviorSubject('');
+  private dataSource5 = new BehaviorSubject('');
+  private dataSource6 = new BehaviorSubject('');
 
   showData1 = this.dataSource1.asObservable();
   showData2 = this.dataSource2.asObservable();
   showData3 = this.dataSource3.asObservable();
   showData4 = this.dataSource4.asObservable();
+  showDate5 = this.dataSource5.asObservable();
+  showDate6 = this.dataSource6.asObservable();
+
 
 
   constructor() { }
@@ -34,5 +39,13 @@ export class DataShareService {
 
   sendData4(data: any){
     this.dataSource4.next(data);
+  }
+
+  sendData5(data: any){
+    this.dataSource5.next(data);
+  }
+
+  sendData6(data: any){
+    this.dataSource6.next(data);
   }
 }

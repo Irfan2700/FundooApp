@@ -18,6 +18,14 @@
   
 }
 
+.labelList{
+
+  white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden !important;
+// width: 200px
+}
+
 .mat-menu-panel {
   min-width: 112px;
   max-width: 280px;
@@ -155,7 +163,7 @@ input:focus{
   background: lightgray;
   position: fixed;
   z-index: 2;
-  margin-top: 46px;
+  margin-top: 41px;
 
 
 }

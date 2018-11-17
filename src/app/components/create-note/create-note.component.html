@@ -2,16 +2,16 @@
 <div [hidden]="noteCard">
   <mat-card class="addNote">
     <input type="text" placeholder="take a note..." ngStyle.xs="border: none; height: 45px; 
-    font-size: 18px; min-width: 232px; outline: none; border-radius: 8px;"
-    ngStyle.sm="border: none; height: 45px; font-size: 18px; min-width: 232px; outline: none;
+    font-size: 18px; min-width: 247px; outline: none; border-radius: 8px;"
+    ngStyle.sm="border: none; height: 45px; font-size: 18px; min-width: 247px; outline: none;
      border-radius: 8px;"
-    ngStyle.md="border: none; height: 45px; font-size: 18px; min-width: 232px; outline: none;
+    ngStyle.md="border: none; height: 45px; font-size: 18px; min-width: 247px; outline: none;
      border-radius: 8px;"
      ngStyle.lg="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
      border-radius: 8px;"
      ngStyle.xl="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
      border-radius: 8px;"
-     autofocus (click)="noteCard = true" (click)="checkToggle = false">
+     autofocus (click)="noteCard = true" (click)="checkToggle = false; index = '#ffffff'" >
     <button mat-icon-button class="listBut">
       <mat-icon (click)="checkToggle = true" (click)="noteCard = true">list</mat-icon>
     </button>
@@ -27,7 +27,17 @@
 </div>
 
 <div [hidden]="!noteCard">
-  <mat-card class="expandNoteCard" [ngStyle]="{'background': index}">
+  <mat-card [style.backgroundColor]="index"
+  ngStyle.xs="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  border-radius: 8px; margin-right: -10px; margin-left: -3px;"
+  ngStyle.sm="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  border-radius: 8px; margin-right: -10px; margin-left: -3px;"
+  ngStyle.md="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  border-radius: 8px; margin-right: -10px; margin-left: -3px;"
+  ngStyle.lg="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  border-radius: 8px; margin-right: -10px; margin-left: -3px;"
+  ngStyle.xl="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  border-radius: 8px; margin-right: -10px; margin-left: -3px;">
     <form>
       <div fxLayoutAlign="space-between" fxLayout="column">
         <div fxLayout="row">

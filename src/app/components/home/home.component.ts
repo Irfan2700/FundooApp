@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 
-        console.log("fresh", response["data"].data);
+        // console.log("fresh", response["data"].data);
 
         this.arr = [];
         for (var i = response["data"].data.length - 1; i >= 0; i--) {

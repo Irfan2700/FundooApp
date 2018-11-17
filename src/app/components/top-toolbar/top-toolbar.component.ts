@@ -20,11 +20,12 @@ import { map } from 'rxjs/operators';
 })
 export class TopToolbarComponent implements OnInit {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Medium,])
     .pipe(
       map(result => result.matches)
     );
 
+    
   constructor(private breakpointObserver: BreakpointObserver,
     private auth: AuthService,
     public snackBar: MatSnackBar,
@@ -76,7 +77,14 @@ export class TopToolbarComponent implements OnInit {
 
   addLabel() {
 
-    this.dialog.open(CreateLabelComponent);
+    let dialogRef = this.dialog.open(CreateLabelComponent);
+
+    dialogRef.afterClosed().subscribe(
+      result =>{
+
+        this.getLabelList();
+      }
+    )
   }
 
   showlabelList(item){
@@ -135,23 +143,54 @@ export class TopToolbarComponent implements OnInit {
     )
   }
 
+  getLabelList(){
+
+  this.noteService.getNoteLabelList().subscribe(
+    response => {
+      this.dataShare.sendData1(response);
+      this.arr = response['data']['details'];
+      LoggerService.log(this.arr);
+      this.arr.sort(function(a,b)
+      {const obj1 = a.label.toUpperCase();
+        const obj2 = b.label.toUpperCase();
+
+        let comp = 0;
+        if(obj1>obj2){
+          comp = 1;
+        }else if(obj1<obj2){
+          comp = -1;
+        }
+       return comp;}
+        );
+      
+      
+    },
+    error => {
+      // console.log("Error Occured")
+    }
+  )
+  }
+
+
   currentUser;
   currentEmail;
 
   ngOnInit() {
 
-    this.noteService.getNoteLabelList().subscribe(
-      response => {
-        this.dataShare.sendData1(response);
-        this.arr = response['data']['details'];
-        LoggerService.log(this.arr);
+    // this.noteService.getNoteLabelList().subscribe(
+    //   response => {
+    //     this.dataShare.sendData1(response);
+    //     this.arr = response['data']['details'];
+    //     LoggerService.log(this.arr);
 
         
-      },
-      error => {
-        // console.log("Error Occured")
-      }
-    )
+    //   },
+    //   error => {
+    //     // console.log("Error Occured")
+    //   }
+    // )
+
+    this.getLabelList();
 
     this.updatePic = this.auth.getPic();
     

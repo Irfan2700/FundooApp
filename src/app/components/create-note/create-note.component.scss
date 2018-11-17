@@ -13,7 +13,7 @@
   height: 45px;
   font-size: 18px;
   /* width: 52vh; */
-  min-width: 232px;
+  min-width: 247px;
   outline: none;
   border-radius: 8px;
   /* 364px */
@@ -22,13 +22,13 @@
 .addNote{
 
   width: 100%;
-  padding: 0px 0px 0px 13px;
-  margin: 46px 0px 0px 0px;
-  opacity: 0.7;
-  border-radius: 8px;
-  box-shadow: 20px;
-  margin-right: 12px;
-    margin-left: -11px;
+    padding: 0px 0px 0px 13px;
+    margin: 45px 0px 0px 0px;
+    opacity: 1;
+    border-radius: 8px;
+    box-shadow: 20px;
+    margin-right: -10px;
+    margin-left: -3px;
 }
 
 .titleNote{
@@ -44,12 +44,12 @@
 
 .expandNoteCard{
   /* width: 75vh; */
-  max-width: 347px;
+  max-width: 364px;
   padding: 0px 0px 0px 17px;
   margin: 46px 0px 0px 0px;
   border-radius: 8px;
-  margin-right: 12px;
-  margin-left: -11px;
+  margin-right: -10px;
+  margin-left: -3px;
 
 }
 

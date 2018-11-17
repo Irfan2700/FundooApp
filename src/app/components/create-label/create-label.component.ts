@@ -1,3 +1,4 @@
+import { LoggerService } from 'src/app/core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { DataShareService } from '../../core/services/data-share.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -67,7 +68,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
   deleteLabel(id) {
 
-    this.noteService.deleteLabel("noteLabels/" + id + "/deleteNoteLabel").subscribe(
+    this.noteService.deleteLabel(id).subscribe(
       response => {
         // console.log("label deleted!!", response);
         var updatedLabel = [];
@@ -82,6 +83,9 @@ for(var i=0; i<this.labelDisplay.length; i++){
         this.labelReverseDiplay = updatedLabel;
       
         
+      },
+      error => {
+        LoggerService.log("Error Occured");
       }
     )
   }
@@ -130,7 +134,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
         }
 
         
-
+        // this.showLabels();
       },
       error => {
         // console.log("Error Occured!!");
@@ -153,9 +157,21 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
         for(var i=this.labelDisplay.length-1; i>=0; i--){
           updateList.push(this.labelDisplay[i]);
+          updateList.sort(function(a,b)
+          {const obj1 = a.label.toUpperCase();
+          const obj2 = b.label.toUpperCase();
+  
+          let comp = 0;
+          if(obj1>obj2){
+            comp = 1;
+          }else if(obj1<obj2){
+            comp = -1;
+          }
+         return comp;}
+          );
         }
-
         this.labelReverseDiplay = updateList;
+        
         
         // this.data.sendData(this.labelReverseDiplay)
       },

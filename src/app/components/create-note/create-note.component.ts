@@ -191,6 +191,7 @@ export class CreateNoteComponent implements OnInit {
           this.tempArr = []
 
           this.open.emit({});
+          this.index = "#ffffff";
           // console.log("terminate")
         },
         error => {

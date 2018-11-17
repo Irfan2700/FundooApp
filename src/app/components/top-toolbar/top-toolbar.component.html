@@ -132,12 +132,12 @@
       </mat-toolbar>
     </div>
 
-    <div fxFlex="82">
+    <div fxFlex="82" >
       <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
         <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-          [opened]="(isHandset$ | async)">
-          <mat-nav-list>
-
+           >
+          <mat-nav-list fxLayout="column" fxLayoutAlign="space-between">
+            <br>
             <a mat-list-item [routerLink]="['/home']" routerLinkActive="router-link-active">
               <mat-icon aria-label="notes">lightbulb</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Notes
             </a>
@@ -154,10 +154,10 @@
             <div *ngFor="let item of arr">
               <!-- <div fxLayout="row wrap" fxLayoutAlign="space between"> -->
 
-              <a mat-list-item (click)="showlabelList(item)">
+              <a mat-list-item  (click)="showlabelList(item)">
                 <!-- <div fxLayoutAlign="space between"> -->
                 <mat-icon>label_outline</mat-icon>&nbsp;
-                {{item.label}}
+                <span class="labelList">{{item.label}}</span>
                 <!-- </div> -->
               </a>
               <!-- </div> -->

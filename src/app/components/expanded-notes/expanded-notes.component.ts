@@ -1,3 +1,4 @@
+import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
@@ -26,7 +27,8 @@ export class ExpandedNotesComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ExpandedNotesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private myRoute: Router,
-    private noteService: NoteServicesService) { }
+    private noteService: NoteServicesService,
+    private dataShare: DataShareService) { }
 
   // public arr = this.data;
 
@@ -169,28 +171,44 @@ export class ExpandedNotesComponent implements OnInit {
       }).subscribe(
         response => {
           // console.log("The New line in the Checklist is Succeddfully Added!!");
-          this.dialogRef.close();
+          this.updateDialog.emit({});
         },
         error => {
           // console.log("Error Occured")
         }
       )
 
-
       this.checkText = ''
+    }
+
+    
       // console.log(this.array)
 
 
-    }
+    // }
 
     if (event.keyCode === 46) {
       // console.log("Delete is hitting")
       this.array.pop();
       this.tempArr.pop();
     }
-
-
   }
+
+  // addNextLine(){
+  //     this.noteService.updateExtendedNoteChecklist(this.data.noteCheckLists[0].notesId, {
+  //       "itemName": this.tempArr.,
+  //       "status": this.isChecked
+  //     }).subscribe(
+  //       response => {
+  //         // console.log("The New line in the Checklist is Succeddfully Added!!");
+  //         this.dialogRef.close();
+  //       },
+  //       error => {
+  //         // console.log("Error Occured")
+  //       }
+  //     )
+
+  // }
 
   updateCheckList(item) {
 
@@ -239,6 +257,23 @@ export class ExpandedNotesComponent implements OnInit {
       error => {
         // console.log("Error Occured!!");
       }
+    )
+  }
+
+  removeLabel(label, index){
+
+    // console.log("remove label", label)
+    this.dataShare.sendData5(label);
+    this.data.noteLabels.splice(index,1);
+
+    this.noteService.removeLabelFromNotes(this.data.id,label.id).subscribe(
+      response => {
+
+        // console.log("Label remove Successfull",response);
+        
+        // this.updateDialog.emit({});
+      },
+      error => { }
     )
   }
 
@@ -343,7 +378,16 @@ export class ExpandedNotesComponent implements OnInit {
     })
   }
 
-  
+  completedReminder(reminderChip) {
+
+    let saved = new Date(reminderChip).getTime();
+    let current = new Date().getTime();
+    if(saved < current){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 
   ngOnInit() {

@@ -328,6 +328,8 @@ export class CreateRemainderComponent implements OnInit {
     }
   }
 
+  
+
   this.isoFomatedDateTime = this.settingDate
     this.addDate.emit(this.isoFomatedDateTime);
 
@@ -343,6 +345,46 @@ export class CreateRemainderComponent implements OnInit {
       }
     )
   }
+}
+
+updateDateField(){
+
+  // console.log("set date is",this.setDate)
+
+  this.dateDisable1 = false;
+  this.dateDisable2 = false;
+  this.dateDisable3 = false;
+  this.dateDisable4 = false;
+    
+
+      if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) === 0) {
+
+        if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) === 0) {
+          if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) === 0) {
+  
+            // console.log("same date is here")
+            // console.log("dateDiable2",(new Date(this.setDate).getHours()));
+  
+            if ((new Date(this.setDate).getHours()) > 8) {
+              this.dateDisable1 = true;
+              // console.log("dateDiable1",this.dateDisable1);
+            } if ((new Date(this.setDate).getHours()) > 13) {
+              // console.log("dateDiable2",(new Date(this.setDate).getHours()));
+              this.dateDisable2 = true;
+              
+            } if ((new Date(this.setDate).getHours()) > 18) {
+              this.dateDisable3 = true;
+              // console.log("dateDiable3",this.dateDisable3);
+            } if ((new Date(this.setDate).getHours()) > 20) {
+              this.dateDisable4 = true;
+              // console.log("dateDiable4",this.dateDisable4);
+            }
+          }
+          
+        }
+      
+
+    }
 }
 
   ngOnInit() {
@@ -375,17 +417,17 @@ export class CreateRemainderComponent implements OnInit {
           // console.log("same date is here")
           // console.log("dateDiable2",(new Date(this.setDate).getHours()));
 
-          if ((new Date(this.setDate).getHours()) > 8) {
+          if ((new Date(this.setDate).getHours()) >= 8) {
             this.dateDisable1 = true;
             // console.log("dateDiable1",this.dateDisable1);
-          } if ((new Date(this.setDate).getHours()) > 13) {
+          } if ((new Date(this.setDate).getHours()) >= 13) {
             // console.log("dateDiable2",(new Date(this.setDate).getHours()));
             this.dateDisable2 = true;
             
-          } if ((new Date(this.setDate).getHours()) > 18) {
+          } if ((new Date(this.setDate).getHours()) >= 18) {
             this.dateDisable3 = true;
             // console.log("dateDiable3",this.dateDisable3);
-          } if ((new Date(this.setDate).getHours()) > 20) {
+          } if ((new Date(this.setDate).getHours()) >= 20) {
             this.dateDisable4 = true;
             // console.log("dateDiable4",this.dateDisable4);
           }

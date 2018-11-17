@@ -24,6 +24,7 @@
         <span>Mon, 8:00AM</span>
       </div>
     </button>
+    
     <button mat-menu-item (click)="$event.stopPropagation()" (click)="flag = true" (click)="pickTime = '6:00 AM'">
       <div fxLayout="row wrap">
         <span>
@@ -41,10 +42,12 @@
       </button><span>Pick date & time</span>
 
     </div>
+    
     <hr>
     <mat-form-field>
-      <input matInput (click)="$event.stopPropagation()" [matDatepicker]="picker" [min]="currentDate" [(ngModel)]="setDate" [formcontrol]="date">
+      <input matInput (click)="$event.stopPropagation()" [matDatepicker]="picker" [min]="currentDate" [(ngModel)]="setDate" (dateChange)="updateDateField()" [formcontrol]="date" >
       <mat-datepicker-toggle matSuffix [for]="picker">
+        
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -52,7 +55,7 @@
     <div fxLayout="row">
       <div>
       <mat-form-field>
-      <input matInput (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="pickTime"   (keydown)=press($event) (keyup)="disableSave($event)">
+      <input matInput (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="pickTime"  (keydown)=press($event) (keyup)="disableSave($event)">
       </mat-form-field>
       </div>
       <!-- <button mat-icon-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu"> -->

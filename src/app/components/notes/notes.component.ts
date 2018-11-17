@@ -125,35 +125,6 @@ export class NotesComponent implements OnInit {
   
   completedReminder(reminderChip) {
 
-    
-    // if (new Date(reminderChip).getFullYear() === new Date().getFullYear()) {
-    //   if (new Date(reminderChip).getMonth() === new Date().getMonth()) {
-    //     if (new Date(reminderChip).getDay() === new Date().getDay()) {
-    //       if (new Date(reminderChip).getHours() === new Date().getHours()) {
-    //         if(new Date(reminderChip).getMinutes() === new Date().getMinutes()){
-    //           if(new Date(reminderChip).getSeconds() < new Date().getSeconds()){
-    //             this.reminderCompleted = true;
-    //           }
-              
-    //         }else{
-    //           this.reminderCompleted = true;
-    //         }
-
-    //       } else if (new Date(reminderChip).getHours() < new Date().getHours()) {
-
-    //         this.reminderCompleted = true;
-    //       }
-
-    //     } else if (new Date(reminderChip).getDate() < new Date().getDate()) {
-    //       this.reminderCompleted = true;
-    //     }
-
-    //   } else if (new Date(reminderChip).getMonth() < new Date().getMonth()) {
-    //     this.reminderCompleted = true;
-    //   }
-    // } else if (new Date(reminderChip).getFullYear() < new Date().getFullYear()) {
-    //   this.reminderCompleted = true;
-    // }
     let saved = new Date(reminderChip).getTime();
     let current = new Date().getTime();
     if(saved < current){
@@ -199,9 +170,31 @@ export class NotesComponent implements OnInit {
     })
   }
   viewSwitch;
+  labeldisable = [];
+
+  removeLabel(label,item, index){
+    // for(let i=0; i<item.noteLabels.length; i++){
+    //   this.labeldisable.push(false);
+    // }
+    // console.log("remove label", label)
+    this.dataShare.sendData5(label);
+
+
+    this.noteService.removeLabelFromNotes(item.id,label.id).subscribe(
+      response => {
+
+        // console.log("Label remove Successfull",response);
+        // this.labeldisable[index] = true;
+        this.updateList.emit({});
+        
+      },
+      error => { }
+    )
+    
+  }
 
   ngOnInit() {
-
+    
     // this.dataShare.showData3.subscribe(
     //   response => {
     //     LoggerService.log(response);
@@ -216,6 +209,7 @@ export class NotesComponent implements OnInit {
       }
     )
 
+    console.log("aaaa", this.labeldisable)
 
   }
 }
