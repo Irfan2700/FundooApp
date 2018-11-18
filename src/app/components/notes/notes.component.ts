@@ -32,6 +32,7 @@ export class NotesComponent implements OnInit {
   dateFlag = '';
 
   labelArr = [];
+  pinArr;
   tick;
   // SearchInput;
   // noteId(id) {
@@ -155,6 +156,37 @@ export class NotesComponent implements OnInit {
     )
   }
 
+  checkPin(item){
+// debugger
+    // console.log(this.pinArr[index].title,this.pinArr[index].isPined)
+    if(item.isPined)
+    {return true}
+    else{
+    return false;}
+  }
+
+  changePin(item){
+
+    if(item.isPined === true){
+      item.isPined = false;
+      
+    }else{
+      item.isPined = true;
+      
+    }
+    this.checkPin(item);
+    let requestBody = {
+      "noteIdList": [item.id],
+      "isPined": this.checkPin(item)
+    }
+
+    this.noteService.pinUnpinNotes(requestBody).subscribe(
+      response => {
+        LoggerService.log("pin change successfully");
+      }
+    )
+  }
+
   removeRemainder(item) {
 
     // item.reminder = 
@@ -195,12 +227,11 @@ export class NotesComponent implements OnInit {
 
   ngOnInit() {
     
-    // this.dataShare.showData3.subscribe(
-    //   response => {
-    //     LoggerService.log(response);
-    //     this.SearchInput = response;
-    //   }
-    // )
+    this.dataShare.showData3.subscribe(
+      response => {
+        this.pinArr = response;
+      }
+    )
     this.dataShare.showData4.subscribe(
       data => {
         
@@ -208,6 +239,14 @@ export class NotesComponent implements OnInit {
         
       }
     )
+
+    // this.dataShare.showData6.subscribe(
+    //   respo => {
+
+    //     this.pinArr = respo;
+        
+    //   }
+    // )
 
     console.log("aaaa", this.labeldisable)
 

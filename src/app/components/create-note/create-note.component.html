@@ -3,15 +3,15 @@
   <mat-card class="addNote">
     <input type="text" placeholder="take a note..." ngStyle.xs="border: none; height: 45px; 
     font-size: 18px; min-width: 247px; outline: none; border-radius: 8px;"
-    ngStyle.sm="border: none; height: 45px; font-size: 18px; min-width: 247px; outline: none;
+      ngStyle.sm="border: none; height: 45px; font-size: 18px; min-width: 247px; outline: none;
      border-radius: 8px;"
-    ngStyle.md="border: none; height: 45px; font-size: 18px; min-width: 247px; outline: none;
+      ngStyle.md="border: none; height: 45px; font-size: 18px; min-width: 247px; outline: none;
      border-radius: 8px;"
-     ngStyle.lg="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
+      ngStyle.lg="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
      border-radius: 8px;"
-     ngStyle.xl="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
+      ngStyle.xl="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
      border-radius: 8px;"
-     autofocus (click)="noteCard = true" (click)="checkToggle = false; index = '#ffffff'" >
+      autofocus (click)="noteCard = true" (click)="checkToggle = false; index = '#ffffff'">
     <button mat-icon-button class="listBut">
       <mat-icon (click)="checkToggle = true" (click)="noteCard = true">list</mat-icon>
     </button>
@@ -27,16 +27,15 @@
 </div>
 
 <div [hidden]="!noteCard">
-  <mat-card [style.backgroundColor]="index"
-  ngStyle.xs="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  <mat-card [style.backgroundColor]="index" ngStyle.xs="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;"
-  ngStyle.sm="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+    ngStyle.sm="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;"
-  ngStyle.md="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+    ngStyle.md="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;"
-  ngStyle.lg="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+    ngStyle.lg="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;"
-  ngStyle.xl="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+    ngStyle.xl="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;">
     <form>
       <div fxLayoutAlign="space-between" fxLayout="column">
@@ -44,11 +43,13 @@
           <div contenteditable="true" placeholder="Title" class="titleNote" #title> </div>
           <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned"
               [ngClass]="isPinned ? 'solid' : 'blur'">
-              <mat-icon>fiber_pin</mat-icon>
+              <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                </svg></mat-icon>
             </button></div>
         </div><br>
-        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" 
-        #desc *ngIf="checkToggle === false">
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" #desc *ngIf="checkToggle === false">
         </div><br>
         <div *ngIf="checkToggle === true && array !== []">
 
@@ -59,35 +60,36 @@
             </mat-checkbox>​
 
           </div>
-          <mat-checkbox>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" 
-            (keydown)="nextLine($event)"
+          <mat-checkbox>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" autocomplete="off" [style.backgroundColor]="index" (keydown)="nextLine($event)"
               [(ngModel)]="checkText"></mat-checkbox>
         </div>
 
         <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="10px">
-        <div>
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let item of labelUpdate; let i=index;">
+          <div>
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let item of labelUpdate; let i=index;">
 
-              {{item.label}}
-              <!-- <button mat-icon-button (click)="removeLabelChip(item,i)"><mat-icon>cancel</mat-icon></button> -->
-              
-            </mat-chip>
-          </mat-chip-list>
-          
-        </div>
+                {{item.label}}
+                <!-- <button mat-icon-button (click)="removeLabelChip(item,i)"><mat-icon>cancel</mat-icon></button> -->
 
-        <div></div>
+              </mat-chip>
+            </mat-chip-list>
 
-        <div fxLayout="row wrap">
-          <!-- <div *ngFor="let label of item.labelIdList"> -->
+          </div>
+
+          <div></div>
+
+          <div fxLayout="row wrap">
+            <!-- <div *ngFor="let label of item.labelIdList"> -->
             <div *ngIf="!(remainder === '')">
-              
-              <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainder | date: "medium"}}
-              <mat-icon (click)="removeRemainder()">cancel</mat-icon></mat-chip>
+
+              <mat-chip>
+                <mat-icon>schedule</mat-icon>&nbsp; {{remainder | date: "medium"}}
+                <mat-icon (click)="removeRemainder()">cancel</mat-icon>
+              </mat-chip>
             </div>
-          <!-- </div> -->
-        </div>
+            <!-- </div> -->
+          </div>
         </div>
 
       </div>
@@ -143,12 +145,12 @@
         </button>
         <div fxLayoutAlign="space-between">
           <button mat-icon-button class="moreBut">
-            <app-creat-note-more-option [isCheck]="labelUpdate" [alowCheck]="checkToggle" (labelAdds)="updateLabel($event)" (checkBox)="updateCheckList($event)">
+            <app-creat-note-more-option [isCheck]="labelUpdate" [alowCheck]="checkToggle" (labelAdds)="updateLabel($event)"
+              (checkBox)="updateCheckList($event)">
             </app-creat-note-more-option>
           </button>
 
-          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" 
-          (click)="array = []"><b>close</b></button>
+          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" (click)="array = []"><b>close</b></button>
         </div>
       </div>
     </form>

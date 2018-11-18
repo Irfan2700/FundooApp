@@ -37,7 +37,7 @@
             </div>
             <hr>
             <div fxLayout="row wrap">
-            <mat-icon>add</mat-icon>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)" [(ngModel)]="checkText">
+            <mat-icon>add</mat-icon>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)" [style.backgroundColor]="updateColor" [(ngModel)]="checkText">
             </div>
             <hr>
             <s></s>

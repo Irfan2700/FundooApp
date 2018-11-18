@@ -6,9 +6,22 @@
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card-title [innerHTML]="item.title" (click)="openDialog(item)">
 
-        </mat-card-title><button mat-icon-button (click)="isPinned = !isPined" style="opacity: 0.4">
-          <mat-icon>fiber_pin</mat-icon>
-        </button>
+        </mat-card-title>
+        <div *ngIf="checkPin(item)">
+          <button mat-icon-button class="solid" (click)="changePin(item)">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
+                <path fill="none" d="M0 0h24v24H0z"></path>
+              </svg></mat-icon>
+          </button></div>
+
+        <div *ngIf="!(checkPin(item))">
+          <button mat-icon-button class="blur" (click)="changePin(item)">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
+              <path fill="none" d="M0 0h24v24H0z"></path>
+            </svg></mat-icon>
+          </button></div>
       </div>
       <div *ngIf="item.noteCheckLists.length === 0">
         <mat-card-content class="messgCard" [innerHTML]="item.description" (click)="openDialog(item)">
@@ -19,8 +32,7 @@
         <div *ngFor="let checklists of item.noteCheckLists;  let j=index">
           <div *ngIf="checklists.isDeleted === false">
             <div fxLayout="row">
-              <mat-checkbox fxFlex="10" [checked]="checklists.status === 'close'" 
-              (click)="checklists.status === 'close' ? (checklists.status = 'open') : (checklists.status = 'close')"
+              <mat-checkbox fxFlex="10" [checked]="checklists.status === 'close'" (click)="checklists.status === 'close' ? (checklists.status = 'open') : (checklists.status = 'close')"
                 (click)="checkTick(checklists, item , i, j)">
 
               </mat-checkbox>
@@ -32,40 +44,46 @@
         </div>
 
       </div>
-      <div fxLayout="column" fxLayoutAlign="space-between" >
-      <div fxLayout="row wrap">
-        <!-- <div *ngFor="let label of item.labelIdList"> -->
+      <div fxLayout="column" fxLayoutAlign="space-between">
+        <div fxLayout="row wrap">
+          <!-- <div *ngFor="let label of item.labelIdList"> -->
           <div *ngFor="let labelName of item.noteLabels; let k=index">
-            <mat-chip class="width"><div class="labelChip" (click)="showLabel(labelName.label)">
-              <span class="labelChip">{{labelName.label}}</span></div>
-              <mat-icon class="labelCancel" (click)="removeLabel(labelName,item,i); labeldisable = true;">cancel</mat-icon></mat-chip>
+            <mat-chip class="width">
+              <div class="labelChip" (click)="showLabel(labelName.label)">
+                <span class="labelChip">{{labelName.label}}</span></div>
+              <mat-icon class="labelCancel" (click)="removeLabel(labelName,item,i); labeldisable = true;">cancel</mat-icon>
+            </mat-chip>
           </div>
-        <!-- </div> -->
-      </div>
-      <br>
+          <!-- </div> -->
+        </div>
+        <br>
 
-      <div fxLayout="row wrap">
-        <!-- <div *ngFor="let label of item.labelIdList"> -->
+        <div fxLayout="row wrap">
+          <!-- <div *ngFor="let label of item.labelIdList"> -->
           <div *ngFor="let remainderChip of item.reminder">
             <div *ngIf="!(completedReminder(remainderChip))">
-            
-            <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}
-              <mat-icon (click)="removeRemainder(item)">cancel</mat-icon></mat-chip>
+
+              <mat-chip>
+                <mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}
+                <mat-icon (click)="removeRemainder(item)">cancel</mat-icon>
+              </mat-chip>
+            </div>
           </div>
-          </div>
-        <!-- </div> -->
-        
-      </div>
-      <div>
-        
-        <div *ngFor="let remainderChip of item.reminder">
+          <!-- </div> -->
+
+        </div>
+        <div>
+
+          <div *ngFor="let remainderChip of item.reminder">
             <div *ngIf="completedReminder(remainderChip)">
-            
-          <mat-chip style="opacity: 0.4"><mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderChip | date: "medium"}}</del>
-            <mat-icon (click)="removeRemainder(item)">cancel</mat-icon></mat-chip>
+
+              <mat-chip style="opacity: 0.4">
+                <mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderChip | date: "medium"}}</del>
+                <mat-icon (click)="removeRemainder(item)">cancel</mat-icon>
+              </mat-chip>
+            </div>
+          </div>
         </div>
-        </div>
-      </div>
       </div>
 
       <div class="panal" *ngIf="item.isDeleted === false" fxLayoutAlign="space-between">
@@ -75,7 +93,7 @@
         </button>
         <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>
         <app-create-archive [note]="item" (reloadNote)=archiveNote($event)></app-create-archive>
-        <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)" ></app-more-options>
+        <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)"></app-more-options>
         <!-- <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item >Delete Note</button>
@@ -84,7 +102,7 @@
       </mat-menu> -->
       </div>
       <div class="panal" *ngIf="item.isDeleted === true">
-        <app-trash-more-option [note]="item" (update)="updateOptionsNote($event)" ></app-trash-more-option>
+        <app-trash-more-option [note]="item" (update)="updateOptionsNote($event)"></app-trash-more-option>
       </div>
     </mat-card>
 

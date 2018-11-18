@@ -95,4 +95,8 @@ export class NoteServicesService {
   getReminderList(){
     return this.httpService.httpGetJson("notes/getReminderNotesList");
   }
+
+  pinUnpinNotes(body){
+    return this.httpService.httpPostJson("notes/pinUnpinNotes", body);
+  }
 }

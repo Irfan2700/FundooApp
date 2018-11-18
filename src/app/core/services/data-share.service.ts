@@ -18,7 +18,7 @@ export class DataShareService {
   showData3 = this.dataSource3.asObservable();
   showData4 = this.dataSource4.asObservable();
   showDate5 = this.dataSource5.asObservable();
-  showDate6 = this.dataSource6.asObservable();
+  showData6 = this.dataSource6.asObservable();
 
 
 
