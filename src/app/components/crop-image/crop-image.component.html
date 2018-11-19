@@ -1,9 +1,9 @@
 <mat-card class="card">
 <image-cropper
   [imageChangedEvent]="imageChangedEvent"
-  [maintainAspectRatio]="false"
+  [maintainAspectRatio]="true"
   [resizeToWidth]="0"
-  [aspectRatio]="1/1"
+  [aspectRatio]="4/4"
   format="png"
   (imageCropped)="imageCropped($event)"
   (imageLoaded)="imageLoaded()"

@@ -7,11 +7,11 @@ import { MatDialog } from '@angular/material';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+  selector: 'app-pinned-notes',
+  templateUrl: './pinned-notes.component.html',
+  styleUrls: ['./pinned-notes.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class PinnedNotesComponent implements OnInit {
 
   @Input() model: any = [];
 
@@ -257,4 +257,5 @@ export class NotesComponent implements OnInit {
     console.log("aaaa", this.labeldisable)
 
   }
+
 }

@@ -3,47 +3,63 @@
   <div>
     <div fxLayoutAlign="space-between" fxLayout="column">
       <div fxLayout="row" fxLayoutAlign="space-between">
-        <mat-card-title contenteditable="true" placeholder="Title" class="titleNote" id="updateTitle" [innerHTML]="data.title"></mat-card-title>
-        <div><button mat-icon-button style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPined">
-            <mat-icon>fiber_pin</mat-icon>
+        <mat-card-title contenteditable="true" placeholder="Title" class="titleNoteShow" id="updateTitle" [innerHTML]="data.title"></mat-card-title>
+        <div *ngIf="(checkPin())">
+          <button mat-icon-button class="solid" (click)="changePin()" style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
+                <path fill="none" d="M0 0h24v24H0z"></path>
+              </svg></mat-icon>
           </button></div>
+
+          <div *ngIf="!(checkPin())">
+            <button mat-icon-button class="blur" (click)="changePin()" style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned">
+              <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                </svg></mat-icon>
+            </button></div>
       </div>
 
       <mat-card-content>
-      <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="updateDesc"
-        *ngIf="data.noteCheckLists.length === 0" [innerHTML]="data.description"></div>
-      <div class="messgCard" *ngIf="data.noteCheckLists.length !== 0">
+        <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left" id="updateDesc"
+          *ngIf="data.noteCheckLists.length === 0" [innerHTML]="data.description"></div>
+        <div class="messgCard" *ngIf="data.noteCheckLists.length !== 0">
 
-          <div *ngFor="let item of array; let i = index" >
+          <div *ngFor="let item of array; let i = index">
             <div fxLayoutAlign="space-between" fxLayout="row">
-              <mat-checkbox name="checkbox" (click)="currentTick(item)" [(ngModel)]="tick"  *ngIf="(editToggle === item.id)"></mat-checkbox>
-                <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left"
-                  [innerHTML]=item.checkText *ngIf="(editToggle === item.id) " id="update"></div>
+              <mat-checkbox name="checkbox" (click)="currentTick(item)" [(ngModel)]="tick" *ngIf="(editToggle === item.id)"></mat-checkbox>
+              <div contenteditable="true" placeholder="take a note..." class="takeNoteExpand" style="clear:left"
+                [innerHTML]=item.checkText *ngIf="(editToggle === item.id) " id="update"></div>
 
-                  <mat-checkbox *ngIf="!(editToggle === item.id)" [checked]="item.isChecked === 'close'" (click)="item.isChecked === 'close' ? (item.isChecked = 'open') : (item.isChecked = 'close')" (click)="checkTick(item,i)"></mat-checkbox>
-                  <div class="takeNoteExpand" *ngIf="!(editToggle === item.id)" style="clear:left"  [innerHTML]="item.checkText">
-            </div>
-              
+              <mat-checkbox *ngIf="!(editToggle === item.id)" [checked]="item.isChecked === 'close'" (click)="item.isChecked === 'close' ? (item.isChecked = 'open') : (item.isChecked = 'close')"
+                (click)="checkTick(item,i)"></mat-checkbox>
+              <div class="takeNoteExpandShow" *ngIf="!(editToggle === item.id)" style="clear:left" [innerHTML]="item.checkText">
+              </div>
+
               <button mat-icon-button (click)="updateList(item)" *ngIf="!(editToggle === item.id)" [disabled]="disabled">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button (click)="editToggle = ''" (click)="isDisable()" (click)="updateCheckList(item)" *ngIf="editToggle === item.id">
-                    <mat-icon>done</mat-icon>
-                  </button>
-                  <button mat-icon-button (click)="editToggle = ''" (click)="isDisable()" (click)="deleteCheckList(item)" *ngIf="editToggle === item.id">
-                      <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="editToggle = ''" (click)="isDisable()" (click)="updateCheckList(item)"
+                *ngIf="editToggle === item.id">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-icon-button (click)="editToggle = ''" (click)="isDisable()" (click)="deleteCheckList(item)"
+                *ngIf="editToggle === item.id">
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
-            <hr>
-            <div fxLayout="row wrap">
-            <mat-icon>add</mat-icon>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keydown)="nextLine($event)" [style.backgroundColor]="updateColor" [(ngModel)]="checkText">
-            </div>
-            <hr>
-            <s></s>
-           
-           
-        <!-- <div *ngFor="let checklists of data.noteCheckLists">
+          </div>
+          <hr>
+          <div fxLayout="row wrap">
+            <mat-icon>add</mat-icon>&nbsp;<input type="text" class="checkInput" name="check" placeholder="list" (keyup)="nextLine($event)"
+              [style.backgroundColor]="updateColor" [(ngModel)]="checkText">
+          </div>
+          <hr>
+          <s></s>
+
+
+          <!-- <div *ngFor="let checklists of data.noteCheckLists">
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxLayoutAlign="space-between" class="editDiv">
               <mat-checkbox *ngIf="editToggle === checklists.id"></mat-checkbox>
@@ -59,51 +75,72 @@
             </button>
           </div>
         </div> -->
-      </div>
-      <div fxLayout="column wrap" fxLayoutAlign="space-between" fxLayoutGap="10px">
-      <div fxLayout="row wrap">
-        <!-- <div *ngFor="let label of item.labelIdList"> -->
-          <div *ngFor="let labelName of data.noteLabels; let i=index;">
-            <mat-chip >{{labelName.label}}<mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon></mat-chip>
-          </div>
-        <!-- </div> -->
-      </div>
-
-      <div fxLayout="row wrap">
-        <!-- <div *ngFor="let label of item.labelIdList"> -->
-          <div *ngIf="!(completedReminder(remainderObj))">
-            
-            <mat-chip ><mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
-              <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
-            </mat-chip>
+        </div>
+        <div fxLayout="column wrap" fxLayoutAlign="space-between" fxLayoutGap="10px">
+          <div fxLayout="row wrap">
+            <!-- <div *ngFor="let label of item.labelIdList"> -->
+            <div *ngFor="let labelName of data.noteLabels; let i=index;">
+              <mat-chip>{{labelName.label}}<mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon>
+              </mat-chip>
+            </div>
+            <!-- </div> -->
           </div>
 
-          <div *ngIf="(completedReminder(remainderObj))">
-            
-            <mat-chip class="completeReminder"><mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderObj | date: "medium"}}</del>
-              <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
-            </mat-chip>
-          </div>
-        <!-- </div> -->
-      </div>
+          <div fxLayout="row wrap">
+            <!-- <div *ngFor="let label of item.labelIdList"> -->
+            <div *ngIf="!(completedReminder(remainderObj)) && remainderObj.length !== 0">
 
-      </div>
-      <br>
-    </mat-card-content>
+              <mat-chip>
+                <mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
+                <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
+              </mat-chip>
+            </div>
+
+            <div *ngIf="(completedReminder(remainderObj)) && remainderObj.length !== 0">
+
+              <mat-chip class="completeReminder">
+                <mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderObj | date: "medium"}}</del>
+                <mat-icon (click)="removeRemainder(remainderObj)">cancel</mat-icon>
+              </mat-chip>
+            </div>
+            <!-- </div> -->
+          </div>
+
+        </div>
+        <br>
+      </mat-card-content>
     </div>
-    <div fxLayoutAlign="space-between" *ngIf="data.isDeleted === false" fxLayout="row">
-      <button mat-icon-button class="touchBut">
-        <app-create-remainder [note]="data" [allowDate]="dataFlag" (update)="updateOptionsNote($event)"></app-create-remainder>
-      </button>
-      <button mat-icon-button class="addBut">
-        <mat-icon>person_add</mat-icon>
-      </button>
-      <app-palette (resp)="updateBackground($event)" [newColor]="data"></app-palette>
-      <app-create-archive [archiveInput]="data.id" (reloadNote)=archiveNote($event)></app-create-archive>
+    <div fxLayoutAlign="space-between" *ngIf="data.isDeleted === false" fxLayout="row wrap">
+      <div ngStyle.xs="width:7px;">
+        <button mat-icon-button class="touchBut">
+          <app-create-remainder [note]="data" [allowDate]="dataFlag" (update)="updateOptionsNote($event)"></app-create-remainder>
+        </button>
+      </div>
+      <div ngStyle.xs="width:7px;">
+        <button mat-icon-button class="addBut">
+          <mat-icon>person_add</mat-icon>
+        </button>
+      </div>
+      <div ngStyle.xs="width:7px;">
+        <app-palette (resp)="updateBackground($event)" [newColor]="data"></app-palette>
+      </div>
+      <div ngStyle.xs="width:7px;">
+        <app-create-archive [archiveInput]="data.id" (reloadNote)=archiveNote($event)></app-create-archive>
+      </div>
       <div fxLayoutAlign="space-between">
-        <app-more-options [note]="data" (update)="deleteNote($event)"></app-more-options>
-
-        <button mat-button cdkFocusInitial (click)="switch = true" (click)="updataData()" (click)="nextLine($event)" style="opacity: 1.5"><b>close</b></button>
+        <div>
+          <app-more-options [note]="data" (update)="deleteNote($event)"></app-more-options>
+        </div>
+        <div fxHide fxShow.gt-xs>
+          <button mat-button cdkFocusInitial (click)="switch = true" (click)="updataData()" (click)="nextLine($event)"
+            style="opacity: 1.5"><b>close</b></button>
+        </div>
+        <div fxHide fxShow.xs>
+          <button mat-icon-button cdkFocusInitial (click)="switch = true" (click)="updataData()" (click)="nextLine($event)"
+            style="opacity: 1.5">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
     <div class="panal" *ngIf="data.isDeleted === true">

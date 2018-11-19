@@ -35,6 +35,7 @@ export class ExpandedNotesComponent implements OnInit {
   array = [];
   tempArr = [];
   switch = false;
+  isPinned = false;
 
   updataData() {
     // debugger;
@@ -115,6 +116,7 @@ export class ExpandedNotesComponent implements OnInit {
   isChecked = "open";
   checkText;
   count = 0;
+  currentItemArr = "test";
 
 
   editToggle;
@@ -127,6 +129,42 @@ export class ExpandedNotesComponent implements OnInit {
     this.editToggle = list["id"];
     this.disabled = true;
   }
+
+  reminderOption(item){
+    this.currentItemArr = item;
+  }
+  item1 = this.data;
+
+  checkPin(){
+    // debugger
+        
+        if(this.data.isPined)
+        {return true}
+        else{
+        return false;}
+      }
+    
+      changePin(){
+    
+        if(this.data.isPined === true){
+          this.data.isPined = false;
+          
+        }else{
+          this.data.isPined = true;
+          
+        }
+        this.checkPin();
+        let requestBody = {
+          "noteIdList": [this.data.id],
+          "isPined": this.checkPin()
+        }
+    
+        this.noteService.pinUnpinNotes(requestBody).subscribe(
+          response => {
+            LoggerService.log("pin change successfully");
+          }
+        )
+      }
 
 
   currentTick(ele) {
@@ -418,8 +456,8 @@ export class ExpandedNotesComponent implements OnInit {
     }
 
 
-
-    console.log("Preloaded List", this.array)
+    this.isPinned = this.data.isPined
+    // console.log("Preloaded List", this.array)
 
   }
 

@@ -3,17 +3,18 @@
     <div fxFlex="18">
       <mat-toolbar class="toolbar" fxLayout="row" ngStyle.xs=" height: 43px" ngStyle.sm=" height: 49px" ngStyle.md="height: 55px"
         ngStyle.lg="height: 64px">
-        <div fxFlex="15">
+        <div fxFlex="15" fxLayout="row">
           <button style="outline:none" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
             ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:30px">
             <mat-icon ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:30px"
               class="menu" aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
 
-          <span class="toolHeader" [hidden]="(isHandset$ | async) ? true : false" ngStyle.xs="font-size:14px;"
-            ngStyle.sm="font-size:16px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:22px">FundooApp</span>
-          &nbsp;&nbsp;<span class="keepHead" ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:20px"
-            ngStyle.lg="font-size:22px">Keep</span>
+          <span class="uu" [hidden]="(isHandset$ | async) ? true : false" ngStyle.xs="font-size:14px;"
+            ngStyle.sm="font-size:16px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:22px">
+            <span class="toolHeader">{{topTitle}}</span></span>
+          &nbsp;&nbsp;<span class="uu" ngStyle.xs="font-size:12px" ngStyle.sm="font-size:17px" ngStyle.md="font-size:20px"
+            ngStyle.lg="font-size:22px"><div class="keepHead" [innerHTML]="keepTitle"></div></span>
         </div>
         <div fxFlex="65" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
@@ -30,22 +31,32 @@
                       ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">search</mat-icon>
                   </button>
                 </div>
+               
                 <div [hidden]="(isHandset$ | async) ? true : false">
                   <input name="searching" style="outline:none" autocomplete="off" class="searchInput" matInput type="search"
                     placeholder="Search" ngStyle.xs="font-size:12px; height:28px;" ngStyle.sm="font-size:17px; height:33px"
                     ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px" [(ngModel)]="searchInput"
                     (click)="searchNotes()" (keyup)="pressSearch()">
                 </div>
+                
               </div>
 
               <div fxFlex="5"></div>
 
               <div fxFlex="75" [hidden]="(isHandset$ | async) ? false : true">
-                <button style="outline:none" type="button" class="searchButtonNew" mat-icon-button>
+                <button style="outline:none" [matMenuTriggerFor]="searchMenu" (click)="enableSearch = true; searchInput = ''" type="button" class="searchButtonNew" mat-icon-button>
                   <mat-icon aria-label="searchIcon" class="searchIconNew" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
                     ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">search</mat-icon>
                 </button>
+                
               </div>
+
+              <mat-menu #searchMenu>
+                <div [hidden]="enableSearch === false">
+                  <input name=expandedSearch (click)="$event.stopPropagation()" class="expandSearch" autofocus ngStyle.xs="font-size:12px; height:28px;" ngStyle.sm="font-size:17px; height:33px"
+                  ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px" (click)="searchNotes()" [(ngModel)]="searchInput" (keyup)="pressSearch()">
+                </div>
+              </mat-menu>
 
             </form>
           </div>
@@ -138,10 +149,10 @@
            >
           <mat-nav-list fxLayout="column" fxLayoutAlign="space-between">
             <br>
-            <a mat-list-item [routerLink]="['/home']" routerLinkActive="router-link-active">
+            <a mat-list-item (click)="topTitle = 'Fundoo'; keepTitle = 'Keep';" [routerLink]="['/home']" routerLinkActive="router-link-active">
               <mat-icon aria-label="notes">lightbulb</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Notes
             </a>
-            <a mat-list-item [routerLink]="['/reminders']" routerLinkActive="router-link-active">
+            <a mat-list-item (click)="topTitle = ''; keepTitle = 'Reminders';" [routerLink]="['/reminders']" routerLinkActive="router-link-active">
               <mat-icon aria-label="touch app">touch_app</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Reminders
             </a>
@@ -154,7 +165,7 @@
             <div *ngFor="let item of arr">
               <!-- <div fxLayout="row wrap" fxLayoutAlign="space between"> -->
 
-              <a mat-list-item  (click)="showlabelList(item)">
+              <a mat-list-item (click)="topTitle = ''; keepTitle = item.label;" (click)="showlabelList(item)">
                 <!-- <div fxLayoutAlign="space between"> -->
                 <mat-icon>label_outline</mat-icon>&nbsp;
                 <span class="labelList">{{item.label}}</span>
@@ -169,12 +180,12 @@
             </a>
             <hr>
 
-            <a mat-list-item [routerLink]="['/archive']" routerLinkActive="router-link-active">
+            <a mat-list-item (click)="topTitle = ''; keepTitle = 'Archive';" [routerLink]="['/archive']" routerLinkActive="router-link-active">
               <mat-icon aria-label="archive">archive</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Archive
             </a>
 
-            <a mat-list-item [routerLink]="['/trash']" routerLinkActive="router-link-active">
+            <a mat-list-item (click)="topTitle = ''; keepTitle = 'Trash';" [routerLink]="['/trash']" routerLinkActive="router-link-active">
               <mat-icon aria-label="trash">delete</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Trash
             </a>

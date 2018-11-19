@@ -70,6 +70,8 @@ import { SearchComponent } from './components/search/search.component';
 import { TrashMoreOptionComponent } from './components/trash-more-option/trash-more-option.component';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { CreateRemainderComponent } from './components/create-remainder/create-remainder.component';
+import { UpdateReminderComponent } from './components/update-reminder/update-reminder.component';
+import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.component';
 
 
 
@@ -103,6 +105,8 @@ import { CreateRemainderComponent } from './components/create-remainder/create-r
     TrashMoreOptionComponent,
     CropImageComponent,
     CreateRemainderComponent,
+    UpdateReminderComponent,
+    PinnedNotesComponent,
     
 
 

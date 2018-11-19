@@ -40,6 +40,9 @@ export class TopToolbarComponent implements OnInit {
     arr;
     searchInput;
     listView = false;
+    topTitle = "Fundoo";
+    keepTitle = "Keep";
+    enableSearch = false;
 
   logout() {
     this.userService.userLogout().subscribe(

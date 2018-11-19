@@ -104,10 +104,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-    let obsGet = this.userServices.getUserInfo();
-    obsGet.subscribe((response) => {
-      // console.log(response);
-    })
+    // let obsGet = this.userServices.getUserInfo();
+    // obsGet.subscribe((response) => {
+    //   // console.log(response);
+    // })
     if(this.auth.getToken()){
       this.myRoute.navigate(["home"]);
     }

@@ -55,12 +55,24 @@ overflow: hidden !important;
   font-family: 'Roboto Slab';
   font:bold;
   margin: 0px 0px 0px 9px;
+  white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden !important;
+width: 200px
 }
 
 .keepHead{
   font-family: 'Roboto Slab';
   font:bold;
   margin: 0px 0px 0px 2px;
+  white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden !important;
+width: 200px;
+}
+
+.uu{
+  max-width: 100px;
 }
 
 .menu{
@@ -98,6 +110,14 @@ border: none;
 border-radius: 5px;
 padding: 0px 0px 0px 50px;
 background: #e4a700;
+}
+
+.expandSearch{
+width: 100%;
+border: none;
+border-radius: 5px;
+// padding: 0px 0px 0px 50px;
+
 }
 
 input:focus{
@@ -166,6 +186,12 @@ input:focus{
   margin-top: 41px;
 
 
+}
+
+.topTitle{
+  white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden !important;
 }
 
 .account{

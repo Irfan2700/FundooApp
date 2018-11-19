@@ -36,6 +36,20 @@
 
 }
 
+.titleNoteShow{
+  border: none;
+  /* height: auto; */
+  font-size: 18px;
+  width: 486px;
+  outline: none;
+
+  /* resize: none; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+
+}
+
 .completeReminder{
 
   opacity: 0.4;
@@ -53,6 +67,18 @@
   font-size: 18px;
   width: 470px;
   outline: none;
+  
+}
+
+.takeNoteExpandShow{
+  border: none;
+  height: auto;
+  font-size: 18px;
+  width: 470px;
+  outline: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
 }
 
 .notebuttonPanal{
@@ -68,10 +94,23 @@ div[contenteditable=true] {
   border: none;
   height: auto;
   font-size: 18px;
-  width: 486px;
+  width: 24vw;
   outline: none;
+  
   /* padding-top: 10px; */
 }
+
+// div[contenteditable=false] {
+//   border: none;
+//   height: auto;
+//   font-size: 18px;
+//   width: 470px;
+//   outline: none;
+//   white-space: nowrap;
+// text-overflow: ellipsis;
+// overflow: hidden !important;
+//   /* padding-top: 10px; */
+// }
 
 .takeNote:hover{
   opacity: 1;
@@ -186,4 +225,12 @@ div[contenteditable=true] {
   font-size: 18px;
   border: none;
   outline: none;
+}
+
+.blur{
+  opacity: 0.3;
+}
+
+.solid{
+  opacity: 1;
 }

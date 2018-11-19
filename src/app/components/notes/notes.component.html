@@ -1,8 +1,10 @@
-<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="center center" fxLayoutGap="10px">
+<span fxLayoutAlign="center center">Others</span>
+<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="center start" fxLayoutGap="10px">
   <div *ngFor="let item of model | filter: searchInput; let i=index">
 
-
-    <mat-card [style.backgroundColor]="item.color" [ngClass]="viewSwitch ? 'listCardView':'gridCardView'">
+<div *ngIf="item.isPined === false">
+    <mat-card [style.backgroundColor]="item.color" ngStyle.xs="width: 351px; margin: 10px;border-radius: 8px;
+    margin-left: 18px;" [ngClass]="viewSwitch ? 'listCardView':'gridCardView'">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card-title [innerHTML]="item.title" (click)="openDialog(item)">
 
@@ -63,15 +65,22 @@
           <div *ngFor="let remainderChip of item.reminder">
             <div *ngIf="!(completedReminder(remainderChip))">
 
-              <mat-chip>
+              <button mat-icon-button [matMenuTriggerFor]="remainderMenu" (click)="reminderOption(item)"><mat-chip disabled>
                 <mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}
                 <mat-icon (click)="removeRemainder(item)">cancel</mat-icon>
-              </mat-chip>
+              </mat-chip></button>
             </div>
           </div>
           <!-- </div> -->
 
         </div>
+
+        
+          <mat-menu #remainderMenu>
+            <app-update-reminder [arr]=currentItemArr></app-update-reminder>
+            
+          </mat-menu>
+        
         <div>
 
           <div *ngFor="let remainderChip of item.reminder">
@@ -105,6 +114,7 @@
         <app-trash-more-option [note]="item" (update)="updateOptionsNote($event)"></app-trash-more-option>
       </div>
     </mat-card>
+  </div>
 
   </div>
 </div>

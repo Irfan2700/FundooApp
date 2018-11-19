@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
 
         console.log("fresh", response["data"].data);
 
-        this.dataShare.sendData6(response["data"].data)
+        
         this.arr = [];
         for (var i = response["data"].data.length - 1; i >= 0; i--) {
           if (response["data"].data[i].isDeleted === false) {

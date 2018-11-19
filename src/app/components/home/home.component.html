@@ -14,8 +14,22 @@
 
     </div>
 
-    <div fxFlex="85" (click)="noteCard = false">
+    <div fxFlex="85" fxLayout="row wrap" fxLayoutAlign="space-between" fxLayoutGap="10px" (click)="noteCard = false">
+
+      
       <br>
+
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <!-- <div *ngFor="let item of arr"> -->
+
+        <app-pinned-notes [model]= "arr" (updateList)= "reload($event)"></app-pinned-notes>
+
+      <!-- </div> -->
+      </div>
+      <br>
+      <br>
+      <div ></div>
+      <div></div>
       <!-- <br><br> -->
 
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
