@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
@@ -15,7 +16,8 @@ export class CreatNoteMoreOptionComponent implements OnInit {
   @Output() labelAdds = new EventEmitter();
   @Output() checkBox = new EventEmitter();
 
-  labelArr;
+  private notes: Note[] = [];
+  private labelArr;
   tempArr = [];
   
   showCheckList(){
@@ -68,7 +70,8 @@ ngOnChanges(changes: SimpleChanges): void {
     this.noteService.getNoteLabelList().subscribe(
       response => {
         // console.log("response show", response['data'].details)
-        this.labelArr = response['data'].details
+        this.notes = response['data']['details'];
+        this.labelArr = this.notes;
         // console.log("label Array",this.labelArr)
         for(var i=0; i<this.labelArr.length; i++){
           this.tempArr.push({

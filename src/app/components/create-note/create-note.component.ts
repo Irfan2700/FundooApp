@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
@@ -16,7 +17,7 @@ export class CreateNoteComponent implements OnInit {
   @ViewChild('title') title: ElementRef;
   @ViewChild('desc') desc: ElementRef;
 
-
+  private notes: Note[] = [];
   isPinned = false;
   noteCard = false;
   isCheckListTicked = false;
@@ -223,12 +224,12 @@ export class CreateNoteComponent implements OnInit {
 
   array = [];
 
-  checkInput: any;
+  private checkInput: any;
 
   isChecked = "open";
   checkText;
 
-  count = 0;
+  private count = 0;
 
   updateCheckList(event){
 

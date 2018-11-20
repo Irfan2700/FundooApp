@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { Router } from '@angular/router';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
@@ -14,6 +15,8 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild }
 export class NotesComponent implements OnInit {
 
   @Input() model: any = [];
+  @Input() pinStatus: any = [];
+  @Input() pinHead;
 
   constructor(public dialog: MatDialog, private elementRef: ElementRef,
     private dataShare: DataShareService,
@@ -27,21 +30,22 @@ export class NotesComponent implements OnInit {
   @Output() updateList = new EventEmitter();
   // @Input() NoteArray;
   @Input() searchInput;
+  private notes:Note[] = [];
 
-  isPinned = false;
+  private isPinned = false;
   dateFlag = '';
 
-  labelArr = [];
-  pinArr;
-  tick;
+  private labelArr = [];
+  private pinArr;
+  private tick;
   // SearchInput;
   // noteId(id) {
   //   console.log(id);
   // }
-  flag = false;
+  private flag = false;
   modelArr = this.model;
-  labelUpdate = []
-  labelList;
+  private labelUpdate = []
+  private labelList;
 
   updateOptionsNote(event) {
     if (event) {
@@ -76,7 +80,7 @@ export class NotesComponent implements OnInit {
     this.myRoute.navigate(['label/' + label])
   }
 
-  updateColor;
+  private updateColor;
 
   updateBackground(event) {
 
@@ -119,7 +123,7 @@ export class NotesComponent implements OnInit {
   // currentTick(checklist){
 
   // }
-  reminderCompleted = false;
+  private reminderCompleted = false;
 
   checkBoxChange(checklist, item) {
 
@@ -171,14 +175,15 @@ export class NotesComponent implements OnInit {
     return false;}
   }
 
-  changePin(item){
+  changePin(item, index){
 
     if(item.isPined === true){
       item.isPined = false;
+      this.model[index].isPined = false;
       
     }else{
       item.isPined = true;
-      
+      this.model[index].isPined = true;
     }
     this.checkPin(item);
     let requestBody = {
@@ -189,6 +194,7 @@ export class NotesComponent implements OnInit {
     this.noteService.pinUnpinNotes(requestBody).subscribe(
       response => {
         LoggerService.log("pin change successfully");
+        this.updateList.emit({})
       }
     )
   }
@@ -208,7 +214,7 @@ export class NotesComponent implements OnInit {
     })
   }
   viewSwitch;
-  labeldisable = [];
+  private labeldisable = [];
 
   removeLabel(label,item, index){
     // for(let i=0; i<item.noteLabels.length; i++){

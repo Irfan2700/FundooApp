@@ -1,3 +1,4 @@
+import { Note, Label } from './../../core/Model/note';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { DataShareService } from '../../core/services/data-share.service';
@@ -17,15 +18,21 @@ export class CreateLabelComponent implements OnInit {
 
   @ViewChild('myDiv') myDiv: ElementRef;
   
-    public labelInput;
+  private notes: Note[] = [];
+  private labels: Label[] = [];
+  private labelObject: Label;
+  labelInput;
 
   hidden = false;
-  labelId;
+  private labelId;
 
   editHid = false;
 
-  labelDisplay = [];
+  private labelDisplay = [];
   labelReverseDiplay = [];
+  textEdit;
+  private flag = false;
+  private editedName;
 
   addLabel() {
 
@@ -45,7 +52,8 @@ for(var i=0; i<this.labelDisplay.length; i++){
       response => {
         console.log("Label is added", response['label']);
         // console.log(this.labelDisplay)
-        this.labelDisplay.push(response);
+        this.labelObject[0] = response;
+        this.labelDisplay.push(this.labelObject);
         var updateLabelDisplay = [];
         for (var i = this.labelDisplay.length - 1; i >= 0; i--) {
           updateLabelDisplay.push(this.labelDisplay[i])
@@ -92,8 +100,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
   
 
-  textEdit;
-  flag = false;
+  
 
   edit(id) {
 
@@ -109,7 +116,7 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
   }
 
-  editedName;
+  
 
   editLabel(id){
 
@@ -147,9 +154,10 @@ for(var i=0; i<this.labelDisplay.length; i++){
     this.noteService.getNoteLabelList().subscribe(
       response => {
         // console.log("Label display", response);
-        for (var i = 0; i < response['data'].details.length; i++) {
-          if (response['data'].details[i].isDeleted === false) {
-            this.labelDisplay.push(response['data'].details[i]);
+        this.labels = response['data']['details'];
+        for (var i = 0; i < this.labels.length; i++) {
+          if (this.labels[i].isDeleted === false) {
+            this.labelDisplay.push(this.labels[i]);
           }
         }
 

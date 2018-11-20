@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Router } from '@angular/router';
@@ -32,6 +33,7 @@ export class ExpandedNotesComponent implements OnInit {
 
   // public arr = this.data;
 
+  private noteObject: Note = this.data;
   array = [];
   tempArr = [];
   switch = false;
@@ -39,7 +41,7 @@ export class ExpandedNotesComponent implements OnInit {
 
   updataData() {
     // debugger;
-
+    
     if (this.tempArr.length === 0) {
       this.title = document.getElementById("updateTitle").innerHTML;
       // console.log(this.title);

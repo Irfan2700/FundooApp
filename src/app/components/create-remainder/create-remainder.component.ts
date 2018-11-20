@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { EventEmitter, Output } from '@angular/core';
@@ -45,13 +46,14 @@ export class CreateRemainderComponent implements OnInit {
   @Input() allowDate;
 // allowDate = false;
   // note;
-  settingDate;
+  private noteObject: Note = this.note;
+  private settingDate;
   flag = false;
   date = new FormControl(moment());
   pickTime = "9:00 PM";
   saveButtonFlag = false;
   setDate;
-  isoFomatedDateTime;
+  private isoFomatedDateTime;
 
   requestBody;
   //= {

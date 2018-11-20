@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { ServicesService } from '../../core/services/services.service';
@@ -16,6 +17,7 @@ export class CreateArchiveComponent implements OnInit {
   @Input() note;
   @Output() reloadNote = new EventEmitter();
 
+  private notes: Note[] = [];
   flag = false;
 
   archiveIt() {

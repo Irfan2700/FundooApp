@@ -1,8 +1,9 @@
-<span fxLayoutAlign="center center">Others</span>
-<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="center start" fxLayoutGap="10px">
+<span *ngIf="pinHead" fxLayoutAlign="center center">Pinned</span>
+<span *ngIf="!(pinHead)" fxLayoutAlign="center center">Others</span>
+<div fxLayout="row wrap" fxLayoutWrap fxLayoutAlign="center center" fxLayoutGap="10px">
   <div *ngFor="let item of model | filter: searchInput; let i=index">
 
-<div *ngIf="item.isPined === false">
+<div >
     <mat-card [style.backgroundColor]="item.color" ngStyle.xs="width: 351px; margin: 10px;border-radius: 8px;
     margin-left: 18px;" [ngClass]="viewSwitch ? 'listCardView':'gridCardView'">
       <div fxLayout="row" fxLayoutAlign="space-between">
@@ -10,7 +11,7 @@
 
         </mat-card-title>
         <div *ngIf="checkPin(item)">
-          <button mat-icon-button class="solid" (click)="changePin(item)">
+          <button mat-icon-button class="solid" (click)="changePin(item,i)">
             <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                 <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
                 <path fill="none" d="M0 0h24v24H0z"></path>
@@ -18,7 +19,7 @@
           </button></div>
 
         <div *ngIf="!(checkPin(item))">
-          <button mat-icon-button class="blur" (click)="changePin(item)">
+          <button mat-icon-button class="blur" (click)="changePin(item,i)">
             <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
               <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
               <path fill="none" d="M0 0h24v24H0z"></path>

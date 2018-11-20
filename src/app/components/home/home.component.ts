@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import {
@@ -17,10 +18,15 @@ export class HomeComponent implements OnInit {
 
   @Output() reloaderUpdate = new EventEmitter();
   
+  private notes: Note[] = [];
+  isPinned;
+  pinnedCase = true;
+  unpinnedCase = false;
+  // private noteCard = false;
 
-  noteCard = false;
-
-  arr = [];
+  arr= [];
+  pinnedArr = [];
+  unpinnedArr = [];
 
   ngOnInit() {
     this.showNotes();
@@ -34,12 +40,21 @@ export class HomeComponent implements OnInit {
 
         console.log("fresh", response["data"].data);
 
-        
+        this.notes = response["data"].data;
+        this.pinnedArr = [];
+        this.unpinnedArr = [];
         this.arr = [];
-        for (var i = response["data"].data.length - 1; i >= 0; i--) {
-          if (response["data"].data[i].isDeleted === false) {
-            if (response["data"].data[i].isArchived === false) {
-              this.arr.push(response["data"].data[i]);
+        for (var i = this.notes.length - 1; i >= 0; i--) {
+          if (this.notes[i].isDeleted === false) {
+            if (this.notes[i].isArchived === false) {
+              if(this.notes[i].isPined === true){
+              this.pinnedArr.push(this.notes[i]);
+              
+              }else{
+                this.unpinnedArr.push(this.notes[i]);
+              }
+              
+              this.arr.push(this.notes[i]);
               // this.arr = response['data'].data;app-more-options
               
             }

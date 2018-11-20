@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { Router } from '@angular/router';
 import { NoteServicesService } from './../../core/services/note-services.service';
 // import { test } from './../notes/notes.component';
@@ -17,6 +18,7 @@ export class ReminderComponent implements OnInit {
   constructor(private noteService: NoteServicesService,
     private myRoute: Router) { }
 
+  private notes: Note[] = [];
   arr = [];
   labelName;
 
@@ -46,13 +48,14 @@ export class ReminderComponent implements OnInit {
         
 
         this.arr = [];
-        if (response["data"].data.length !== 0) {
-          for (var i = response["data"].data.length - 1; i >= 0; i--) {
-            if (response["data"].data[i].isDeleted === false) {
-              if (response["data"].data[i].isArchived === false) {
+        this.notes = response["data"].data;
+        if (this.notes.length !== 0) {
+          for (var i = this.notes.length - 1; i >= 0; i--) {
+            if (this.notes[i].isDeleted === false) {
+              if (this.notes[i].isArchived === false) {
                 if (response["data"].data[i].reminder.length !== 0) {
                   
-                  this.arr.push(response["data"].data[i]);
+                  this.arr.push(this.notes[i]);
 
                   this.arr.sort(function(a,b)
                 {

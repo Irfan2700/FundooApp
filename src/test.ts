@@ -6,9 +6,12 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import { start } from 'repl';
 
 declare const require: any;
+declare const _karma_: any;
 
+_karma_.loaded = function() {};
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
@@ -18,3 +21,7 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+_karma_.start()
+
+

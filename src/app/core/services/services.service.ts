@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service'
 //import { element } from 'protractor';
 import { HttpClient ,HttpHeaders} from "@angular/common/http";
 import { Injectable } from "@angular/core";
+// import 'rxjs/add/operator/takeUntil'
 //import { getViewData } from '@angular/core/src/render3/instructions';
 
 //import { Observable} from 'rxjs/Observable';
@@ -53,7 +54,7 @@ export class ServicesService {
     var httpAuthOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': this.auth.getToken()
+        // 'Authorization': this.auth.getToken()
       })
 
     };
@@ -65,7 +66,7 @@ export class ServicesService {
     var httpAuthOptions = {
       headers: new HttpHeaders({
         
-        'Authorization': this.auth.getToken()
+        // 'Authorization': this.auth.getToken()
       })
 
     };
@@ -79,7 +80,7 @@ export class ServicesService {
       headers: new HttpHeaders({
 
         'Content-Type': 'application/json',
-        'Authorization': this.auth.getToken()
+        // 'Authorization': this.auth.getToken()
       })
     };
     return this.http.post(this.url + "/" + urlPart, this.getFormUrlEncoded(body), httpAuth1Options)
@@ -91,8 +92,8 @@ export class ServicesService {
 
       headers: new HttpHeaders({
 
-        'Content-Type': 'application/json',
-        'Authorization': this.auth.getToken()
+        'Content-Type': 'application/json'
+        // 'Authorization': this.auth.getToken()
       })
     };
     return this.http.post(this.url + "/" + urlPart, body, httpAuth1Options)
@@ -104,11 +105,11 @@ export class ServicesService {
 
       headers: new HttpHeaders({
 
-        'Content-Type': 'application/json',
-        'Authorization': this.auth.getToken()
+        'Content-Type': 'application/json'
+        // 'Authorization': this.auth.getToken()
       })
     };
-    return this.http.get(this.url + "/" + urlPart, httpAuthoptions)
+    return this.http.get(this.url + "/" + urlPart, httpAuthoptions);
   }
 
 
@@ -118,8 +119,8 @@ export class ServicesService {
 
       headers: new HttpHeaders({
 
-        'Content-Type': 'application/json',
-        'Authorization': this.auth.getToken()
+        'Content-Type': 'application/json'
+        // 'Authorization': this.auth.getToken()
       })
     };
     

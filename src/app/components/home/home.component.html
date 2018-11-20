@@ -14,7 +14,7 @@
 
     </div>
 
-    <div fxFlex="85" fxLayout="row wrap" fxLayoutAlign="space-between" fxLayoutGap="10px" (click)="noteCard = false">
+    <!-- <div fxFlex="85" fxLayout="column"  fxLayoutAlign="center center" fxLayoutGap="20px"> -->
 
       
       <br>
@@ -22,27 +22,28 @@
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
           <!-- <div *ngFor="let item of arr"> -->
 
-        <app-pinned-notes [model]= "arr" (updateList)= "reload($event)"></app-pinned-notes>
+        <app-notes  [model]= "pinnedArr" [pinHead]="pinnedCase" [pinStatus]= "isPinned" (updateList)= "reload($event)"></app-notes>
+        
 
-      <!-- </div> -->
       </div>
+      <!-- </div> -->
       <br>
       <br>
-      <div ></div>
-      <div></div>
+      <!-- <div ></div>
+      <div></div> -->
       <!-- <br><br> -->
 
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
           <!-- <div *ngFor="let item of arr"> -->
 
-        <app-notes [model]= "arr" (updateList)= "reload($event)"></app-notes>
+        <app-notes  [model]= "unpinnedArr" [pinHead]="unpinnedCase" [pinStatus]= "isPinned" (updateList)= "reload($event)"></app-notes>
 
-      <!-- </div> -->
       </div>
+      <!-- </div> -->
     </div>
 
 
-  </div>
+  <!-- </div> -->
   <!-- <mat-card-title>hello card</mat-card-title>
 <mat-card-content>content are here</mat-card-content> -->
 <!-- </mat-card> -->

@@ -1,3 +1,4 @@
+import { InterceptService } from './core/services/intercept.service';
 import { MessagingService } from './core/services/messaging.service';
 import { AuthService } from './core/services/auth.service';
 import { AuthGuard } from './core/guard/auth.guard';
@@ -7,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -150,7 +151,14 @@ import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.com
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
                      ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent],
-  providers: [LoggerService, MessagingService],
+  providers: [LoggerService, MessagingService, InterceptService,
+              {
+                provide: HTTP_INTERCEPTORS,
+                useClass: InterceptService,
+                multi: true
+              }
+            ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

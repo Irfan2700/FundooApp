@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { UserServicesService } from 'src/app/core/services/user-services.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 // import { ToastrService } from "ngx-toastr";
 // import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -11,6 +13,9 @@ import { UserServicesService } from 'src/app/core/services/user-services.service
   styleUrls: ["./signup.component.scss"]
 })
 export class SignupComponent implements OnInit {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   hide = true;
 
   arrClick: any[];
@@ -193,21 +198,25 @@ export class SignupComponent implements OnInit {
       
 
       obsGet.subscribe(response =>
-         console.log(response)
+         {
+          let res = response["data"].data;
+
+          for (var i = 0; i < res.length; i++) {
+            res[i].select = false;
+            this.arrClick.push(res[i]);
+          }
+         }
+         
          );
 
       // this.formSubmit();
 
       let obsGetService = this.userService.getUserInfo();
       obsGetService.subscribe(response => {
-        // console.log(response["data"].data);
-        let res = response["data"].data;
-
-        for (var i = 0; i < res.length; i++) {
-          res[i].select = false;
-          this.arrClick.push(res[i]);
-        }
-        console.log(res);
+        console.log("ye wala",response);
+        // if()
+        
+        // console.log(res);
       });
 
 
@@ -219,6 +228,15 @@ export class SignupComponent implements OnInit {
       //   password: ['', Validators.required, Validators.minLength(6)]
       // })
   }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
+  }
+
 }
 
 @Component({

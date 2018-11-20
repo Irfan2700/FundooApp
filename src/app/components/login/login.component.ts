@@ -4,6 +4,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   hide = true;
 
@@ -39,7 +42,9 @@ export class LoginComponent implements OnInit {
       if((/\S+@\S+\.\S+/).test(body.email)){
     let obsPost = this.userServices.userLogin(body)
 
-    obsPost.subscribe(
+    obsPost
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         console.log("Login Successfully!!", data);
         this.auth.sendToken(data["id"]);
@@ -51,7 +56,9 @@ export class LoginComponent implements OnInit {
           "pushToken": this.auth.getPushToken()
         }
 
-        this.userServices.registerPushToken(requestBody).subscribe(
+        this.userServices.registerPushToken(requestBody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           respo => {
             LoggerService.log("One Notification you received")
           }
@@ -111,6 +118,16 @@ export class LoginComponent implements OnInit {
     if(this.auth.getToken()){
       this.myRoute.navigate(["home"]);
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    console.log("it is destroyed")
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

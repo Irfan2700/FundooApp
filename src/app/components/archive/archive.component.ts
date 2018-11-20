@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,8 +13,9 @@ export class ArchiveComponent implements OnInit {
   constructor(
     private noteService: NoteServicesService) { }
 
+  private notes: Note[] = [];
   arr=[];
-  archiveList;
+  private archiveList;
 
   showArchives(){
 
@@ -22,8 +24,8 @@ export class ArchiveComponent implements OnInit {
         // console.log("Archive Success");
         LoggerService.log("Archive Notes Fetching Successful!!");
         LoggerService.log(response);
-
-        this.arr = response['data'].data
+        this.notes = response['data'].data;
+        this.arr = this.notes;
       },
       error => {
         // console.log("Error Occurs");
