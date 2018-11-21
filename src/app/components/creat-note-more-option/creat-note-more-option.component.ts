@@ -1,13 +1,17 @@
 import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-creat-note-more-option',
   templateUrl: './creat-note-more-option.component.html',
   styleUrls: ['./creat-note-more-option.component.scss']
 })
-export class CreatNoteMoreOptionComponent implements OnInit {
+export class CreatNoteMoreOptionComponent implements OnInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private noteService: NoteServicesService) { }
 
@@ -67,7 +71,9 @@ ngOnChanges(changes: SimpleChanges): void {
 
     console.log(this.alowCheck)
 
-    this.noteService.getNoteLabelList().subscribe(
+    this.noteService.getNoteLabelList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("response show", response['data'].details)
         this.notes = response['data']['details'];
@@ -93,6 +99,16 @@ ngOnChanges(changes: SimpleChanges): void {
       }
     }
     
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

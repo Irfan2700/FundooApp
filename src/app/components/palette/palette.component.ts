@@ -1,12 +1,15 @@
 import { NoteServicesService } from './../../core/services/note-services.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-palette',
   templateUrl: './palette.component.html',
   styleUrls: ['./palette.component.scss']
 })
-export class PaletteComponent implements OnInit {
+export class PaletteComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @Input() newColor;
   @Output() resp = new EventEmitter();
@@ -82,7 +85,9 @@ export class PaletteComponent implements OnInit {
       "noteIdList":[this.newColor.id]
     }
 
-    this.noteService.changeNoteColor(body).subscribe(
+    this.noteService.changeNoteColor(body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("colour change successfully", this.newColor);
         this.resp.emit(this.index);
@@ -94,6 +99,16 @@ export class PaletteComponent implements OnInit {
 
   }
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

@@ -5,7 +5,11 @@
 export const environment = {
   production: false,
   baseUrl:"http://34.213.106.173/api",
-  imageURL:"http://34.213.106.173/"
+  imageURL:"http://34.213.106.173/",
+  firebaseMessageSenderId:{
+    'messagingSenderId': '263147610417'
+  }
+
 };
 
 /*

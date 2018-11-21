@@ -22,7 +22,7 @@
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
           <!-- <div *ngFor="let item of arr"> -->
 
-        <app-notes  [model]= "pinnedArr" [pinHead]="pinnedCase" [pinStatus]= "isPinned" (updateList)= "reload($event)"></app-notes>
+        <app-notes  [model]= "pinnedArr" [pinHead]="pinnedCase" (updateList)= "reload($event)"></app-notes>
         
 
       </div>
@@ -36,7 +36,7 @@
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
           <!-- <div *ngFor="let item of arr"> -->
 
-        <app-notes  [model]= "unpinnedArr" [pinHead]="unpinnedCase" [pinStatus]= "isPinned" (updateList)= "reload($event)"></app-notes>
+        <app-notes  [model]= "unpinnedArr" [pinHead]="unpinnedCase" (updateList)= "reload($event)"></app-notes>
 
       </div>
       <!-- </div> -->

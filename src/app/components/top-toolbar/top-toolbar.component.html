@@ -4,7 +4,7 @@
       <mat-toolbar class="toolbar" fxLayout="row" ngStyle.xs=" height: 43px" ngStyle.sm=" height: 49px" ngStyle.md="height: 55px"
         ngStyle.lg="height: 64px">
         <div fxFlex="15" fxLayout="row">
-          <button style="outline:none" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          <button matTooltip="Menu" style="outline:none" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
             ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:30px">
             <mat-icon ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:30px"
               class="menu" aria-label="Side nav toggle icon">menu</mat-icon>
@@ -25,7 +25,7 @@
               <div fxFlex="10"></div>
               <div fxFlex="55" style="background-color:#e4a700; border-radius: 5px;" [hidden]="(isHandset$ | async) ? true : false">
                 <div style="float:left; position: absolute;" fxLayoutAlign="center center">
-                  <button style="outline:none" type="button" mat-icon-button ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
+                  <button matTooltip="Search" style="outline:none" type="button" mat-icon-button ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
                     ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">
                     <mat-icon aria-label="searchIcon" class="searchIcon" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;"
                       ngStyle.md="font-size:22px;" ngStyle.lg="font-size:25px;">search</mat-icon>
@@ -33,7 +33,7 @@
                 </div>
                
                 <div [hidden]="(isHandset$ | async) ? true : false">
-                  <input name="searching" style="outline:none" autocomplete="off" class="searchInput" matInput type="search"
+                  <input matTooltip="Search"  name="searching" style="outline:none" autocomplete="off" class="searchInput" matInput type="search"
                     placeholder="Search" ngStyle.xs="font-size:12px; height:28px;" ngStyle.sm="font-size:17px; height:33px"
                     ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px" [(ngModel)]="searchInput"
                     (click)="searchNotes()" (keyup)="pressSearch()">
@@ -66,7 +66,7 @@
       </div> -->
         <div fxFlex="5" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;">
-          <button style="outline:none" class="refresh" (click)="imageReloader" mat-icon-button>
+          <button matTooltip="refresh" style="outline:none" class="refresh" (click)="imageReloader" mat-icon-button>
             <mat-icon aria-label="refresh" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">refresh</mat-icon>
           </button>
@@ -76,7 +76,7 @@
         </div>
         <div fxFlex="10" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;" *ngIf="listView === false">
-          <button style="outline:none" mat-icon-button class="gridView" (click)="listSwitcher()">
+          <button matTooltip="List View" style="outline:none" mat-icon-button class="gridView" (click)="listSwitcher()">
             <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">view_stream</mat-icon>
           </button>
@@ -84,7 +84,7 @@
 
         <div fxFlex="10" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
           ngStyle.lg="font-size:25px;" *ngIf="listView === true">
-          <button style="outline:none" mat-icon-button class="gridView" (click)="listSwitcher()">
+          <button matTooltip="Grid View" style="outline:none" mat-icon-button class="gridView" (click)="listSwitcher()">
             <mat-icon aria-label="viewList" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px;" ngStyle.md="font-size:22px;"
               ngStyle.lg="font-size:25px;">view_module</mat-icon>
           </button>
@@ -97,7 +97,7 @@
           </button>
         </div> -->
         <div fxFlex="5">
-          <button style="outline:none" ngStyle.xs="width: 18px; height: 18px; margin-top:10px" ngStyle.sm="width: 27px; height: 27px;" ngStyle.md="width: 34px; height: 34px;"
+          <button [matTooltip]="account" style="outline:none" ngStyle.xs="width: 18px; height: 18px; margin-top:10px" ngStyle.sm="width: 27px; height: 27px;" ngStyle.md="width: 34px; height: 34px;"
           ngStyle.lg="width: 50px; height: 50px;"
           
             [ngStyle]="{ 'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"
@@ -109,7 +109,7 @@
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <div>
-              <button mat-fab (click)=changePic.click() class="profileFab" (click)="$event.stopPropagation()" [ngStyle]="{'font-size': '25px;' ,'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
+              <button mat-fab matTooltip="Change Profile Pic" (click)=changePic.click() class="profileFab" (click)="$event.stopPropagation()" [ngStyle]="{'font-size': '25px;' ,'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
             </div>
             <div fxLayout="column">
             <div class="userName">
@@ -130,7 +130,7 @@
                </button>
 
               <hr>
-              <button style="outline:none" mat-raised-button (click)="logout()" class="logoutButton">
+              <button matTooltip="Logout" style="outline:none" mat-raised-button (click)="logout()" class="logoutButton">
                 <mat-icon aria-label="logout">logout</mat-icon>&nbsp;&nbsp;Logout
               </button>
             </div>
@@ -149,13 +149,13 @@
            >
           <mat-nav-list fxLayout="column" fxLayoutAlign="space-between">
             <br>
-            <a mat-list-item (click)="topTitle = 'Fundoo'; keepTitle = 'Keep';" [routerLink]="['/home']" routerLinkActive="router-link-active">
-              <mat-icon aria-label="notes">lightbulb</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Notes
+            <a matTooltip="Show Notes" mat-list-item (click)="topTitle = 'Fundoo'; keepTitle = 'Keep';" [routerLink]="['/home']" routerLinkActive="router-link-active">
+              <mat-icon aria-label="notes" fxFlex="30">lightbulb</mat-icon><span fxFlex="70">Notes</span>
             </a>
-            <a mat-list-item (click)="topTitle = ''; keepTitle = 'Reminders';" [routerLink]="['/reminders']" routerLinkActive="router-link-active">
-              <mat-icon aria-label="touch app">touch_app</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              Reminders
-            </a>
+            <a matTooltip="Show Reminders" mat-list-item (click)="topTitle = ''; keepTitle = 'Reminders';" [routerLink]="['/reminders']" routerLinkActive="router-link-active">
+              <mat-icon aria-label="touch app" fxFlex="30">touch_app</mat-icon>
+              <span fxFlex="70">Reminders</span>
+          </a>
             <hr>
             <!-- <p> &nbsp;&nbsp;&nbsp;Labels
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
@@ -165,33 +165,33 @@
             <div *ngFor="let item of arr">
               <!-- <div fxLayout="row wrap" fxLayoutAlign="space between"> -->
 
-              <a mat-list-item (click)="topTitle = ''; keepTitle = item.label;" (click)="showlabelList(item)">
+              <a [matTooltip]="'Show Label'+' ' + item.label" mat-list-item (click)="topTitle = ''; keepTitle = item.label;" (click)="showlabelList(item)">
                 <!-- <div fxLayoutAlign="space between"> -->
-                <mat-icon>label_outline</mat-icon>&nbsp;
-                <span class="labelList">{{item.label}}</span>
+                <mat-icon fxFlex="15">label_outline</mat-icon>
+                <span class="labelList" fxFlex="85">{{item.label}}</span>
                 <!-- </div> -->
               </a>
               <!-- </div> -->
             </div>
 
-            <a mat-list-item (click)="addLabel()">
-              <mat-icon aria-label="plus">add</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              Create new label
+            <a matTooltip="Edit or Create Label" mat-list-item (click)="addLabel()">
+              <mat-icon aria-label="plus" fxFlex="30">add</mat-icon>
+              <span>Edit/Create new label</span>
             </a>
             <hr>
 
-            <a mat-list-item (click)="topTitle = ''; keepTitle = 'Archive';" [routerLink]="['/archive']" routerLinkActive="router-link-active">
-              <mat-icon aria-label="archive">archive</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a matTooltip="Show Archive" mat-list-item (click)="topTitle = ''; keepTitle = 'Archive';" [routerLink]="['/archive']" routerLinkActive="router-link-active">
+              <mat-icon aria-label="archive" fxFlex="30">archive</mat-icon>
               Archive
             </a>
 
-            <a mat-list-item (click)="topTitle = ''; keepTitle = 'Trash';" [routerLink]="['/trash']" routerLinkActive="router-link-active">
-              <mat-icon aria-label="trash">delete</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a matTooltip="Show Trash" mat-list-item (click)="topTitle = ''; keepTitle = 'Trash';" [routerLink]="['/trash']" routerLinkActive="router-link-active">
+              <mat-icon aria-label="trash" fxFlex="30">delete</mat-icon>
               Trash
             </a>
             <hr>
 
-            <a mat-list-item>
+            <!-- <a mat-list-item>
               <mat-icon aria-label="setting">settings</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Settings
             </a>
@@ -204,7 +204,7 @@
             <a mat-list-item>
               <mat-icon aria-label="help">help</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Help
-            </a>
+            </a> -->
 
           </mat-nav-list>
         </mat-sidenav>

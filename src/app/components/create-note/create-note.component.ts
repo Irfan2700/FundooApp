@@ -1,8 +1,11 @@
 import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
 // import { CreateRemainderComponent } from '../create-remainder/create-remainder.component'
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-create-note',
@@ -10,7 +13,8 @@ import { LoggerService } from 'src/app/core/services/logger.service';
   styleUrls: ['./create-note.component.scss'],
   outputs: ['open']
 })
-export class CreateNoteComponent implements OnInit {
+export class CreateNoteComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private noteService: NoteServicesService){}
@@ -179,7 +183,9 @@ export class CreateNoteComponent implements OnInit {
 
     if (requestBody.title !== '') {
 
-      this.noteService.addNotes(requestBody).subscribe(
+      this.noteService.addNotes(requestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         data => {
           // console.log("Data Saved Successfully", data);
 
@@ -323,6 +329,16 @@ export class CreateNoteComponent implements OnInit {
   ngOnInit() {
 
     
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 

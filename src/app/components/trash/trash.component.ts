@@ -1,15 +1,18 @@
 import { NoteServicesService } from './../../core/services/note-services.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-trash',
   templateUrl: './trash.component.html',
   styleUrls: ['./trash.component.scss']
 })
-export class TrashComponent implements OnInit {
-
+export class TrashComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   
   constructor(private noteService: NoteServicesService) { }
 
@@ -24,7 +27,9 @@ export class TrashComponent implements OnInit {
 
 
   showNotes() {
-    this.noteService.getTrashNoteList().subscribe(
+    this.noteService.getTrashNoteList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 
@@ -65,6 +70,16 @@ export class TrashComponent implements OnInit {
       // this.reloaderUpdate.emit(event);
       this.showNotes();
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

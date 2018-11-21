@@ -5,6 +5,8 @@ import { NoteServicesService } from './../../core/services/note-services.service
 
 import { Component, OnInit } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reminder',
@@ -12,7 +14,7 @@ import { LoggerService } from 'src/app/core/services/logger.service';
   styleUrls: ['./reminder.component.scss']
 })
 export class ReminderComponent implements OnInit {
-
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
 
   constructor(private noteService: NoteServicesService,
@@ -20,7 +22,12 @@ export class ReminderComponent implements OnInit {
 
   private notes: Note[] = [];
   arr = [];
+  pinnedArr = [];
+  unpinnedArr = [];
   labelName;
+
+  pinnedCase = true;
+  unpinnedCase = false;
 
   ngOnInit() {
     // this.showNotes();
@@ -41,13 +48,17 @@ export class ReminderComponent implements OnInit {
   getReminderNotes() {
 
     
-    this.noteService.getReminderList().subscribe(
+    this.noteService.getReminderList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
 
         LoggerService.log(response);
         
 
         this.arr = [];
+        this.pinnedArr = [];
+        this.unpinnedArr = [];
         this.notes = response["data"].data;
         if (this.notes.length !== 0) {
           for (var i = this.notes.length - 1; i >= 0; i--) {
@@ -55,6 +66,27 @@ export class ReminderComponent implements OnInit {
               if (this.notes[i].isArchived === false) {
                 if (response["data"].data[i].reminder.length !== 0) {
                   
+                  if(this.notes[i].isPined === true){
+                    this.pinnedArr.push(this.notes[i]);
+
+                    this.pinnedArr.sort(function(a,b)
+                {
+                    a=new Date(a.reminder[0]);
+                    b=new Date(b.reminder[0]);
+                    return b-a;
+                })
+                    
+                    }else{
+                      this.unpinnedArr.push(this.notes[i]);
+
+                      this.unpinnedArr.sort(function(a,b)
+                {
+                    a=new Date(a.reminder[0]);
+                    b=new Date(b.reminder[0]);
+                    return b-a;
+                })
+                    }
+
                   this.arr.push(this.notes[i]);
 
                   this.arr.sort(function(a,b)
@@ -79,7 +111,9 @@ export class ReminderComponent implements OnInit {
   }
 
   showNotes() {
-    this.noteService.getNotesList().subscribe(
+    this.noteService.getNotesList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 
@@ -122,6 +156,16 @@ export class ReminderComponent implements OnInit {
       // this.reloaderUpdate.emit(event);
       // this.showNotes();
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

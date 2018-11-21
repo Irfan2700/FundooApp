@@ -3,14 +3,17 @@ import { LoggerService } from 'src/app/core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { DataShareService } from '../../core/services/data-share.service';
 import { AuthService } from '../../core/services/auth.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-label',
   templateUrl: './create-label.component.html',
   styleUrls: ['./create-label.component.scss']
 })
-export class CreateLabelComponent implements OnInit {
+export class CreateLabelComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private auth: AuthService,
     private data: DataShareService,
@@ -20,7 +23,7 @@ export class CreateLabelComponent implements OnInit {
   
   private notes: Note[] = [];
   private labels: Label[] = [];
-  private labelObject: Label;
+  // private labelObject: Label;
   labelInput;
 
   hidden = false;
@@ -48,12 +51,14 @@ for(var i=0; i<this.labelDisplay.length; i++){
       return;
     }
 }
-    this.noteService.createLabel(body).subscribe(
+    this.noteService.createLabel(body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         console.log("Label is added", response['label']);
         // console.log(this.labelDisplay)
-        this.labelObject[0] = response;
-        this.labelDisplay.push(this.labelObject);
+        // this.labelObject[0] = response;
+        this.labelDisplay.push(response);
         var updateLabelDisplay = [];
         for (var i = this.labelDisplay.length - 1; i >= 0; i--) {
           updateLabelDisplay.push(this.labelDisplay[i])
@@ -76,7 +81,9 @@ for(var i=0; i<this.labelDisplay.length; i++){
 
   deleteLabel(id) {
 
-    this.noteService.deleteLabel(id).subscribe(
+    this.noteService.deleteLabel(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("label deleted!!", response);
         var updatedLabel = [];
@@ -127,7 +134,9 @@ for(var i=0; i<this.labelDisplay.length; i++){
       "id": id,
       "userId": this.auth.getId()
     }
-    this.noteService.updateLabelName(id, body).subscribe(
+    this.noteService.updateLabelName(id, body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         console.log("Label Name Updated SuccessFully!!",response);
 
@@ -151,7 +160,9 @@ for(var i=0; i<this.labelDisplay.length; i++){
   }
 
   showLabels(){
-    this.noteService.getNoteLabelList().subscribe(
+    this.noteService.getNoteLabelList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("Label display", response);
         this.labels = response['data']['details'];
@@ -193,6 +204,16 @@ for(var i=0; i<this.labelDisplay.length; i++){
     // console.log(this.hidden)
 
     this.showLabels();
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

@@ -80,7 +80,7 @@
           <div fxLayout="row wrap">
             <!-- <div *ngFor="let label of item.labelIdList"> -->
             <div *ngFor="let labelName of data.noteLabels; let i=index;">
-              <mat-chip>{{labelName.label}}<mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon>
+              <mat-chip ><span class="labelChip">{{labelName.label}}</span><mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon>
               </mat-chip>
             </div>
             <!-- </div> -->
@@ -125,7 +125,7 @@
         <app-palette (resp)="updateBackground($event)" [newColor]="data"></app-palette>
       </div>
       <div ngStyle.xs="width:7px;">
-        <app-create-archive [archiveInput]="data.id" (reloadNote)=archiveNote($event)></app-create-archive>
+        <app-create-archive [note]="data" (reloadNote)=archiveNote($event)></app-create-archive>
       </div>
       <div fxLayoutAlign="space-between">
         <div>
@@ -138,7 +138,7 @@
         <div fxHide fxShow.xs>
           <button mat-icon-button cdkFocusInitial (click)="switch = true" (click)="updataData()" (click)="nextLine($event)"
             style="opacity: 1.5">
-            <mat-icon>cancel</mat-icon>
+            <mat-icon>done</mat-icon>
           </button>
         </div>
       </div>

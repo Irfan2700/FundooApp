@@ -1,26 +1,34 @@
+import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-label',
   templateUrl: './label.component.html',
   styleUrls: ['./label.component.scss']
 })
-export class LabelComponent implements OnInit {
+export class LabelComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private myRoute: ActivatedRoute,
     private noteService: NoteServicesService) { }
 
   arr = [];
   labelName;
+  private notes: Note[] = [];
 
   ngOnInit() {
     // this.showNotes();
     // this.reload();
 
-    this.myRoute.params.subscribe(
+    this.myRoute.params
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       (params: Params) => {
         this.labelName = params['labelName']
         this.getLabelNotes(this.labelName)
@@ -32,12 +40,15 @@ export class LabelComponent implements OnInit {
 
   getLabelNotes(item) {
 
-    this.noteService.getNoteListByLabel(item).subscribe(
+    this.noteService.getNoteListByLabel(item)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
 
         LoggerService.log(response);
 
         this.arr = [];
+        this.notes = response["data"].data;
         if (response["data"].data.length !== 0) {
           for (var i = response["data"].data.length - 1; i >= 0; i--) {
             if (response["data"].data[i].isDeleted === false) {
@@ -58,7 +69,9 @@ export class LabelComponent implements OnInit {
   }
 
   showNotes() {
-    this.noteService.getNotesList().subscribe(
+    this.noteService.getNotesList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 
@@ -101,6 +114,16 @@ export class LabelComponent implements OnInit {
       // this.reloaderUpdate.emit(event);
       // this.showNotes();
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 }
 

@@ -28,21 +28,7 @@ export class ServicesService {
     return this.http.get(this.url + "/" + nextUrl);
   }
 
-  // get(nextUrl) {
-  //   var httpAuthOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       'Authorization': this.auth.getToken()
-  //     })
-
-  //   };
-  //   return this.http.get(this.url + "/" + nextUrl, httpAuthOptions);
-  // }
-
-  // addData(nextUrl, body) {
-  //   // console.log(body);
-  //   return this.http.post(this.url + "/" + nextUrl, body);
-  // }
+  
 
   post(nextUrl, body) {
     // console.log(body);

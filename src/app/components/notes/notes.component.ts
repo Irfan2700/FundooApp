@@ -5,17 +5,20 @@ import { LoggerService } from './../../core/services/logger.service';
 import { DataShareService } from 'src/app/core/services/data-share.service';
 import { ExpandedNotesComponent } from './../expanded-notes/expanded-notes.component';
 import { MatDialog } from '@angular/material';
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @Input() model: any = [];
-  @Input() pinStatus: any = [];
+  
   @Input() pinHead;
 
   constructor(public dialog: MatDialog, private elementRef: ElementRef,
@@ -46,6 +49,7 @@ export class NotesComponent implements OnInit {
   modelArr = this.model;
   private labelUpdate = []
   private labelList;
+  archiveObj;
 
   updateOptionsNote(event) {
     if (event) {
@@ -106,7 +110,9 @@ export class NotesComponent implements OnInit {
       }
     );
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       result => {
         this.updateList.emit(true);
       },
@@ -115,7 +121,9 @@ export class NotesComponent implements OnInit {
       }
     );
 
-    dialogRef.componentInstance.updateDialog.subscribe(() => {
+    dialogRef.componentInstance.updateDialog
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
       this.updateList.emit(true);
     })
   }
@@ -151,7 +159,9 @@ export class NotesComponent implements OnInit {
       "status": checklist.status
     }
 
-    this.noteService.updateNotesCheckList(this.model[i].noteCheckLists[j].notesId, this.model[i].noteCheckLists[j].id, JSON.stringify(body)).subscribe(
+    this.noteService.updateNotesCheckList(this.model[i].noteCheckLists[j].notesId, this.model[i].noteCheckLists[j].id, JSON.stringify(body))
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("checklist Line is Successfully Updated!!");
         this.updateList.emit({})
@@ -191,7 +201,9 @@ export class NotesComponent implements OnInit {
       "isPined": this.checkPin(item)
     }
 
-    this.noteService.pinUnpinNotes(requestBody).subscribe(
+    this.noteService.pinUnpinNotes(requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         LoggerService.log("pin change successfully");
         this.updateList.emit({})
@@ -207,7 +219,9 @@ export class NotesComponent implements OnInit {
       "reminder": '',
       "noteIdList": [item.id]
     }
-    this.noteService.deleteRemainder(requestBody).subscribe(response => {
+    this.noteService.deleteRemainder(requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(response => {
 
       LoggerService.log("Remainder remove SuccessFully");
       this.updateList.emit({});
@@ -224,7 +238,9 @@ export class NotesComponent implements OnInit {
     this.dataShare.sendData5(label);
 
 
-    this.noteService.removeLabelFromNotes(item.id,label.id).subscribe(
+    this.noteService.removeLabelFromNotes(item.id,label.id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
 
         // console.log("Label remove Successfull",response);
@@ -237,14 +253,27 @@ export class NotesComponent implements OnInit {
     
   }
 
+  isArchiveCheck(item){
+
+    this.archiveObj = {
+      "isArchived": item.isArchived
+    }
+
+    // this.dataShare.sendData6(item);
+  }
+
   ngOnInit() {
     
-    this.dataShare.showData3.subscribe(
+    this.dataShare.showData3
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         this.pinArr = response;
       }
     )
-    this.dataShare.showData4.subscribe(
+    this.dataShare.showData4
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         
         this.viewSwitch = data;
@@ -263,4 +292,15 @@ export class NotesComponent implements OnInit {
     console.log("aaaa", this.labeldisable)
 
   }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
+  }
+
 }

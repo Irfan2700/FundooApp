@@ -1,29 +1,29 @@
-.touchBut{
-  opacity: 0.7;
-}
+// .touchBut{
+//   opacity: 0.7;
+// }
 .touchBut:hover{
-  opacity: 6;
+  opacity: 1;
 }
 
-.addBut{
+.addBut, .touchBut{
   opacity: 0.7;
 }
 .addBut:hover{
-  opacity: 6;
+  opacity: 1;
 }
 
 .colorBut{
   opacity: 0.7;
 }
 .colorBut:hover{
-  opacity: 6;
+  opacity: 1;
 }
 
 .archiveBut{
   opacity: 0.7;
 }
 .archiveBut:hover{
-  opacity: 6;
+  opacity: 1;
 }
 
 .panal {

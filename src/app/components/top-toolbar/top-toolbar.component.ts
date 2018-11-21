@@ -8,17 +8,20 @@ import { CreateLabelComponent } from './../create-label/create-label.component';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog, MatDialogModule } from '@angular/material';
 import { AuthService } from '../../core/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-top-toolbar',
   templateUrl: './top-toolbar.component.html',
   styleUrls: ['./top-toolbar.component.scss']
 })
-export class TopToolbarComponent implements OnInit {
+export class TopToolbarComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Medium,])
     .pipe(
@@ -45,7 +48,9 @@ export class TopToolbarComponent implements OnInit {
     enableSearch = false;
 
   logout() {
-    this.userService.userLogout().subscribe(
+    this.userService.userLogout()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         // console.log("logout Successfully");
         this.auth.removeToken();
@@ -82,7 +87,9 @@ export class TopToolbarComponent implements OnInit {
 
     let dialogRef = this.dialog.open(CreateLabelComponent);
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       result =>{
 
         this.getLabelList();
@@ -119,7 +126,9 @@ export class TopToolbarComponent implements OnInit {
       width: "800px"
     })
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         
         console.log("qqq",data)
@@ -128,7 +137,9 @@ export class TopToolbarComponent implements OnInit {
         let requestBody = new FormData()
         requestBody.append("file", data, data.name)
 
-        this.userService.profilePicUploader(requestBody).subscribe(
+        this.userService.profilePicUploader(requestBody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           response => {
     
             this.showPic = environment.imageURL + response['status'].imageUrl;
@@ -148,7 +159,9 @@ export class TopToolbarComponent implements OnInit {
 
   getLabelList(){
 
-  this.noteService.getNoteLabelList().subscribe(
+  this.noteService.getNoteLabelList()
+  .pipe(takeUntil(this.destroy$))
+  .subscribe(
     response => {
       this.dataShare.sendData1(response);
       this.arr = response['data']['details'];
@@ -173,7 +186,7 @@ export class TopToolbarComponent implements OnInit {
     }
   )
   }
-
+account;
 
   currentUser;
   currentEmail;
@@ -199,5 +212,19 @@ export class TopToolbarComponent implements OnInit {
     
       this.currentUser = this.auth.getUserName();
       this.currentEmail = this.auth.getUserEmail();
+
+      this.account = this.currentUser
+  }
+
+  
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 }

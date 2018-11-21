@@ -2,9 +2,11 @@ import { Note } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { LoggerService } from 'src/app/core/services/logger.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 // export interface DialogData {
@@ -19,7 +21,8 @@ import { LoggerService } from 'src/app/core/services/logger.service';
   templateUrl: './expanded-notes.component.html',
   styleUrls: ['./expanded-notes.component.scss']
 })
-export class ExpandedNotesComponent implements OnInit {
+export class ExpandedNotesComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @Output() updateDialog = new EventEmitter();
 
@@ -77,7 +80,9 @@ export class ExpandedNotesComponent implements OnInit {
         "noteId": [this.data.id],
         "title": this.title,
         "description": this.description
-      }).subscribe(
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         response => {
           // console.log("Data Successfully Updated!!");
           this.myRoute.navigate['note'];
@@ -161,7 +166,9 @@ export class ExpandedNotesComponent implements OnInit {
           "isPined": this.checkPin()
         }
     
-        this.noteService.pinUnpinNotes(requestBody).subscribe(
+        this.noteService.pinUnpinNotes(requestBody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           response => {
             LoggerService.log("pin change successfully");
           }
@@ -208,7 +215,9 @@ export class ExpandedNotesComponent implements OnInit {
       this.noteService.updateExtendedNoteChecklist(this.data.noteCheckLists[0].notesId, {
         "itemName": this.checkText,
         "status": this.isChecked
-      }).subscribe(
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         response => {
           // console.log("The New line in the Checklist is Succeddfully Added!!");
           this.updateDialog.emit({});
@@ -258,7 +267,9 @@ export class ExpandedNotesComponent implements OnInit {
       "status": item.isChecked
     }
 
-    this.noteService.updateNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, JSON.stringify(body)).subscribe(
+    this.noteService.updateNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, JSON.stringify(body))
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("checklist Line is Successfully Updated!!");
         this.updateDialog.emit({})
@@ -277,7 +288,9 @@ export class ExpandedNotesComponent implements OnInit {
       "checklistId": this.data.noteCheckLists[item.id].id
     }
 
-    this.noteService.removeNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, body).subscribe(
+    this.noteService.removeNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("Checklist line is successfully Deleted!!");
 
@@ -306,7 +319,9 @@ export class ExpandedNotesComponent implements OnInit {
     this.dataShare.sendData5(label);
     this.data.noteLabels.splice(index,1);
 
-    this.noteService.removeLabelFromNotes(this.data.id,label.id).subscribe(
+    this.noteService.removeLabelFromNotes(this.data.id,label.id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
 
         // console.log("Label remove Successfull",response);
@@ -339,7 +354,9 @@ export class ExpandedNotesComponent implements OnInit {
       "itemName": item.checkText,
       "status": this.array[i].isChecked
     }
-    this.noteService.updateNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, JSON.stringify(body)).subscribe(
+    this.noteService.updateNotesCheckList(this.data.noteCheckLists[item.id].notesId, this.data.noteCheckLists[item.id].id, JSON.stringify(body))
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("checklist Line is Successfully Updated!!");
 
@@ -411,7 +428,9 @@ export class ExpandedNotesComponent implements OnInit {
       "reminder": '',
       "noteIdList": [item.id]
     }
-    this.noteService.deleteRemainder(requestBody).subscribe(response => {
+    this.noteService.deleteRemainder(requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(response => {
 
       LoggerService.log("Remainder remove SuccessFully");
       this.updateDialog.emit();
@@ -461,6 +480,16 @@ export class ExpandedNotesComponent implements OnInit {
     this.isPinned = this.data.isPined
     // console.log("Preloaded List", this.array)
 
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 }

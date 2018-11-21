@@ -234,3 +234,11 @@ div[contenteditable=true] {
 .solid{
   opacity: 1;
 }
+
+.labelChip{
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  width: 115px
+}

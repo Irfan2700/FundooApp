@@ -229,3 +229,8 @@ overflow: hidden !important;
 
   margin-top: 10px;
 }
+
+::ng-deep .material-tooltip {
+  white-space: pre-line;
+  max-width: 500px !important;
+}

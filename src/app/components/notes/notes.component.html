@@ -10,7 +10,7 @@
         <mat-card-title [innerHTML]="item.title" (click)="openDialog(item)">
 
         </mat-card-title>
-        <div *ngIf="checkPin(item)">
+        <div *ngIf="checkPin(item) && item.isDeleted !== true">
           <button mat-icon-button class="solid" (click)="changePin(item,i)">
             <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                 <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
@@ -18,7 +18,7 @@
               </svg></mat-icon>
           </button></div>
 
-        <div *ngIf="!(checkPin(item))">
+        <div *ngIf="!(checkPin(item)) && item.isDeleted !== true">
           <button mat-icon-button class="blur" (click)="changePin(item,i)">
             <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
               <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
@@ -54,7 +54,7 @@
             <mat-chip class="width">
               <div class="labelChip" (click)="showLabel(labelName.label)">
                 <span class="labelChip">{{labelName.label}}</span></div>
-              <mat-icon class="labelCancel" (click)="removeLabel(labelName,item,i); labeldisable = true;">cancel</mat-icon>
+              <mat-icon matTooltip="remove label" class="labelCancel" (click)="removeLabel(labelName,item,i); labeldisable = true;">cancel</mat-icon>
             </mat-chip>
           </div>
           <!-- </div> -->
@@ -66,9 +66,9 @@
           <div *ngFor="let remainderChip of item.reminder">
             <div *ngIf="!(completedReminder(remainderChip))">
 
-              <button mat-icon-button [matMenuTriggerFor]="remainderMenu" (click)="reminderOption(item)"><mat-chip disabled>
+              <button  mat-icon-button [matMenuTriggerFor]="remainderMenu" (click)="reminderOption(item)"><mat-chip matTooltip="upcoming reminder" disabled>
                 <mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}
-                <mat-icon (click)="removeRemainder(item)">cancel</mat-icon>
+                <mat-icon matTooltip="remove reminder" (click)="removeRemainder(item)">cancel</mat-icon>
               </mat-chip></button>
             </div>
           </div>
@@ -89,7 +89,7 @@
 
               <mat-chip style="opacity: 0.4">
                 <mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderChip | date: "medium"}}</del>
-                <mat-icon (click)="removeRemainder(item)">cancel</mat-icon>
+                <mat-icon  matTooltip="remove reminder" (click)="removeRemainder(item)">cancel</mat-icon>
               </mat-chip>
             </div>
           </div>
@@ -102,7 +102,9 @@
           <mat-icon>person_add</mat-icon>
         </button>
         <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>
+        <div (click)="isArchiveCheck(item)">
         <app-create-archive [note]="item" (reloadNote)=archiveNote($event)></app-create-archive>
+        </div>
         <app-more-options [note]="item" (update)="updateOptionsNote($event)" (updateLabel)="updateOptionLabel($event)"></app-more-options>
         <!-- <button mat-icon-button class="moreBut" [matMenuTriggerFor]="menu" ><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu">

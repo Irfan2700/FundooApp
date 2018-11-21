@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { UserServicesService } from 'src/app/core/services/user-services.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 
 // import { ToastrService } from "ngx-toastr";
 // import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -12,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: "./signup.component.html",
   styleUrls: ["./signup.component.scss"]
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -123,7 +124,9 @@ export class SignupComponent implements OnInit {
 
     let obsAdd = this.userService.userSignup(body);
 
-    obsAdd.subscribe(
+    obsAdd
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         // console.log("Post is work", data);
         this.snackBar.open('Sign Up', 'SUCCESS!!', {
@@ -197,7 +200,9 @@ export class SignupComponent implements OnInit {
       let obsGet = this.userService.getServiceSelect();
       
 
-      obsGet.subscribe(response =>
+      obsGet
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response =>
          {
           let res = response["data"].data;
 
@@ -212,7 +217,9 @@ export class SignupComponent implements OnInit {
       // this.formSubmit();
 
       let obsGetService = this.userService.getUserInfo();
-      obsGetService.subscribe(response => {
+      obsGetService
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response => {
         console.log("ye wala",response);
         // if()
         

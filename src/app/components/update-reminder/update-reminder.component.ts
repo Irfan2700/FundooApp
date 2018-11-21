@@ -1,11 +1,14 @@
 import { DataShareService } from './../../core/services/data-share.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { EventEmitter, Output } from '@angular/core';
+import { EventEmitter, Output, OnDestroy } from '@angular/core';
 // import { LoggerService } from 'src/app/core/services/logger.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 import * as _moment from 'moment';
 import * as _moment1 from 'moment'
@@ -31,7 +34,8 @@ export const MY_FORMATS = {
   templateUrl: './update-reminder.component.html',
   styleUrls: ['./update-reminder.component.scss']
 })
-export class UpdateReminderComponent implements OnInit {
+export class UpdateReminderComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private noteService: NoteServicesService,
     private dataShare: DataShareService) { }
@@ -257,7 +261,9 @@ export class UpdateReminderComponent implements OnInit {
           }
         }
 
-        this.noteService.addRemainder(this.requestBody).subscribe(
+        this.noteService.addRemainder(this.requestBody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           response => {
             LoggerService.logObj("the remainder is added successfully", response)
             this.update.emit(this.requestBody.reminder);
@@ -308,42 +314,6 @@ export class UpdateReminderComponent implements OnInit {
     this.pickTime = '';
   }
 
-
-  //   quickRemainder(time) {
-  //     // debugger;
-  //     if (time === "8:00 PM") {
-  //       this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 0, 20, 0, 0);
-  //     } else if (time === "8:00 AM") {
-  //       this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 1, 8, 0, 0);
-  //     } else if (time === "MON, 8:00 AM") {
-  //       this.settingDate = new Date(this.dat.getFullYear(), this.dat.getMonth(), this.dat.getDate() + 7, 8, 0, 0);
-  //     }
-
-  //     if (!(this.allowDate === true)) {
-  //     this.requestBody = {
-  //       "reminder": this.settingDate,
-  //       "noteIdList": [this.note.id]
-  //     }
-  //   }
-
-
-
-  //   this.isoFomatedDateTime = this.settingDate
-  //     this.addDate.emit(this.isoFomatedDateTime);
-
-  //     if (!(this.allowDate === true)) {
-
-  //     this.noteService.addRemainder(this.requestBody).subscribe(
-  //       response => {
-  //         LoggerService.logObj("the remainder is added successfully", response)
-  //         this.update.emit(this.settingDate);
-  //       },
-  //       error => {
-  //         LoggerService.log("Error Occured!!");
-  //       }
-  //     )
-  //   }
-  // }
 
   updateDateField() {
 
@@ -470,6 +440,16 @@ export class UpdateReminderComponent implements OnInit {
 
 
 
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 

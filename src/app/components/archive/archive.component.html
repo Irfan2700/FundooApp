@@ -17,12 +17,25 @@
     <!-- <br><br> -->
 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
-        <!-- <div *ngFor="let item of arr"> -->
+      <!-- <div *ngFor="let item of arr"> -->
 
-      <app-notes [model]= "arr" (updateList)= "reload($event)"></app-notes>
+    <app-notes  [model]= "pinnedArr" [pinHead]="pinnedCase" (updateList)= "reload($event)"></app-notes>
+    
 
-    <!-- </div> -->
-    </div>
+  </div>
+  <!-- </div> -->
+  <br>
+  <br>
+  <!-- <div ></div>
+  <div></div> -->
+  <!-- <br><br> -->
+
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <!-- <div *ngFor="let item of arr"> -->
+
+    <app-notes  [model]= "unpinnedArr" [pinHead]="unpinnedCase" (updateList)= "reload($event)"></app-notes>
+
+  </div>
   </div>
 
 

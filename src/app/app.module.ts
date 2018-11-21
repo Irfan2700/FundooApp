@@ -38,6 +38,7 @@ import {
           MatChipsModule,
           MatDatepickerModule,
           MatNativeDateModule,
+          MatTooltipModule
           
           } from '@angular/material';
 
@@ -72,7 +73,7 @@ import { TrashMoreOptionComponent } from './components/trash-more-option/trash-m
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { CreateRemainderComponent } from './components/create-remainder/create-remainder.component';
 import { UpdateReminderComponent } from './components/update-reminder/update-reminder.component';
-import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.component';
+
 
 
 
@@ -107,7 +108,7 @@ import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.com
     CropImageComponent,
     CreateRemainderComponent,
     UpdateReminderComponent,
-    PinnedNotesComponent,
+    
     
 
 
@@ -142,7 +143,7 @@ import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.com
     ImageCropperModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    
+    MatTooltipModule
 
     // ServicesService
   ],

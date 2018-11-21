@@ -2,15 +2,20 @@ import { Note } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import {
-  Component, OnInit, Output, EventEmitter, Input
+  Component, OnInit, Output, EventEmitter, Input, OnDestroy
 } from "@angular/core";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private noteService: NoteServicesService,
     private dataShare: DataShareService
@@ -34,7 +39,9 @@ export class HomeComponent implements OnInit {
   }
 
   showNotes() {
-    this.noteService.getNotesList().subscribe(
+    this.noteService.getNotesList()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         // console.log("Data is Successfully Fetched!!", response);
 
@@ -85,5 +92,15 @@ export class HomeComponent implements OnInit {
       this.reloaderUpdate.emit(event);
       this.showNotes();
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 }

@@ -1,12 +1,15 @@
 import { Note } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { EventEmitter, Output } from '@angular/core';
+import { EventEmitter, Output, OnDestroy } from '@angular/core';
 // import { LoggerService } from 'src/app/core/services/logger.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 import * as _moment from 'moment';
 import * as _moment1 from 'moment'
@@ -35,7 +38,8 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ]
 })
-export class CreateRemainderComponent implements OnInit {
+export class CreateRemainderComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private noteService: NoteServicesService,
     private dataShare: DataShareService) { }
@@ -266,7 +270,9 @@ export class CreateRemainderComponent implements OnInit {
         }
       }
 
-        this.noteService.addRemainder(this.requestBody).subscribe(
+        this.noteService.addRemainder(this.requestBody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           response => {
             LoggerService.logObj("the remainder is added successfully", response)
             this.update.emit(this.requestBody.reminder);
@@ -342,7 +348,9 @@ export class CreateRemainderComponent implements OnInit {
 
     if (!(this.allowDate === true)) {
 
-    this.noteService.addRemainder(this.requestBody).subscribe(
+    this.noteService.addRemainder(this.requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       response => {
         LoggerService.logObj("the remainder is added successfully", response)
         this.update.emit(this.settingDate);
@@ -453,6 +461,16 @@ updateDateField(){
     
 
 
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    
+    this.destroy$.next(true);
+
+    this.destroy$.unsubscribe();
   }
 
 
