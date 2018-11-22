@@ -1,16 +1,21 @@
+@import '../../../scss/mixin';
+@import '../../../scss/variable';
+
 /* [contenteditable=true]:empty:before {
     content: attr(placeholder);
     display: block; /* For Firefox 
   } */
   .touchBut{
     opacity: 0.7;
+
+    :hover{
+      opacity: 1;
+    }
   }
-  .touchBut:hover{
-    opacity: 6;
-  }
+  
 
   .timeSet{
       // position: abssolute;
-      font-size: 17px;
-      margin: 0 0 0 -17px;
+    font-size: 17px;
+    @include margin(0,0,0,-17px);
   }

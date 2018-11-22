@@ -1,34 +1,47 @@
 // .touchBut{
 //   opacity: 0.7;
 // }
-.touchBut:hover{
-  opacity: 1;
-}
 
-.addBut, .touchBut{
-  opacity: 0.7;
-}
-.addBut:hover{
-  opacity: 1;
-}
+@import '../../../scss/mixin';
+@import '../../../scss/variable';
 
-.colorBut{
-  opacity: 0.7;
-}
-.colorBut:hover{
-  opacity: 1;
-}
 
-.archiveBut{
+// .touchBut:hover{
+//   opacity: 1;
+// }
+
+.addBut, .touchBut .colorBut, .archiveBut{
   opacity: 0.7;
+
+  :hover{
+    opacity: 1;
+  }
 }
-.archiveBut:hover{
-  opacity: 1;
-}
+// .addBut:hover{
+//   opacity: 1;
+// }
+
+// .colorBut{
+//   opacity: 0.7;
+// }
+// .colorBut:hover{
+//   opacity: 1;
+// }
+
+// .archiveBut{
+//   opacity: 0.7;
+// }
+// .archiveBut:hover{
+//   opacity: 1;
+// }
 
 .panal {
   opacity: 0;
-  position: relative
+
+  :hover{
+    opacity: 0.7;
+    position: relative
+  }
 }
 
 .panal:hover{
@@ -47,13 +60,13 @@
 .dialogContainerNew {
   box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
   display: block;
-  padding: 0;
-  border-radius: 2px;
+  @include padding;
+  @include border-radius(2px);
   box-sizing: border-box;
   overflow: auto;
   outline: 0;
-  width: 100%;
-  height: 100%;
+  @include width(100%);
+  @include height(100%);
   min-height: inherit;
   max-height: inherit;
   overflow-y: hidden;
@@ -61,34 +74,35 @@
 
 .gridCardView{
 
-  width: 351px;
-  margin: 10px; 
-  border-radius: 8px;
-  margin-left: 18px;
+  @include width(351px);
+  @include margin(10px, 18px); 
+  @include border-radius(8px);
+  // margin-left: 18px;
 }
 
 .listCardView{
 
-  width: 800px;
-  margin: 10px; 
-  border-radius: 8px;
-  margin-left: 18px;
+  // width: 800px;
+  @extend .gridCardView;
+  @include width(800px);
 }
 
 .labelCancel{
 
   opacity: 0.3;
+
+  :hover{
+    opacity: 0.7;
+  }
 }
 
-.labelCancel:hover{
+// .labelCancel:hover{
 
-  opacity: 0.7;
-}
+//   opacity: 0.7;
+// }
 
 .labelChip{
-  white-space: nowrap;
-text-overflow: ellipsis;
-overflow: hidden !important;
+  @include wrap;
 
 }
 

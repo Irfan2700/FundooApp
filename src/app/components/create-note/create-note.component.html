@@ -12,15 +12,15 @@
       ngStyle.xl="border: none; height: 45px; font-size: 18px; min-width: 365px; outline: none;
      border-radius: 8px;"
       autofocus (click)="noteCard = true" (click)="checkToggle = false; index = '#ffffff'">
-    <button mat-icon-button class="listBut">
+    <button mat-icon-button class="commonButton">
       <mat-icon (click)="checkToggle = true" (click)="noteCard = true">list</mat-icon>
     </button>
 
-    <button mat-icon-button class="imageBut">
+    <button mat-icon-button class="commonButton">
       <mat-icon>image</mat-icon>
     </button>
 
-    <button mat-icon-button class="editBut">
+    <button mat-icon-button class="commonButton">
       <mat-icon>edit</mat-icon>
     </button>
   </mat-card>
@@ -94,15 +94,15 @@
 
       </div>
       <div fxLayoutAlign="space-between" fxLayout="row">
-        <button mat-icon-button class="touchBut">
+        <button mat-icon-button class="commonButton">
           <app-create-remainder [allowDate]=dateFlag (addDate)="addReminder($event)"></app-create-remainder>
         </button>
-        <button mat-icon-button class="addBut">
+        <button mat-icon-button class="commonButton">
           <mat-icon>person_add</mat-icon>
         </button>
 
         <!-- color palette selection -->
-        <button mat-icon-button class="colorBut" [matMenuTriggerFor]="colourMenu">
+        <button mat-icon-button class="commonButton" [matMenuTriggerFor]="colourMenu">
           <mat-icon>palette</mat-icon>
         </button>
         <mat-menu #colourMenu="matMenu" style="border-radius: 40px;" yPosition="above" [overlapTrigger]='false'>
@@ -140,17 +140,17 @@
 
 
 
-        <button mat-icon-button class="archiveBut" (click)="archiveIt()">
+        <button mat-icon-button class="commonButton" (click)="archiveIt()">
           <mat-icon>archive</mat-icon>
         </button>
         <div fxLayoutAlign="space-between">
-          <button mat-icon-button class="moreBut">
+          <button mat-icon-button class="commonButton">
             <app-creat-note-more-option [isCheck]="labelUpdate" [alowCheck]="checkToggle" (labelAdds)="updateLabel($event)"
               (checkBox)="updateCheckList($event)">
             </app-creat-note-more-option>
           </button>
 
-          <button mat-button (click)="noteCard = false" style="opacity: 1.5" (click)="addNote()" (click)="array = []"><b>close</b></button>
+          <button mat-button (click)="noteCard = false" style="opacity: 1" (click)="addNote()" (click)="array = []"><b>close</b></button>
         </div>
       </div>
     </form>

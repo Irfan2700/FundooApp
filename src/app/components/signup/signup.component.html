@@ -22,7 +22,7 @@
             <mat-card-header class=cardHeader>Create a FundooApp account</mat-card-header><br><br><br>
 
 
-              <mat-form-field class="fName">
+              <mat-form-field class="fName" ngStyle.xs="width: 100%">
                 <input matInput name="fname" type="text" placeholder="First name" [(ngModel)]="reg.firstName"
                   #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required />
                   <mat-error *ngIf="f.submitted && firstName.invalid">
@@ -33,7 +33,7 @@
 
             &nbsp;&nbsp;
 
-              <mat-form-field class="lName">
+              <mat-form-field class="lName" ngStyle.xs="width: 100%">
                 <input matInput name="lname" type="text" placeholder="Last name" required [(ngModel)]="reg.lastName"
                   #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid}" required />
                   <mat-error *ngIf="f.submitted && lastName.invalid">
@@ -44,7 +44,7 @@
             <br>
 
 
-              <mat-form-field class="email">
+              <mat-form-field class="email" ngStyle.xs="width: 100%">
 
                 <input matInput name="email" type="email" placeholder="Email" required email
                   [(ngModel)]="reg.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid}">
@@ -61,7 +61,7 @@
 
             <div>
 
-              <mat-form-field class="password">
+              <mat-form-field class="password" ngStyle.xs="width: 100%">
                 <input matInput name="pass" [type]="hide ? 'password' : 'text'" placeholder="Password"
                   [(ngModel)]="reg.password" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
                   required minlength="6">
@@ -74,7 +74,7 @@
 
               &nbsp;&nbsp;
 
-              <mat-form-field class="confirmPass">
+              <mat-form-field class="confirmPass" ngStyle.xs="width: 100%">
                 <input matInput name="conpass" [type]="hide ? 'password' : 'text'" placeholder="Confirm password"[(ngModel)]="reg.conpass" #conpass="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && conpass.invalid }"
                 required minlength="6">
@@ -95,10 +95,10 @@
             <div fxLayout="row" fxLayoutGap="3%">
 
 
-              <div *ngFor="let card of arrClick">
+              <div *ngFor="let card of arrClick" fxLayout="row wrap">
 
 
-                <a value="card.name">
+                <div value="card.name" fxFlex>
                   <mat-card mat-button (click)="respond(card)" [ngClass]="card.select ? 'basicNew' : 'basic'">
                     <mat-card-title fxLayoutAlign="center">{{card.name}}</mat-card-title>
                     <div fxLayoutAlign="center">
@@ -108,7 +108,7 @@
                     </div>
 
                   </mat-card>
-                </a>
+                </div>
 
               </div>
 
@@ -126,13 +126,15 @@
             </div>
             <br><br><br>
 
-            <mat-checkbox (click)="deal()"> I agree the  <a (click)="terms()" id="termsLink"> Terms of Service </a> of
+            <div fxLayout="row">
+            <mat-checkbox (click)="deal()"><span> I agree the </span><a (click)="terms()" id="termsLink"><span> Terms of Service </span></a> of
             this site.</mat-checkbox>
+              </div>
 
             <br><br>
 
             <button mat-button [disabled]="agree == false" class="signup" type="submit" (click)="formSubmit()">sign up</button><br>
-            <nav><a class="loginLink" routerLink="/login" routerLinkActive="active">Sign in instead</a></nav>
+            <nav><div class="loginLink" routerLink="/login" routerLinkActive="active">Sign in instead</div></nav>
 
 
           </div>

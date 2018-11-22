@@ -14,14 +14,14 @@
       <mat-card class="loginCard">
 
 
-        <div id="formbody" fxFlex="100">
-          <form id="logForm" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <div class="formbody" fxFlex="100">
+          <form class="logForm" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
 
             <mat-card-title fxLayoutAlign="center" class="cardTitle">Sign In</mat-card-title>
 
             <div fxLayout="column" fxLayoutAlign="space-between">
               <div>
-                <mat-form-field id="example-full-width" appearance="standard">
+                <mat-form-field class="example-full-width" appearance="standard">
                   <mat-label>Email</mat-label>
                   <input matInput name="email" type="email" placeholder="enter your email" [(ngModel)]="log.email"
                     #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid}" required>
@@ -38,12 +38,12 @@
               </div>
 
               <div>
-                <mat-form-field id="example-full-width" appearance="standard">
+                <mat-form-field class="example-full-width" appearance="standard">
                   <mat-label>Password</mat-label>
                   <input matInput name="pass" [type]="hide ? 'password' : 'text'" placeholder="enter your password"
                     required [(ngModel)]="log.password" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
                     required>
-                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-icon matTooltip="password visibility" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   <mat-error *ngIf="f.submitted && password.invalid">
                     <mat-error *ngIf="password?.errors.required">
                       <mat-error>Password is required</mat-error>
@@ -60,15 +60,15 @@
             <div fxLayout="column" fxLayoutAlign="space-between">
               <div>
             <nav>
-              <a class="forgetLink" routerLink="/reset" routerLinkActive="active">forgot password?</a>
+              <div class="forgetLink" matTooltip="forget password" routerLink="/reset" routerLinkActive="active">forgot password?</div>
 
             </nav></div>
 
             <div>
-            <button name="loginSubmit" id="submit" mat-button type="submit" fxLayoutAlign="center" (click)="loginSubmit()">Sign
+            <button name="loginSubmit" class="submit" mat-button type="submit" fxLayoutAlign="center" (click)="loginSubmit()">Sign
               in</button></div>
               <div>
-            <nav><a class="signupLink" routerLink="/signup" routerLinkActive="inactive">create account</a></nav></div>
+            <nav><div class="signupLink" matTooltip="create account" routerLink="/signup" routerLinkActive="inactive">create account</div></nav></div>
 
           </div>
 

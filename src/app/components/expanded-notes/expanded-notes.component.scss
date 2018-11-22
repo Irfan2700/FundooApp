@@ -1,8 +1,11 @@
+@import '../../../scss/mixin';
+@import '../../../scss/variable';
+
 .dash{
 
-  width: 100%;
-  height: 100%;
-  background: lightgrey;
+  @include width(100%);
+  @include height(100%);
+  @include bg-color($lightGrey_color);
   /* display: flex;
   align-items: center;
   justify-content: center */
@@ -10,215 +13,95 @@
 
 .takeNote{
   border: none;
-  height: 45px;
+  @include height(45px);
   font-size: 18px;
-  width: 486px;
+  /* width: 52vh; */
+  min-width: 247px;
   outline: none;
+  @include border-radius(8px);
+  @include wrap;
+  :hover{
+    opacity: 1;
+  }
 
+
+  /* 364px */
 }
 
 .addNote{
 
   width: 100%;
-  padding: 0px 0px 0px 17px;
-  margin: 46px 0px 0px 0px;
-  opacity: 0.7;
+    @include padding(0,0,0,13px);
+    @include margin(45px,-3px,0,-10px);
+    opacity: 1;
+    @include border-radius(8px);
+    box-shadow: 20px;
 }
 
 .titleNote{
   border: none;
-  /* height: auto; */
+  
   font-size: 18px;
-  width: 486px;
+  @include width(486px);
   outline: none;
 
-  /* resize: none; */
+  
 
-}
-
-.titleNoteShow{
-  border: none;
-  /* height: auto; */
-  font-size: 18px;
-  width: 486px;
-  outline: none;
-
-  /* resize: none; */
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden !important;
-
-}
-
-.completeReminder{
-
-  opacity: 0.4;
 }
 
 .expandNoteCard{
-  width: 100%;
-  padding: 0px 0px 0px 17px;
-  margin: 46px 0px 0px 0px;
+  
+  max-width: 364px;
+  @include padding(0,0,0,17px);
+  
+  @include margin(46px,-10px,0,-3px);
+  @include border-radius(8px);
+  
+
 }
 
 .takeNoteExpand{
-  border: none;
-  height: auto;
-  font-size: 18px;
-  width: 470px;
-  outline: none;
+  @extend .titleNote;
   
-}
-
-.takeNoteExpandShow{
-  border: none;
-  height: auto;
-  font-size: 18px;
-  width: 470px;
-  outline: none;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden !important;
+    @include height;
+  
 }
 
 .notebuttonPanal{
   opacity: 0.7;
 }
 
-[contenteditable=true]:empty:not(:focus):before {
+[contenteditable=true]:empty:before {
   content: attr(placeholder);
   display: block; /* For Firefox */
 }
 
 div[contenteditable=true] {
   border: none;
-  height: auto;
+  @include height;
   font-size: 18px;
-  width: 24vw;
+  @include width(486px);
   outline: none;
-  
-  /* padding-top: 10px; */
+  @include padding(10px);
 }
 
-// div[contenteditable=false] {
-//   border: none;
-//   height: auto;
-//   font-size: 18px;
-//   width: 470px;
-//   outline: none;
-//   white-space: nowrap;
-// text-overflow: ellipsis;
-// overflow: hidden !important;
-//   /* padding-top: 10px; */
-// }
 
-.takeNote:hover{
+.commonButton {
+  opacity: 0.7;
+
+  :hover{
+    opacity: 1;
+  }
+}
+
+
+.blur{
+  opacity: 0.4;
+}
+
+.solid{
   opacity: 1;
 }
-
-.listBut{
-  opacity: 0.7;
-}
-.listBut:hover{
-  opacity: 6;
-}
-
-.imageBut{
-  opacity: 0.7;
-}
-.imageBut:hover{
-  opacity: 6;
-}
-
-.editBut{
-  opacity: 0.7;
-}
-.editBut:hover{
-  opacity: 6;
-}
-
-.touchBut{
-  opacity: 0.7;
-}
-.touchBut:hover{
-  opacity: 6;
-}
-
-.addBut{
-  opacity: 0.7;
-}
-.addBut:hover{
-  opacity: 6;
-}
-
-.colorBut{
-  opacity: 0.7;
-}
-.colorBut:hover{
-  opacity: 6;
-}
-
-.archiveBut{
-  opacity: 0.7;
-}
-.archiveBut:hover{
-  opacity: 6;
-}
-
-.moreBut{
-  opacity: 0.7;
-}
-.moreBut:hover{
-  opacity: 6;
-}
-
-.undoBut{
-  opacity: 0.7;
-}
-.undoBut:hover{
-  opacity: 6;
-}
-
-.redoBut{
-  opacity: 0.7;
-}
-.redoBut:hover{
-  opacity: 6;
-}
-
-/* .mat-dialog-container {
-  overflow-y: hidden;
-
-} */
-
-  ::ng-deep.mat-dialog-container {
-    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
-    display: block;
-    padding: 0px;
-    border-radius: 2px;
-    box-sizing: border-box;
-    overflow: auto;
-    outline: 0;
-    width: 100%;
-    height: 100%;
-    min-height: inherit;
-    max-height: inherit;
-    overflow-y: hidden;
-}
-
-.takeNoteExpandEdit{
-
-  border: none;
-  height: auto;
-  font-size: 18px;
-  width: 470px;
-  outline: none;
-  /* margin-top: -11px */
-}
-
-/* .editDiv{
-  /* margin-top: 10px 
-}*/
 
 .checkInput{
 
@@ -227,18 +110,23 @@ div[contenteditable=true] {
   outline: none;
 }
 
-.blur{
-  opacity: 0.3;
-}
-
-.solid{
-  opacity: 1;
+::ng-deep.mat-dialog-container {
+  box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+  display: block;
+  @include padding;
+  @include border-radius(7px);
+  box-sizing: border-box;
+  overflow: auto;
+  outline: 0;
+  @include width(100%);
+  @include height(100%);
+  min-height: inherit;
+  max-height: inherit;
+  overflow-y: hidden;
 }
 
 .labelChip{
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden !important;
-  width: 115px
+  @include wrap;
+  @include width(115px);
 }

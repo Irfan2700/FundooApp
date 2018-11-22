@@ -112,12 +112,12 @@
     </div>
     <div fxLayoutAlign="space-between" *ngIf="data.isDeleted === false" fxLayout="row wrap">
       <div ngStyle.xs="width:7px;">
-        <button mat-icon-button class="touchBut">
+        <button mat-icon-button class="commonButton">
           <app-create-remainder [note]="data" [allowDate]="dataFlag" (update)="updateOptionsNote($event)"></app-create-remainder>
         </button>
       </div>
       <div ngStyle.xs="width:7px;">
-        <button mat-icon-button class="addBut">
+        <button mat-icon-button class="commonButton">
           <mat-icon>person_add</mat-icon>
         </button>
       </div>
