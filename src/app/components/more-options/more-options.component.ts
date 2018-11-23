@@ -1,3 +1,4 @@
+import { Note } from './../../core/Model/note';
 import { LoggerService } from './../../core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -23,6 +24,7 @@ export class MoreOptionsComponent implements OnInit, OnDestroy {
     @Output() updateLabel = new EventEmitter();
     // @Output() updateLabelList = new EventEmitter();
 
+    private notes: Note
     labelArr = [];
     labelUpdate;
 
@@ -130,9 +132,9 @@ export class MoreOptionsComponent implements OnInit, OnDestroy {
     .subscribe(
       data => {
         // console.log(data)
-        for(let i=0; i<data['data'].details.length; i++){
+        for(let i=0; i<data['data']['details'].length; i++){
         this.labelArr.push({
-          "labelInfo": data['data'].details[i],
+          "labelInfo": data['data']['details'][i],
           "isChecked": false
         })
         }

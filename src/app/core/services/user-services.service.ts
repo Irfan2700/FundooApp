@@ -45,4 +45,8 @@ export class UserServicesService {
   registerPushToken(body){
     return this.httpService.httpPostJson("user/registerPushToken", body);
   }
+
+  searchUserList(body){
+    return this.httpService.httpPostJson("user/searchUserList", body);
+  }
 }

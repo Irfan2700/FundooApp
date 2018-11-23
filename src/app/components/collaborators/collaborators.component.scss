@@ -1,0 +1,76 @@
+@import '../../../scss/mixin';
+@import '../../../scss/variable';
+
+
+
+::ng-deep.mat-dialog-container {
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    display: block;
+    @include padding;
+    @include border-radius(7px);
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    @include width(100%);
+    @include height(100%);
+    min-height: inherit;
+    max-height: inherit;
+    overflow-y: hidden;
+  }
+
+  .collabTitle{
+
+    font-size: 17px;
+  }
+
+  .currentEmail{
+
+    @include text-color(rgb(105, 105, 105));
+    font-size: 14px
+  }
+
+  .owner{
+      font-size: 13px;
+      font-style: italic;
+  }
+
+  .collabSearch{
+
+    outline: none;
+    border: none;
+    @include width(100%);
+    @include margin(11px);
+  }
+
+  .savePanel{
+
+    @include bg-color(rgb(218, 218, 218));
+    // float: right;
+    @include padding(10px);
+  }
+
+  .cancelButton{
+
+    float: right;
+  }
+
+  .listMenu{
+
+    // @include width(100px)
+  }
+
+  .menuWidth{
+
+    // @include width(150px);
+  }
+
+  ::ng-deep.mat-menu-panel {
+    min-width: 216px;
+    max-width: 323px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 48px);
+    border-radius: 2px;
+    outline: 0;
+    width: 323px;
+}

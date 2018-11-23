@@ -99,7 +99,10 @@
       <div class="panal" *ngIf="item.isDeleted === false" fxLayoutAlign="space-between">
         <app-create-remainder [note]="item" [allowDate]="dateFlag" (update)="updateOptionsNote($event)"></app-create-remainder>
         <button mat-icon-button class="addBut">
-          <mat-icon>person_add</mat-icon>
+          <!-- <mat-icon>person_add</mat-icon> -->
+          <div class="collabIcon">
+          <app-collaborator-icon [note]="item" (update)="updateOptionsNote($event)"></app-collaborator-icon>
+          </div>
         </button>
         <app-palette (resp)="updateBackground($event)" [newColor]="item"></app-palette>
         <div (click)="isArchiveCheck(item)">

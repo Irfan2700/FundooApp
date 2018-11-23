@@ -73,6 +73,8 @@ import { TrashMoreOptionComponent } from './components/trash-more-option/trash-m
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { CreateRemainderComponent } from './components/create-remainder/create-remainder.component';
 import { UpdateReminderComponent } from './components/update-reminder/update-reminder.component';
+import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
+import { CollaboratorIconComponent } from './components/collaborator-icon/collaborator-icon.component';
 
 
 
@@ -108,6 +110,8 @@ import { UpdateReminderComponent } from './components/update-reminder/update-rem
     CropImageComponent,
     CreateRemainderComponent,
     UpdateReminderComponent,
+    CollaboratorsComponent,
+    CollaboratorIconComponent,
     
     
 
@@ -151,7 +155,8 @@ import { UpdateReminderComponent } from './components/update-reminder/update-rem
   schemas: [NO_ERRORS_SCHEMA],
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
-                     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent],
+                     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent, 
+                    CollaboratorIconComponent, CollaboratorsComponent],
   providers: [LoggerService, MessagingService, InterceptService,
               {
                 provide: HTTP_INTERCEPTORS,

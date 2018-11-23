@@ -1,0 +1,79 @@
+<mat-card class="dialogCard">
+  <div>
+    <mat-card-title class="collabTitle">Collaborators</mat-card-title>
+    <hr>
+  </div>
+  <div fxLayout="column wrap" fxLayoutGap="10px">
+    <div fxLayout="row wrap">
+      <button mat-mini-fab fxFlex="8" [ngStyle]="{ 'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
+      <div fxFlex="5"></div>
+      <div fxFlex="87">
+        <div><span>{{currentUserName}}<span class="owner">(Owner)</span></span></div>
+        <div class="currentEmail"><span>{{currentUserEmail}}</span></div>
+      </div>
+    </div>
+
+    <div *ngFor="let item of userAddList" fxLayout="row wrap">
+    <button mat-mini-fab fxFlex="8">
+        <mat-icon>person_add</mat-icon>
+      </button>
+      <div fxFlex="5"></div>
+      <div fxFlex="87" fxLayoutAlign="space-between">
+
+    <div >
+        <div><span>{{item.firstName}} {{item.lastName}}</span></div>
+        <div class="currentEmail"><span>{{item.email}}</span></div>
+    </div>
+
+    <div><button mat-icon-button (click)="addCollabolater(item)"><mat-icon>done</mat-icon></button></div>
+</div>
+    </div>
+    <div fxLayout="row wrap"> 
+      <button mat-mini-fab fxFlex="8">
+        <mat-icon>person_add</mat-icon>
+      </button>
+      <div fxFlex="5"></div>
+      <div fxFlex="87">
+        <!-- <div><span>{{currentUserName}}<span class="owner">(Owner)</span></span></div>
+        <div class="currentEmail"><span>{{currentUserEmail}}</span></div> -->
+        
+        <div>
+        <input class="collabSearch" placeholder="Person or email to share with" [(ngModel)]="searchInput"
+          [matMenuTriggerFor]="openList" (keydown)="openCollabList($event)">
+          </div>
+      </div>
+      <div>
+        <mat-menu #openList [overlapTrigger]="false" class="listMenu">
+          <mat-menu-item>
+            
+              <div *ngFor="let item of userSearchList" >
+                  <button mat-button (click)="personSelect(item)">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start" class="menuWidth">
+                  <span >{{item.firstName}}&nbsp;</span>
+                  <span>{{item.lastName}}&nbsp;&nbsp;</span>
+                  <div></div>
+                  <span>({{item.email}})</span>
+                </div>
+              </button>
+              </div>
+            
+          </mat-menu-item>
+        </mat-menu>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+
+  <mat-card-footer class="savePanel">
+    <div fxLayout="row wrap" fxLayoutAlign="end center">
+      <div>
+        <button mat-button>Cancel</button>
+      </div>
+      <div>
+        <button mat-button>Save</button>
+      </div>
+    </div>
+  </mat-card-footer>
+
+</mat-card>

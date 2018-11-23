@@ -99,4 +99,12 @@ export class NoteServicesService {
   pinUnpinNotes(body){
     return this.httpService.httpPostJson("notes/pinUnpinNotes", body);
   }
+
+  addCollaborator(body, noteId){
+    return this.httpService.httpPostJson("notes/"+noteId+"/AddcollaboratorsNotes", body);
+  }
+
+  // deleteCollaborator(){
+  //   return this.httpService.ht
+  // }
 }
