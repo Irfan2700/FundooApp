@@ -16,7 +16,7 @@ export class CollaboratorIconComponent implements OnInit {
 
   openAddDialog(){
 
-    this.dialog.open(CollaboratorsComponent, 
+    let dialogRef = this.dialog.open(CollaboratorsComponent, 
       {
         data: this.note,
         width: '550px'

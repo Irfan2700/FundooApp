@@ -85,7 +85,7 @@ export class ExpandedNotesComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           // console.log("Data Successfully Updated!!");
-          this.myRoute.navigate['note'];
+          // this.myRoute.navigate['note'];
           this.dialogRef.close();
         },
         error => {

@@ -73,7 +73,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
 
     }
 
-    this.noteService.addCollaborator(this.userAddList, this.data.id)
+    this.noteService.addCollaborator(this.userAddList, this.data['id'])
     .pipe(takeUntil(this.destroy$))
     .subscribe(
       response => {
