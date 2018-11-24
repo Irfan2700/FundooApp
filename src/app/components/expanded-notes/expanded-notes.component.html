@@ -5,20 +5,22 @@
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card-title contenteditable="true" placeholder="Title" class="titleNoteShow" id="updateTitle" [innerHTML]="data.title"></mat-card-title>
         <div *ngIf="(checkPin())">
-          <button mat-icon-button class="solid" (click)="changePin()" style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned">
+          <button mat-icon-button class="solid" (click)="changePin()" style="position: absolute; margin-left: -43px;"
+            (click)="isPinned = !isPinned">
             <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                 <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
                 <path fill="none" d="M0 0h24v24H0z"></path>
               </svg></mat-icon>
           </button></div>
 
-          <div *ngIf="!(checkPin())">
-            <button mat-icon-button class="blur" (click)="changePin()" style="position: absolute; margin-left: -43px;" (click)="isPinned = !isPinned">
-              <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                  <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
-                  <path fill="none" d="M0 0h24v24H0z"></path>
-                </svg></mat-icon>
-            </button></div>
+        <div *ngIf="!(checkPin())">
+          <button mat-icon-button class="blur" (click)="changePin()" style="position: absolute; margin-left: -43px;"
+            (click)="isPinned = !isPinned">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path d="M16 5h.99L17 3H7v2h1v7l-2 2v2h5v6l1 1 1-1v-6h5v-2l-2-2V5z"></path>
+                <path fill="none" d="M0 0h24v24H0z"></path>
+              </svg></mat-icon>
+          </button></div>
       </div>
 
       <mat-card-content>
@@ -80,7 +82,8 @@
           <div fxLayout="row wrap">
             <!-- <div *ngFor="let label of item.labelIdList"> -->
             <div *ngFor="let labelName of data.noteLabels; let i=index;">
-              <mat-chip ><span class="labelChip">{{labelName.label}}</span><mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon>
+              <mat-chip><span class="labelChip">{{labelName.label}}</span>
+                <mat-icon (click)="removeLabel(labelName,i)">cancel</mat-icon>
               </mat-chip>
             </div>
             <!-- </div> -->
@@ -88,7 +91,7 @@
 
           <div fxLayout="row wrap">
             <!-- <div *ngFor="let label of item.labelIdList"> -->
-            <div *ngIf="!(completedReminder(remainderObj)) && remainderObj.length !== 0">
+            <div *ngIf="!(completedReminder(remainderObj)) && (remainderObj !== null || remainderObj !== undefined) && remainderObj.length !== 0 && remainderObj !== 'Invalid Date'">
 
               <mat-chip>
                 <mat-icon>schedule</mat-icon>&nbsp; {{remainderObj | date: "medium"}}
@@ -96,7 +99,7 @@
               </mat-chip>
             </div>
 
-            <div *ngIf="(completedReminder(remainderObj)) && remainderObj.length !== 0">
+            <div *ngIf="completedReminder(remainderObj) && (remainderObj !== null || remainderObj !== undefined) && remainderObj.length !== 0 && remainderObj !== 'Invalid Date'">
 
               <mat-chip class="completeReminder">
                 <mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderObj | date: "medium"}}</del>
@@ -118,7 +121,7 @@
       </div>
       <div ngStyle.xs="width:7px;">
         <button mat-icon-button class="commonButton">
-          <mat-icon>person_add</mat-icon>
+          <app-collaborator-icon [note]="data" (update)="updateOptionsNote($event)"></app-collaborator-icon>
         </button>
       </div>
       <div ngStyle.xs="width:7px;">

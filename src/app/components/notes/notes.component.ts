@@ -262,6 +262,11 @@ export class NotesComponent implements OnInit, OnDestroy {
     // this.dataShare.sendData6(item);
   }
 
+  collabCall(item){
+
+    // this.dataShare
+  }
+
   ngOnInit() {
     
     this.dataShare.showData3

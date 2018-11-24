@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isPinned;
   pinnedCase = true;
   unpinnedCase = false;
+  
   // private noteCard = false;
 
   arr= [];
@@ -63,6 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               
               this.arr.push(this.notes[i]);
               // this.arr = response['data'].data;app-more-options
+              
               
             }
           }

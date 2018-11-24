@@ -63,15 +63,15 @@
 
         <div fxLayout="row wrap">
           <!-- <div *ngFor="let label of item.labelIdList"> -->
-          <div *ngFor="let remainderChip of item.reminder">
-            <div *ngIf="!(completedReminder(remainderChip))">
+          <!-- <div *ngFor="let remainderChip of item.reminder"> -->
+            <div *ngIf="!(completedReminder(item.reminder[0])) && (item.reminder[0] !== null || item.reminder[0] !== undefined) && item.reminder.length !== 0 && item.reminder[0] !== 'Invalid Date'">
 
               <button  mat-icon-button [matMenuTriggerFor]="remainderMenu" (click)="reminderOption(item)"><mat-chip matTooltip="upcoming reminder" disabled>
-                <mat-icon>schedule</mat-icon>&nbsp; {{remainderChip | date: "medium"}}
+                <mat-icon>schedule</mat-icon>&nbsp; {{item.reminder[0] | date: "medium"}}
                 <mat-icon matTooltip="remove reminder" (click)="removeRemainder(item)">cancel</mat-icon>
               </mat-chip></button>
             </div>
-          </div>
+          <!-- </div> -->
           <!-- </div> -->
 
         </div>
@@ -84,15 +84,15 @@
         
         <div>
 
-          <div *ngFor="let remainderChip of item.reminder">
-            <div *ngIf="completedReminder(remainderChip)">
+          <!-- <div *ngFor="let remainderChip of item.reminder"> -->
+            <div *ngIf="completedReminder(item.reminder[0]) && (item.reminder[0] !== null || item.reminder[0] !== undefined) && item.reminder.length !== 0 && item.reminder[0] !== 'Invalid Date'">
 
               <mat-chip style="opacity: 0.4">
-                <mat-icon>schedule</mat-icon>&nbsp; <del>{{remainderChip | date: "medium"}}</del>
+                <mat-icon>schedule</mat-icon>&nbsp; <del>{{item.reminder[0] | date: "medium"}}</del>
                 <mat-icon  matTooltip="remove reminder" (click)="removeRemainder(item)">cancel</mat-icon>
               </mat-chip>
             </div>
-          </div>
+          <!-- </div> -->
         </div>
       </div>
 
@@ -100,7 +100,7 @@
         <app-create-remainder [note]="item" [allowDate]="dateFlag" (update)="updateOptionsNote($event)"></app-create-remainder>
         <button mat-icon-button class="addBut">
           <!-- <mat-icon>person_add</mat-icon> -->
-          <div class="collabIcon">
+          <div class="collabIcon" (click)="collabCall(item)">
           <app-collaborator-icon [note]="item" (update)="updateOptionsNote($event)"></app-collaborator-icon>
           </div>
         </button>
