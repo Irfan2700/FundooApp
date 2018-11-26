@@ -8,14 +8,14 @@
       <button mat-mini-fab fxFlex="8" [ngStyle]="{ 'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
       <div fxFlex="5"></div>
       <div fxFlex="87">
-        <div><span>{{currentUserName}}<span *ngIf="ownerFlag === true" class="owner">(Owner)</span></span></div>
-        <div class="currentEmail"><span>{{currentUserEmail}}</span></div>
+        <div><span>{{data.user.firstName}} {{data.user.lastName}}<span class="owner">(Owner)</span></span></div>
+        <div class="currentEmail"><span>{{data.user.email}}</span></div>
       </div>
     </div>
 
 
     <div *ngFor="let item of userAddList; let i=index;" >
-      <div *ngIf="item.collaborators.userId !== currentUserId" fxLayout="row wrap">
+      <div fxLayout="row wrap">
         <button mat-mini-fab fxFlex="8" [ngStyle]="{'background-color': item.proColor}">
           <!-- <mat-icon>person_add</mat-icon> -->
           {{item.firstLetter}}

@@ -191,6 +191,11 @@ account;
   currentUser;
   currentEmail;
 
+  closeSearchInput(){
+
+    this.enableSearch = !this.enableSearch;
+  }
+
   ngOnInit() {
 
     // this.noteService.getNoteLabelList().subscribe(

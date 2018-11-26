@@ -31,7 +31,7 @@
   // width: 200px
 }
 
-.mat-menu-panel {
+::ng-deep.mat-menu-panel {
   min-width: 112px;
   max-width: 280px;
   overflow: auto;
@@ -41,6 +41,7 @@
   outline: 0;
   /* padding: 14px; */
   @include border-radius(9px);
+  // width: 200px;
 }
 
 ::ng-deep.mat-menu-content:not(:empty) {
@@ -115,17 +116,26 @@
 @include padding(0,0,0,50px);
 @include bg-color($yellow_shadow);
 
-    :hover{
+    &:focus{
       @include bg-color($white_color);
     }
+
+    // :focus{
+    //     /* width: 100%;
+    //    border-radius: 6px;
+    //    padding: 10px; */
+    //    background: rgb(255, 255, 255);
+    //    }
 
 }
 
 .expandSearch{
-width: 100%;
+width: 227%;
+// width: 100%;
 border: none;
 @include border-radius;
-// padding: 0px 0px 0px 50px;
+// position: absolute;
+// margin: 0 0px 0 -257px;
 
 }
 

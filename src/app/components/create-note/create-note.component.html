@@ -1,5 +1,5 @@
 <!-- <div fxLayout="row" fxLayoutAlign="center center" > -->
-<div [hidden]="noteCard">
+<div [hidden]="noteCard == true || showCollab == true">
   <mat-card class="addNote">
     <input type="text" placeholder="take a note..." ngStyle.xs="border: none; height: 45px; 
     font-size: 18px; min-width: 247px; outline: none; border-radius: 8px;"
@@ -26,11 +26,11 @@
   </mat-card>
 </div>
 
-<div [hidden]="!noteCard">
+<div [hidden]="noteCard == false || showCollab == true">
   <mat-card [style.backgroundColor]="index" ngStyle.xs="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;"
-    ngStyle.sm="max-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
-  border-radius: 8px; margin-right: -10px; margin-left: -3px;"
+    ngStyle.sm="max-width: 377px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
+  border-radius: 8px; margin-right: 18px; margin-left: -3px;"
     ngStyle.md="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
   border-radius: 8px; margin-right: -10px; margin-left: -3px;"
     ngStyle.lg="min-width: 364px; padding: 0px 0px 0px 17px; margin: 46px 0px 0px 0px; 
@@ -77,6 +77,12 @@
 
           </div>
 
+          <div  fxLayout="row wrap">
+            <div *ngFor="let collaborator of userAddList">
+            <button [matTooltip]="collaborator.collaborators.firstName+' '+collaborator.collaborators.lastName" mat-mini-fab>{{(collaborator.collaborators.firstName.split(''))[0]}}</button>
+            </div>
+          </div>
+
           <div></div>
 
           <div fxLayout="row wrap">
@@ -97,9 +103,11 @@
         <button mat-icon-button class="commonButton">
           <app-create-remainder [allowDate]=dateFlag (addDate)="addReminder($event)"></app-create-remainder>
         </button>
-        <button mat-icon-button class="commonButton">
+        <button mat-icon-button (click)="showCollab = true && noteCard = true; finalCollab = []" class="commonButton">
           <mat-icon>person_add</mat-icon>
         </button>
+
+        
 
         <!-- color palette selection -->
         <button mat-icon-button class="commonButton" [matMenuTriggerFor]="colourMenu">
@@ -156,3 +164,103 @@
     </form>
   </mat-card>
 </div>
+
+<!--************************************************************************************************* -->
+<!-- ************************************************************************************************ -->
+  <div [hidden]="showCollab == false">
+        <mat-card class="dialogCard">
+          <div>
+            <mat-card-title class="collabTitle">Collaborators</mat-card-title>
+            <hr>
+          </div>
+          <div fxLayout="column wrap" fxLayoutGap="10px">
+            <div fxLayout="row wrap" class="proPic">
+              <button mat-mini-fab fxFlex="8" [ngStyle]="{ 'background-image': 'url(' + updatePic + ')', 'background-size': 'cover'}"></button>
+              <div fxFlex="5"></div>
+              <div fxFlex="87">
+                <div><span>{{currentUserName}}<span class="owner">(Owner)</span></span></div>
+                <div class="currentEmail"><span>{{currentUserEmail}}</span></div>
+              </div>
+            </div>
+        
+        
+            <div *ngFor="let item of userAddList; let i=index;" >
+              <div fxLayout="row wrap">
+                <button mat-mini-fab fxFlex="8" [ngStyle]="{'background-color': item.proColor}">
+                  <!-- <mat-icon>person_add</mat-icon> -->
+                  {{item.firstLetter}}
+                </button>
+                <div fxFlex="5"></div>
+                <div fxFlex="87" fxLayoutAlign="space-between">
+        
+                  <div>
+                    <div><span>{{item.collaborators.firstName}} {{item.collaborators.lastName}}</span><span *ngIf="item.owner == true" class="owner">(Owner)</span></div>
+                    <div class="currentEmail"><span>{{item.collaborators.email}}</span></div>
+                  </div>
+        
+                  <!-- <div *ngIf="item.isAdded === false"><button mat-icon-button (click)="addCollabolater(item); item.isAdded = true">
+                      <mat-icon>done</mat-icon>
+                    </button></div> -->
+        
+                  <div ><button mat-icon-button (click)="deleteCollabolater(item,i)">
+                      <mat-icon>cancel</mat-icon>
+                    </button></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div fxLayout="row wrap" class="personAdd">
+              <button mat-mini-fab fxFlex="8">
+                <mat-icon>person_add</mat-icon>
+              </button>
+              <div fxFlex="5"></div>
+              <div fxFlex="87">
+                <!-- <div><span>{{currentUserName}}<span class="owner">(Owner)</span></span></div>
+                <div class="currentEmail"><span>{{currentUserEmail}}</span></div> -->
+        
+                <div>
+                  <input class="collabSearch" placeholder="Person or email to share with" [(ngModel)]="searchInput"
+                    [matMenuTriggerFor]="openList" (keyup)="openCollabList($event)">
+                </div>
+              </div>
+              <div>
+                <mat-menu #openList [overlapTrigger]="false" class="listMenu">
+                  <mat-menu-item>
+        
+                    <div *ngFor="let list of userSearchList">
+                      <button mat-button (click)="personSelect(list)">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between start" class="menuWidth">
+                          <span>{{list.firstName}}&nbsp;</span>
+                          <span>{{list.lastName}}&nbsp;&nbsp;</span>
+                          <div></div>
+                          <span>({{list.email}})</span>
+                        </div>
+                      </button>
+                    </div>
+        
+                  </mat-menu-item>
+                </mat-menu>
+              </div>
+            </div>
+            <div></div>
+        
+          </div>
+        
+        
+          <mat-card-footer class="savePanel">
+            <div fxLayout="row wrap" fxLayoutAlign="end center">
+              <div>
+                <button mat-button (click)="closeCollab(); noteCard = true; showCollab = false">Cancel</button>
+              </div>
+              <div>
+                <button mat-button (click)="allAddCollab(); noteCard = true; showCollab = false">Save</button>
+              </div>
+            </div>
+          </mat-card-footer>
+        
+        </mat-card>
+</div>
+
+        <!--************************************************************************************************* -->
+        <!-- ************************************************************************************************ -->

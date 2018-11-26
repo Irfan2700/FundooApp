@@ -75,6 +75,7 @@ import { CreateRemainderComponent } from './components/create-remainder/create-r
 import { UpdateReminderComponent } from './components/update-reminder/update-reminder.component';
 import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
 import { CollaboratorIconComponent } from './components/collaborator-icon/collaborator-icon.component';
+import { TestComponent } from './components/test/test.component';
 
 
 
@@ -112,6 +113,7 @@ import { CollaboratorIconComponent } from './components/collaborator-icon/collab
     UpdateReminderComponent,
     CollaboratorsComponent,
     CollaboratorIconComponent,
+    TestComponent,
     
     
 

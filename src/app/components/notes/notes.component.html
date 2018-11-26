@@ -57,6 +57,12 @@
               <mat-icon matTooltip="remove label" class="labelCancel" (click)="removeLabel(labelName,item,i); labeldisable = true;">cancel</mat-icon>
             </mat-chip>
           </div>
+
+          <div  fxLayout="row wrap">
+            <div *ngFor="let collaborator of item.collaborators">
+            <button [matTooltip]="collaborator.firstName+' '+collaborator.lastName" mat-mini-fab>{{(collaborator.firstName.split(''))[0]}}</button>
+            </div>
+          </div>
           <!-- </div> -->
         </div>
         <br>
@@ -73,9 +79,11 @@
             </div>
           <!-- </div> -->
           <!-- </div> -->
+         
 
         </div>
 
+        
         
           <mat-menu #remainderMenu>
             <app-update-reminder [arr]=currentItemArr></app-update-reminder>

@@ -4,7 +4,7 @@ export interface Note {
     color: string
     createdDate: Date
     modifiedDate: Date
-    id:string
+    id: string
     imageUrl: string
     isArchived: boolean
     isDeleted: boolean
@@ -14,17 +14,17 @@ export interface Note {
     userId: string
     labelIdList: [string]
     noteCheckLists: Array<Checklists>
-    questionAndAnswerNotes:[object]
-    collaborators:[object]
-    }
-    export interface Label{
+    questionAndAnswerNotes: [object]
+    collaborators: [object]
+}
+export interface Label {
     id: string
     label: string
     isDeleted: boolean
     userId: string
-    
-    }
-    export interface Checklists{
+
+}
+export interface Checklists {
     createdDate: Date
     id: string
     isDeleted: boolean
@@ -32,4 +32,4 @@ export interface Note {
     modifiedDate: Date
     notesId: string
     status: string
-    }
+}

@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { UserServicesService } from './../../core/services/user-services.service';
@@ -142,7 +143,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
         error => {
 
           LoggerService.error("Error is Occur While Deleting Collaborator Person");
-          this.userAddList.splice(index, 1);
+          this.userAddList[index].splice(index, 1);
 
         }
       )
@@ -196,7 +197,8 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
 
     this.currentUserName = this.auth.getUserName();
     this.currentUserEmail = this.auth.getUserEmail();
-    this.updatePic = this.auth.getPic();
+    this.updatePic = environment.imageURL+this.data.user.imageUrl;
+    console.log(this.updatePic)
     this.currentUserId = this.auth.getId();
 
   }

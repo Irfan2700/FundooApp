@@ -1,3 +1,4 @@
+import { TestComponent } from './components/test/test.component';
 import { SearchComponent } from './components/search/search.component';
 import { LabelComponent } from './components/label/label.component';
 import { ArchiveComponent } from './components/archive/archive.component';
@@ -28,7 +29,8 @@ import { TrashComponent } from './components/trash/trash.component';
       {path: 'archive', component: ArchiveComponent},
       {path: 'trash', component: TrashComponent},
       {path: 'label/:labelName', component: LabelComponent},
-      {path: 'search', component: SearchComponent}
+      {path: 'search', component: SearchComponent},
+      {path: 'test', component: TestComponent}
 
     ]},
     {path: 'test', component: HomeComponent, outlet: 'test'},

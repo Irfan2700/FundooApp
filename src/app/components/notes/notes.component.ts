@@ -41,6 +41,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   private labelArr = [];
   private pinArr;
   private tick;
+  collabArr;
   // SearchInput;
   // noteId(id) {
   //   console.log(id);
@@ -106,6 +107,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       {
         data: item,
         width: '550px',
+        maxWidth: 'auto'
 
       }
     );
@@ -267,6 +269,16 @@ export class NotesComponent implements OnInit, OnDestroy {
     // this.dataShare
   }
 
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    // console.log(color)
+    return color;
+  }
+
   ngOnInit() {
     
     this.dataShare.showData3
@@ -276,6 +288,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.pinArr = response;
       }
     )
+
     this.dataShare.showData4
     .pipe(takeUntil(this.destroy$))
     .subscribe(
@@ -285,6 +298,11 @@ export class NotesComponent implements OnInit, OnDestroy {
         
       }
     )
+
+    for(let i=0; i<this.pinArr.length; i++){
+
+      this.collabArr = this.pinArr[i].collaborators;
+    }
 
     // this.dataShare.showData6.subscribe(
     //   respo => {

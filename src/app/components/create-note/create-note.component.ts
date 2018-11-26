@@ -1,3 +1,5 @@
+import { UserServicesService } from 'src/app/core/services/user-services.service';
+import { AuthService } from './../../core/services/auth.service';
 import { Note } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
@@ -17,7 +19,9 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private noteService: NoteServicesService){}
+    private noteService: NoteServicesService,
+    private userService: UserServicesService,
+    private auth: AuthService){}
   @ViewChild('title') title: ElementRef;
   @ViewChild('desc') desc: ElementRef;
 
@@ -26,7 +30,14 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   noteCard = false;
   isCheckListTicked = false;
   remainder='';
-  
+  currentUserName;
+  currentUserEmail;
+  userAddList = [];
+  searchInput;
+  userSearchList;
+  showCollab = false;
+  updatePic;
+  finalCollab = [];
 
   labelUpdate = []
   isCheckedLabel = {
@@ -160,7 +171,8 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
         "isArchived": this.archive,
         "checklist": JSON.stringify(this.tempArr),
         "labelIdList": JSON.stringify(this.labelArr),
-        "reminder": this.remainder
+        "reminder": this.remainder,
+        "collaberators": JSON.stringify(this.finalCollab)
 
       }
 
@@ -173,7 +185,8 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
         "color": this.index,
         "isArchived": this.archive,
         "labelIdList": JSON.stringify(this.labelArr),
-        "reminder": this.remainder
+        "reminder": this.remainder,
+        "collaberators": JSON.stringify(this.finalCollab)
 
 
       }
@@ -324,10 +337,88 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
     this.remainder = '';
   }
 
+  addCollabolater(item){
+
+  }
+
+  deleteCollabolater(item, index){
+
+    this.userAddList.splice(index, 1);
+    this.userAddList[index].isAdded = false;
+
+  }
+
+  openCollabList(event){
+
+    this.userSearchList = [];
+    if (this.searchInput !== undefined && this.searchInput !== "" && event.keyCode !== 46) {
+
+      let requestBody = {
+
+        "searchWord": this.searchInput
+      }
+
+      this.userService.searchUserList(requestBody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          response => {
+
+
+            this.userSearchList = response['data']['details'];
+            console.log("user List result", this.userSearchList);
+          }
+        )
+    }
+
+  }
+
+  personSelect(item){
+
+    let firstLetter = item.firstName.split('');
+
+    this.userAddList.push({
+      'collaborators': item,
+      'isAdded': false,
+      'firstLetter': firstLetter[0],
+      'proColor': this.getRandomColor(),
+      'owner': false
+    });
+    this.searchInput = '';
+
+  }
+
+  closeCollab(){
+
+    this.userAddList = [];
+
+  }
+
+  allAddCollab(){
+
+    for(let i=0; i<this.userAddList.length; i++){
+
+      this.finalCollab.push(this.userAddList[i].collaborators);
+    }
+    console.log("all add is here", this.finalCollab)
+    
+  }
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    // console.log(color)
+    return color;
+  }
 
 
   ngOnInit() {
 
+    this.currentUserName = this.auth.getUserName();
+    this.currentUserEmail = this.auth.getUserEmail();
+    this.updatePic = this.auth.getPic();
     
   }
 
