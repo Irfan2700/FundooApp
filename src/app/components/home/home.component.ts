@@ -75,6 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error => {
         // console.log("Error in Data Fetching...");
+        throw error;
       }
     );
   }

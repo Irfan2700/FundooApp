@@ -1,14 +1,15 @@
+import { ErrorHandlerService } from './core/services/error-handler.service';
 import { InterceptService } from './core/services/intercept.service';
 import { MessagingService } from './core/services/messaging.service';
 import { AuthService } from './core/services/auth.service';
 import { AuthGuard } from './core/guard/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -19,28 +20,28 @@ import { ImageCropperModule } from 'ngx-image-cropper';
  */
 
 import {
-          MatFormFieldModule,
-          MatInputModule,
-          MatButtonModule,
-          MatCardModule,
-          MatIconModule,
-          MatToolbarModule,
-          MatRadioModule,
-          MatCheckboxModule,
-          MatDialogModule,
-          MatButtonToggleModule,
-          MatSnackBarModule,
-          MatProgressSpinnerModule,
-          MatSidenavModule,
-          MatMenuModule,
-          MatListModule,
-          MatExpansionModule,
-          MatChipsModule,
-          MatDatepickerModule,
-          MatNativeDateModule,
-          MatTooltipModule
-          
-          } from '@angular/material';
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatRadioModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatButtonToggleModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatSidenavModule,
+  MatMenuModule,
+  MatListModule,
+  MatExpansionModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatTooltipModule
+
+} from '@angular/material';
 
 // import { MomentDateAdapter } from '@angular/material-moment-adapter'
 /**
@@ -76,6 +77,7 @@ import { UpdateReminderComponent } from './components/update-reminder/update-rem
 import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
 import { CollaboratorIconComponent } from './components/collaborator-icon/collaborator-icon.component';
 import { TestComponent } from './components/test/test.component';
+// import { errorHandler } from '@angular/platform-browser/src/browser';
 
 
 
@@ -114,8 +116,8 @@ import { TestComponent } from './components/test/test.component';
     CollaboratorsComponent,
     CollaboratorIconComponent,
     TestComponent,
-    
-    
+
+
 
 
 
@@ -157,16 +159,19 @@ import { TestComponent } from './components/test/test.component';
   schemas: [NO_ERRORS_SCHEMA],
 
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
-                     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent, 
-                    CollaboratorIconComponent, CollaboratorsComponent],
-  providers: [LoggerService, MessagingService, InterceptService,
-              {
-                provide: HTTP_INTERCEPTORS,
-                useClass: InterceptService,
-                multi: true
-              }
-            ],
-  
+    ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent,
+    CollaboratorIconComponent, CollaboratorsComponent],
+  providers: [LoggerService, MessagingService, ErrorHandlerService, {
+    provide: ErrorHandler,
+    useClass: ErrorHandlerService
+  }, InterceptService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+    }
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

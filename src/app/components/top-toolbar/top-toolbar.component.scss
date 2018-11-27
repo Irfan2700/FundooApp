@@ -238,3 +238,13 @@ border: none;
   white-space: pre-line;
   max-width: 500px !important;
 }
+
+.selectedTab{
+
+  @include bg-color($lightSkyBlue_color);
+}
+
+.unselectedTab{
+
+  @include bg-color($lightGrey_color)
+}

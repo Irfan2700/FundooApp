@@ -9,9 +9,9 @@ import {
 import { start } from 'repl';
 
 declare const require: any;
-declare const _karma_: any;
+// declare const _karma_: any;
 
-_karma_.loaded = function() {};
+// _karma_.loaded = function() {};
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
@@ -22,6 +22,6 @@ const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
 
-_karma_.start()
+// _karma_.start()
 
 

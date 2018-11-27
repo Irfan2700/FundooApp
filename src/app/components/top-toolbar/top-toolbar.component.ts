@@ -1,3 +1,4 @@
+// import { ActivatedRoute } from '@angular/router';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { UserServicesService } from 'src/app/core/services/user-services.service';
 import { CropImageComponent } from './../crop-image/crop-image.component';
@@ -28,7 +29,7 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
       map(result => result.matches)
     );
 
-    
+
   constructor(private breakpointObserver: BreakpointObserver,
     private auth: AuthService,
     public snackBar: MatSnackBar,
@@ -37,35 +38,37 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
     public cropDialog: MatDialog,
     private dataShare: DataShareService,
     private userService: UserServicesService,
-    private noteService: NoteServicesService
-    ) { }
+    private noteService: NoteServicesService,
 
-    arr;
-    searchInput;
-    listView = false;
-    topTitle = "Fundoo";
-    keepTitle = "Keep";
-    enableSearch = false;
+  ) { }
+
+  arr = [];
+  searchInput;
+  listView = false;
+  topTitle = "Fundoo";
+  keepTitle = "Keep";
+  enableSearch = false;
+  sidebarTabSelect;
 
   logout() {
     this.userService.userLogout()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(
-      data => {
-        // console.log("logout Successfully");
-        this.auth.removeToken();
-        this.auth.removeId();
-        
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        data => {
+          // console.log("logout Successfully");
+          this.auth.removeToken();
+          this.auth.removeId();
 
-        this.myRoute.navigate(["login"]);
-      },
-      error => {
-        // console.log("Error occur")
-      }
-    )
+
+          this.myRoute.navigate(["login"]);
+        },
+        error => {
+          // console.log("Error occur")
+        }
+      )
   }
 
-  listSwitcher(){
+  listSwitcher() {
     this.listView = !this.listView;
     this.dataShare.sendData4(this.listView);
   }
@@ -88,26 +91,26 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(CreateLabelComponent);
 
     dialogRef.afterClosed()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(
-      result =>{
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        result => {
 
-        this.getLabelList();
-      }
-    )
+          this.getLabelList();
+        }
+      )
   }
 
-  showlabelList(item){
+  showlabelList(item) {
 
-    this.myRoute.navigate(['label/'+ item.label]);
+    this.myRoute.navigate(['label/' + item.label]);
   }
 
-  searchNotes(){
+  searchNotes() {
 
     this.myRoute.navigate(['search']);
   }
 
-  pressSearch(){
+  pressSearch() {
 
     this.dataShare.sendData2(this.searchInput)
   }
@@ -116,10 +119,10 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
   showPic = null;
   updatePic;
 
-  changeProPic(event){
+  changeProPic(event) {
     LoggerService.log("I am here")
 
-    
+
 
     let dialogRef = this.cropDialog.open(CropImageComponent, {
       data: event,
@@ -127,107 +130,194 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
     })
 
     dialogRef.afterClosed()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(
-      data => {
-        
-        console.log("qqq",data)
-        LoggerService.log(data);
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        data => {
 
-        let requestBody = new FormData()
-        requestBody.append("file", data, data.name)
+          console.log("qqq", data)
+          LoggerService.log(data);
 
-        this.userService.profilePicUploader(requestBody)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          response => {
-    
-            this.showPic = environment.imageURL + response['status'].imageUrl;
-            
-            this.auth.sendPic(this.showPic)
-            // console.log(response);
-            LoggerService.log(this.showPic);
+          let requestBody = new FormData()
+          requestBody.append("file", data, data.name)
 
-            this.updatePic = this.auth.getPic();
-          }
-        )
+          this.userService.profilePicUploader(requestBody)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
+              response => {
+
+                this.showPic = environment.imageURL + response['status'].imageUrl;
+
+                this.auth.sendPic(this.showPic)
+                // console.log(response);
+                LoggerService.log(this.showPic);
+
+                this.updatePic = this.auth.getPic();
+              }
+            )
 
 
-      }
-    )
-  }
-
-  getLabelList(){
-
-  this.noteService.getNoteLabelList()
-  .pipe(takeUntil(this.destroy$))
-  .subscribe(
-    response => {
-      this.dataShare.sendData1(response);
-      this.arr = response['data']['details'];
-      LoggerService.log(this.arr);
-      this.arr.sort(function(a,b)
-      {const obj1 = a.label.toUpperCase();
-        const obj2 = b.label.toUpperCase();
-
-        let comp = 0;
-        if(obj1>obj2){
-          comp = 1;
-        }else if(obj1<obj2){
-          comp = -1;
         }
-       return comp;}
-        );
-      
-      
-    },
-    error => {
-      // console.log("Error Occured")
-    }
-  )
+      )
   }
-account;
+
+  getLabelList() {
+
+    this.noteService.getNoteLabelList()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        response => {
+          this.dataShare.sendData1(response);
+          this.arr = response['data']['details'];
+
+          LoggerService.log(this.arr);
+          this.arr.sort(function (a, b) {
+            const obj1 = a.label.toUpperCase();
+            const obj2 = b.label.toUpperCase();
+
+            let comp = 0;
+            if (obj1 > obj2) {
+              comp = 1;
+            } else if (obj1 < obj2) {
+              comp = -1;
+            }
+            return comp;
+          }
+          );
+
+          return this.arr;
+        },
+        error => {
+          // console.log("Error Occured")
+          throw error;
+        }
+      )
+  }
+  account;
 
   currentUser;
   currentEmail;
 
-  closeSearchInput(){
+  closeSearchInput(event) {
 
-    this.enableSearch = !this.enableSearch;
+    if (event.keyCode === 13) {
+      this.enableSearch = !this.enableSearch;
+    }
   }
+  tabFlag;
+  tabColor1 = "#d3d3d3";
+  tabColor2 = "#d3d3d3";
+  tabColor3 = "#d3d3d3";
+  tabColor4 = "#d3d3d3";
+  labelTabColor = [];
+
+  changeTabColor(tabName) {
+
+    this.sidebarTabSelect = this.myRoute.url;
+
+    if (tabName == '/home') {
+
+      this.tabColor1 = "#05f6f6";
+      this.tabColor2 = "#d3d3d3";
+      this.tabColor3 = "#d3d3d3";
+      this.tabColor4 = "#d3d3d3";
+      this.topTitle = 'Fundoo';
+      this.keepTitle = 'Keep';
+
+    } else if (tabName == '/reminders') {
+
+      this.tabColor2 = "#05f6f6";
+      this.tabColor1 = "#d3d3d3";
+      this.tabColor3 = "#d3d3d3";
+      this.tabColor4 = "#d3d3d3";
+
+      this.topTitle = ''; 
+      this.keepTitle = 'Reminders';
+
+    } else if (tabName == '/archive') {
+
+      this.tabColor3 = "#05f6f6";
+      this.tabColor1 = "#d3d3d3";
+      this.tabColor2 = "#d3d3d3";
+      this.tabColor4 = "#d3d3d3";
+
+      this.topTitle = ''; 
+      this.keepTitle = 'Archive';
+
+    } else if (tabName == '/trash') {
+
+      this.tabColor4 = "#05f6f6";
+      this.tabColor1 = "#d3d3d3";
+      this.tabColor2 = "#d3d3d3";
+      this.tabColor3 = "#d3d3d3";
+
+      this.topTitle = ''; 
+      this.keepTitle = 'Trash';
+
+    }
+
+
+
+  }
+
+  changeLabelTab(label) {
+
+
+    this.tabFlag = label;
+
+    // console.log("label detail", this.myRoute.url.split('/'))
+    // this.myRoute.url.split('/')
+
+    this.tabColor1 = "#d3d3d3";
+    this.tabColor2 = "#d3d3d3";
+    this.tabColor3 = "#d3d3d3";
+    this.tabColor4 = "#d3d3d3";
+
+    this.topTitle = ''; 
+    this.keepTitle = label;
+  }
+
+  arr1 = []
 
   ngOnInit() {
 
-    // this.noteService.getNoteLabelList().subscribe(
-    //   response => {
-    //     this.dataShare.sendData1(response);
-    //     this.arr = response['data']['details'];
-    //     LoggerService.log(this.arr);
 
-        
-    //   },
-    //   error => {
-    //     // console.log("Error Occured")
-    //   }
-    // )
 
     this.getLabelList();
 
     this.updatePic = this.auth.getPic();
-    
-      this.currentUser = this.auth.getUserName();
-      this.currentEmail = this.auth.getUserEmail();
 
-      this.account = this.currentUser
+    this.currentUser = this.auth.getUserName();
+    this.currentEmail = this.auth.getUserEmail();
+
+    this.account = this.currentUser;
+
+    this.sidebarTabSelect = this.myRoute.url;
+
+    // this.changeTabColor(this.myRoute.url);
+
+
+    // for (let i = 0; i < this.arr.length; i++) {
+
+    //   this.labelTabColor.push({
+    //     'labelName': this.arr[i].label,
+    //     'labelColor': "#d3d3d3"
+    //   })
+    // }
+    let temp = this.myRoute.url.split('/');
+    this.changeLabelTab(temp[2]);
+
+    this.changeTabColor(this.myRoute.url)
+
   }
 
-  
+
+
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
 
-    
+
     this.destroy$.next(true);
 
     this.destroy$.unsubscribe();

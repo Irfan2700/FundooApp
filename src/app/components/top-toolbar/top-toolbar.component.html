@@ -17,9 +17,9 @@
             ngStyle.lg="font-size:22px"><div class="keepHead" [innerHTML]="keepTitle"></div></span>
         </div>
 
-        <div *ngIf="enableSearch === true">
+        <div *ngIf="enableSearch === true" [hidden]="(isHandset$ | async) ? false : true">
             <input name=expandedSearch (click)="$event.stopPropagation()" class="expandSearch" selected [(ngModel)]="searchInput" (keyup)="pressSearch()" ngStyle.xs="font-size:12px; height:36px;" ngStyle.sm="font-size:17px; height:33px"
-            ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px" (keyup)="closeSearchInput()" (click)="searchNotes()">
+            ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px" (keyup)="closeSearchInput($event)" (click)="searchNotes()">
           </div>
 
         <div fxFlex="65" ngStyle.xs="font-size:12px;" ngStyle.sm="font-size:17px,;" ngStyle.md="font-size:22px;"
@@ -42,7 +42,7 @@
                   <input matTooltip="Search"  name="searching" style="outline:none" autocomplete="off" class="searchInput" matInput type="search"
                     placeholder="Search" ngStyle.xs="font-size:12px; height:28px;" ngStyle.sm="font-size:17px; height:33px"
                     ngStyle.md="font-size:22px; height:38px" ngStyle.lg="font-size:25px; height:43px" [(ngModel)]="searchInput"
-                    (click)="searchNotes()" (keyup)="pressSearch()">
+                    (click)="searchNotes(); enableSearch = !enableSearch" (keyup)="pressSearch()">
                 </div>
                 
               </div>
@@ -157,10 +157,10 @@
            >
           <mat-nav-list fxLayout="column" fxLayoutAlign="space-between">
             <br>
-            <a matTooltip="Show Notes" mat-list-item (click)="topTitle = 'Fundoo'; keepTitle = 'Keep';" [routerLink]="['/home']" routerLinkActive="router-link-active">
+            <a class="selectedTab" mat-list-item [style.backgroundColor]="tabColor1" (click)="topTitle = 'Fundoo'; keepTitle = 'Keep'; tabFlag = true; changeTabColor('/home')" [routerLink]="['/home']" routerLinkActive="router-link-active">
               <mat-icon aria-label="notes" fxFlex="30">lightbulb</mat-icon><span fxFlex="70">Notes</span>
             </a>
-            <a matTooltip="Show Reminders" mat-list-item (click)="topTitle = ''; keepTitle = 'Reminders';" [routerLink]="['/reminders']" routerLinkActive="router-link-active">
+            <a class="selectedTab" mat-list-item [style.backgroundColor]="tabColor2" (click)="tabFlag = true; changeTabColor('/reminders')" [routerLink]="['/reminders']" routerLinkActive="router-link-active">
               <mat-icon aria-label="touch app" fxFlex="30">touch_app</mat-icon>
               <span fxFlex="70">Reminders</span>
           </a>
@@ -170,10 +170,10 @@
                 mat-icon-button>EDIT</button></p> -->
 
 
-            <div *ngFor="let item of arr">
+            <div *ngFor="let item of arr; let i = index;">
               <!-- <div fxLayout="row wrap" fxLayoutAlign="space between"> -->
 
-              <a [matTooltip]="'Show Label'+' ' + item.label" mat-list-item (click)="topTitle = ''; keepTitle = item.label;" (click)="showlabelList(item)">
+              <a [matTooltip]="'Show Label'+' ' + item.label" mat-list-item [ngClass]="tabFlag == item.label ? 'selectedTab':'unselectedTab'" (click)="showlabelList(item); changeLabelTab(item.label)">
                 <!-- <div fxLayoutAlign="space between"> -->
                 <mat-icon fxFlex="15">label_outline</mat-icon>
                 <span class="labelList" fxFlex="85">{{item.label}}</span>
@@ -188,12 +188,12 @@
             </a>
             <hr>
 
-            <a matTooltip="Show Archive" mat-list-item (click)="topTitle = ''; keepTitle = 'Archive';" [routerLink]="['/archive']" routerLinkActive="router-link-active">
+            <a matTooltip="Show Archive" mat-list-item [style.backgroundColor]="tabColor3" (click)="topTitle = ''; keepTitle = 'Archive'; changeTabColor('/archive')" [routerLink]="['/archive']" routerLinkActive="router-link-active">
               <mat-icon aria-label="archive" fxFlex="30">archive</mat-icon>
               Archive
             </a>
 
-            <a matTooltip="Show Trash" mat-list-item (click)="topTitle = ''; keepTitle = 'Trash';" [routerLink]="['/trash']" routerLinkActive="router-link-active">
+            <a matTooltip="Show Trash" mat-list-item [style.backgroundColor]="tabColor4" (click)="topTitle = ''; keepTitle = 'Trash'; changeTabColor('/trash')" [routerLink]="['/trash']" routerLinkActive="router-link-active">
               <mat-icon aria-label="trash" fxFlex="30">delete</mat-icon>
               Trash
             </a>
