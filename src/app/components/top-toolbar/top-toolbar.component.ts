@@ -304,7 +304,8 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
     //   })
     // }
     let temp = this.myRoute.url.split('/');
-    this.changeLabelTab(temp[2]);
+    let temp1 = temp.pop();
+    this.changeLabelTab(temp1);
 
     this.changeTabColor(this.myRoute.url)
 

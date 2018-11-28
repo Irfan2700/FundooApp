@@ -1,0 +1,64 @@
+<br>
+<div *ngIf="note != undefined" fxLayout="row wrap" fxLayoutAlign="center start">
+  <!-- <div fxFlex="20"></div> -->
+  <div fxFlex.xl="900px" fxFlex.lg=900px fxFlex.md="700px" fxFlex.sm="100%" fxFlex.xs="100%">
+    <div class="backButton">
+      <button mat-button (click)="backToNotes()">Close</button>
+    </div>
+    <!-- <p>swsw</p> -->
+    <div *ngIf="note != undefined" fxLayout="row wrap">
+      <div class="titleHead" [innerHTML]="note.title"></div>
+      <div *ngIf="(note.description != undefined)" class="description" [innerHTML]="note.description"></div>
+
+      <div class="messgCard" *ngIf="note.noteCheckLists.length !== 0">
+
+        <div *ngFor="let checklists of note.noteCheckLists;  let j=index">
+          <div *ngIf="checklists.isDeleted === false">
+            <div fxLayout="row">
+              <mat-checkbox fxFlex="10" [checked]="checklists.status === 'close'" (click)="checklists.status === 'close' ? (checklists.status = 'open') : (checklists.status = 'close')"
+                >
+
+              </mat-checkbox>
+              <mat-card-content fxFlex="90" [innerHTML]="checklists.itemName" #itemName >
+
+              </mat-card-content>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+    </div>
+    <hr>
+    <div *ngIf="note.questionAndAnswerNotes.length == 0">
+      <span>Ask A Question</span>
+    </div>
+    <div *ngIf="note.questionAndAnswerNotes.length == 0">
+      <mat-form-field class="quesForm">
+      <input matInput class="addQues" autofocus="false" placeholder="What is your Question?" [(ngModel)]="questionAsk" (keydown)="addQuestion($event)">
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <button mat-fab ></button>
+      <div class="contentBody">
+        <div fxLayout="row">
+        <div class="userName" [innerHTML]="note.user.firstName +' '+note.user.lastName"></div>
+       &nbsp;&nbsp;&nbsp;
+        <br>
+        <div class="userName" [innerHTML]="dateTimeStatus"></div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+        <div class="quesText" [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
+        <div><button mat-icon-button><mat-icon>reply</mat-icon></button></div>
+        <div><button mat-icon-button><mat-icon>thumb_up</mat-icon></button></div>
+        <rating class="starRating" [(ngModel)]="starsCount"
+           [max]="5" [float]=true  fullIcon="★"
+           emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting()">
+    </rating>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div fxFlex="20"></div> -->
+</div>

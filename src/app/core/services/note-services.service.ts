@@ -107,4 +107,16 @@ export class NoteServicesService {
   deleteCollaborator(noteId, collaboratorId){
     return this.httpService.httpDeleteJson("notes/"+noteId+"/removeCollaboratorsNotes/"+collaboratorId)
   }
+
+  getNotesDetail(noteId){
+    return this.httpService.httpGetJson("/notes/getNotesDetail/"+noteId);
+  }
+
+  addQuestionAndAnswer(body){
+    return this.httpService.httpPostJson("questionAndAnswerNotes/addQuestionAndAnswer", body)
+  }
+
+  // getQuestionAndAnswer(){
+
+  // }
 }

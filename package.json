@@ -31,6 +31,7 @@
     "moment": "^2.22.2",
     "ng-material-multilevel-menu": "^4.0.8",
     "ngx-image-cropper": "^1.2.2",
+    "ngx-rating": "0.0.9",
     "ngx-toastr": "^9.1.0",
     "node-gyp": "^3.8.0",
     "rxjs": "~6.2.0",

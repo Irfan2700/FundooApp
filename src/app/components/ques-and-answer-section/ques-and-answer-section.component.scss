@@ -1,0 +1,52 @@
+@import '../../../scss/mixin';
+@import '../../../scss/variable';
+
+.backButton{
+
+    float: right;
+    @include margin(20px,20px);
+    @include bg-color($lightGrey_color);
+    @include border-radius;
+    
+}
+
+.titleHead{
+
+    font-size: 20px;
+    @include margin(22px);
+    font-weight: bold;
+    // @include width(100%);
+}
+
+.description{
+    @include margin(56px,0, 0, -58px);
+    @include width(100%);
+}
+
+.addQues{
+
+    // font-size: 10px;
+}
+
+.quesForm{
+
+    font-size: 18px;
+    @include width(100%)
+}
+
+.userName{
+
+    font-size: 15px
+
+}
+
+.contentBody{
+
+    @include padding(0,0,0,14px)
+}
+
+.starRating{
+
+    font-size: 18px;
+    
+}

@@ -286,6 +286,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     .subscribe(
       response => {
         this.pinArr = response;
+        console.log("this is needed", this.pinArr)
       }
     )
 

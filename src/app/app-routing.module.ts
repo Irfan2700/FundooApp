@@ -1,3 +1,4 @@
+
 import { TestComponent } from './components/test/test.component';
 import { SearchComponent } from './components/search/search.component';
 import { LabelComponent } from './components/label/label.component';
@@ -15,6 +16,7 @@ import { TopToolbarComponent } from './components/top-toolbar/top-toolbar.compon
 
 import { AuthGuard } from './core/guard/auth.guard';
 import { TrashComponent } from './components/trash/trash.component';
+import { QuesAndAnswerSectionComponent } from './components/ques-and-answer-section/ques-and-answer-section.component';
 
   const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -30,7 +32,8 @@ import { TrashComponent } from './components/trash/trash.component';
       {path: 'trash', component: TrashComponent},
       {path: 'label/:labelName', component: LabelComponent},
       {path: 'search', component: SearchComponent},
-      {path: 'test', component: TestComponent}
+      {path: 'test', component: TestComponent},
+      {path: 'note/:id/QnA', component: QuesAndAnswerSectionComponent}
 
     ]},
     {path: 'test', component: HomeComponent, outlet: 'test'},

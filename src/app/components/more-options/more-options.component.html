@@ -4,6 +4,8 @@
 <mat-menu #menu="matMenu" [overlapTrigger]=false>
   <button mat-menu-item (click)="delete()">Delete Note</button>
   <button mat-menu-item [matMenuTriggerFor]="addLabel">Add Label</button>
+  <button *ngIf="(note.questionAndAnswerNotes.length == 0) " mat-menu-item (click)="quesAndAns()">Ask A Question</button>
+  <button *ngIf="!(note.questionAndAnswerNotes.length == 0) " mat-menu-item (click)="quesAndAns()">View Questions</button>
 </mat-menu>
 
 <mat-menu #addLabel="matMenu">
@@ -14,4 +16,5 @@
       <mat-checkbox (click)="$event.stopPropagation()" (click)="addlabelNotes(item,i)" [checked]="item.isChecked === true">{{item.labelInfo.label}}</mat-checkbox>
     </div>
   <!-- </div> -->
+ 
 </mat-menu>

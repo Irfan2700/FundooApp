@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { RatingModule } from 'ngx-rating/index.js'
 
 
 
@@ -77,6 +78,8 @@ import { UpdateReminderComponent } from './components/update-reminder/update-rem
 import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
 import { CollaboratorIconComponent } from './components/collaborator-icon/collaborator-icon.component';
 import { TestComponent } from './components/test/test.component';
+import { QuesAndAnswerSectionComponent } from './components/ques-and-answer-section/ques-and-answer-section.component';
+
 // import { errorHandler } from '@angular/platform-browser/src/browser';
 
 
@@ -116,6 +119,7 @@ import { TestComponent } from './components/test/test.component';
     CollaboratorsComponent,
     CollaboratorIconComponent,
     TestComponent,
+    QuesAndAnswerSectionComponent,
 
 
 
@@ -151,7 +155,8 @@ import { TestComponent } from './components/test/test.component';
     ImageCropperModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RatingModule
 
     // ServicesService
   ],

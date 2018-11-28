@@ -87,6 +87,11 @@
               </mat-chip>
             </div>
             <!-- </div> -->
+            <div  fxLayout="row wrap">
+              <div *ngFor="let collaborator of data.collaborators">
+              <button [matTooltip]="collaborator.firstName+' '+collaborator.lastName" mat-mini-fab>{{(collaborator.firstName.split(''))[0]}}</button>
+              </div>
+            </div>
           </div>
 
           <div fxLayout="row wrap">

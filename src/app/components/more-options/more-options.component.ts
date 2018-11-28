@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Note } from './../../core/Model/note';
 import { LoggerService } from './../../core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
@@ -17,7 +18,8 @@ export class MoreOptionsComponent implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService,
     private data: DataShareService,
-    private noteService: NoteServicesService) { }
+    private noteService: NoteServicesService,
+    private myRoute: Router) { }
 
     @Input() note;
     @Output() update = new EventEmitter();
@@ -120,6 +122,11 @@ export class MoreOptionsComponent implements OnInit, OnDestroy {
         }
       }
       }
+  }
+
+  quesAndAns(){
+
+    this.myRoute.navigate(['note/'+this.note.id+'/QnA']);
   }
 
 
