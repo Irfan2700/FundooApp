@@ -1,7 +1,7 @@
 <br>
 <div *ngIf="note != undefined" fxLayout="row wrap" fxLayoutAlign="center start">
   <!-- <div fxFlex="20"></div> -->
-  <div fxFlex.xl="900px" fxFlex.lg=900px fxFlex.md="700px" fxFlex.sm="100%" fxFlex.xs="100%">
+  <div fxFlex.xl="1100px" fxFlex.lg=1100px fxFlex.md="800px" fxFlex.sm="100%" fxFlex.xs="100%">
     <div class="backButton">
       <button mat-button (click)="backToNotes()">Close</button>
     </div>
@@ -39,87 +39,183 @@
       </mat-form-field>
     </div>
     <br>
-
+    <!-- <div fxLayout="column wrap" > -->
     <div *ngIf="note.questionAndAnswerNotes.length != 0">
-    <div *ngIf="note.questionAndAnswerNotes[0].parentId == undefined">
-      <div fxLayout="row" *ngIf="note.questionAndAnswerNotes.length != 0">
-        <button mat-fab></button>
-        <div class="contentBody">
-          <div fxLayout="row">
-            <div class="userName" [innerHTML]="note.user.firstName +' '+note.user.lastName"></div>
-            &nbsp;&nbsp;&nbsp;
-            <br>
-            <div class="userName" [innerHTML]="dateTimeStatus[0]"></div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between">
-            <div class="quesText" [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
-            <div><button mat-icon-button (click)="showReplyInput[0] = !showReplyInput[0]">
-                <mat-icon>reply</mat-icon>
-              </button></div>
-
-            <div *ngIf="note.questionAndAnswerNotes[0].like.length != 0"><button mat-icon-button (click)="likeUnLikeit(!note.questionAndAnswerNotes[0].like[0].like)">
-                <mat-icon [ngClass]="note.questionAndAnswerNotes[0].like[0].like == false ? 'unLiked':'liked'">thumb_up</mat-icon>
-              </button></div>
-              <div *ngIf="note.questionAndAnswerNotes[0].like.length == 0"><button mat-icon-button (click)="likeUnLikeit(true)">
-                  <mat-icon [ngClass]="false ? 'unLiked':'liked'">thumb_up</mat-icon>
-                </button></div>
-                <div *ngIf="note.questionAndAnswerNotes[0].rate.length != 0">
-            <rating class="starRating" [(ngModel)]="note.questionAndAnswerNotes[0].rate[0].rate" [max]="5" [float]=true
-              fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(note.questionAndAnswerNotes[0].id, 0)">
-            </rating>
-            </div>
-
-            <div *ngIf="note.questionAndAnswerNotes[0].rate.length == 0">
-                <rating class="starRating" [(ngModel)]="emptyStarCase" [max]="5" [float]=true
-                  fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(note.questionAndAnswerNotes[0].id, 0)">
-                </rating>
-                </div>
-
-            <!-- <bar-rating [(rate)]="starsCount" [theme]="'fontawesome-o'" [max]="5"></bar-rating> -->
-
-          </div>
-          <div *ngIf="showReplyInput[0] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
-              [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(note.questionAndAnswerNotes[0].id)></textarea>
-            <button mat-button (click)=sendReply(note.questionAndAnswerNotes[0].id)>Reply</button></div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- ******************************Reply Part ********************************************************************-->
-    <div *ngFor="let item of replyArr; let i=index">
-      <!-- <div *ngIf="item.parentId[0] == undefined"> -->
+      <div *ngIf="note.questionAndAnswerNotes[0].parentId == undefined">
         <div fxLayout="row" *ngIf="note.questionAndAnswerNotes.length != 0">
-          <button mat-fab></button>
+          <button mat-fab [ngStyle]="{ 'background-image': 'url(' + quesPic + ')', 'background-size': 'cover'}"></button>
           <div class="contentBody">
             <div fxLayout="row">
               <div class="userName" [innerHTML]="note.user.firstName +' '+note.user.lastName"></div>
               &nbsp;&nbsp;&nbsp;
               <br>
-              <div class="userName" [innerHTML]="dateTimeStatus[i]"></div>
+              <div class="userName" [innerHTML]="dateTimeStatus[0]"></div>
             </div>
             <div fxLayout="row wrap" fxLayoutAlign="space-between">
-              <div class="quesText" [innerHTML]="item.message"></div>
-              <div><button mat-icon-button (click)="showReplyInput[i+1] = !showReplyInput[i+1]">
+              <div class="mainQuesText" [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
+              <div><button mat-icon-button (click)="showReplyInput[0] = !showReplyInput[0]">
                   <mat-icon>reply</mat-icon>
                 </button></div>
 
-              <!-- <div><button mat-icon-button (click)="likeUnLikeit(!item.like[0].like,item.id,i)">
-                  <mat-icon [ngClass]="item.like[0].like == false ? 'unLiked':'liked'">thumb_up</mat-icon>
+              <div *ngIf="note.questionAndAnswerNotes[0].like.length != 0"><button mat-icon-button (click)="likeUnLikeit(!note.questionAndAnswerNotes[0].like[0].like,note.questionAndAnswerNotes[0].id,0 )">
+                  <mat-icon [ngClass]="note.questionAndAnswerNotes[0].like[0].like == true ? 'unLiked':'liked'">thumb_up</mat-icon>
                 </button></div>
-              <rating class="starRating" [(ngModel)]="item.rate[0].rate" [max]="5" [float]=true fullIcon="★" emptyIcon="☆"
-                [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item.id)">
-              </rating> -->
+              <div *ngIf="note.questionAndAnswerNotes[0].like.length == 0"><button mat-icon-button (click)="likeUnLikeit(true,note.questionAndAnswerNotes[0].id,0)">
+                  <mat-icon [ngClass]="false ? 'unLiked':'liked'">thumb_up</mat-icon>
+                </button></div>
+              <div *ngIf="note.questionAndAnswerNotes[0].rate.length != 0">
+                <rating class="starRating" [(ngModel)]="note.questionAndAnswerNotes[0].rate[0].rate" [max]="5" [float]=true
+                  fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(note.questionAndAnswerNotes[0].id, 0)">
+                </rating>
+              </div>
 
+              <div *ngIf="note.questionAndAnswerNotes[0].rate.length == 0">
+                <rating class="starRating" [(ngModel)]="emptyStarCase[0]" [max]="5" [float]=true fullIcon="★" emptyIcon="☆"
+                  [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(note.questionAndAnswerNotes[0].id, 0)">
+                </rating>
+              </div>
 
+              <!-- <bar-rating [(rate)]="starsCount" [theme]="'fontawesome-o'" [max]="5"></bar-rating> -->
 
             </div>
-            <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
-                [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(item.id)></textarea>
-              <button mat-button (click)=sendReply(item.id)>Reply</button></div>
+            <div *ngIf="showReplyInput[0] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
+                [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(note.questionAndAnswerNotes[0].id)></textarea>
+              <button mat-button (click)=sendReply(note.questionAndAnswerNotes[0].id)>Reply</button></div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="questDiv"></div>
+
+    <!-- ******************************1st Level Reply Part start********************************************************************-->
+
+
+    <div class="1stLevelReply" *ngFor="let item of replyArr; let i=index">
+      <!-- <div *ngIf="item.parentId[0] == undefined"> -->
+      <div fxLayout="row wrap" *ngIf="note.questionAndAnswerNotes.length != 0 && item.parentId == note.questionAndAnswerNotes[0].id">
+        <button mat-fab [ngStyle]="{ 'background-image': 'url(' + proPicDiplay[i] + ')', 'background-size': 'cover'}"></button>
+        <div class="contentBody">
+          <div fxLayout="row">
+            <div class="userName" [innerHTML]="item.user.firstName +' '+item.user.lastName"></div>
+            &nbsp;&nbsp;&nbsp;
+            <br>
+            <div class="userName" [innerHTML]="dateTimeStatus[i]"></div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="center">
+            <div class="quesText" [innerHTML]="item.message"></div>
+            <div><button mat-icon-button (click)="showReplyInput[i+1] = !showReplyInput[i+1]">
+                <mat-icon>reply</mat-icon>
+              </button></div>
+
+            <div *ngIf="item.like.length != 0"><button mat-icon-button (click)="likeUnLikeit(!item.like[0].like,item.id,i)">
+                <mat-icon [ngClass]="item.like[0].like == true ? 'unLiked':'liked'">thumb_up</mat-icon><span>
+                  {{likeCount[i]}} like</span>
+              </button></div>
+
+            <div *ngIf="item.like.length == 0"><button mat-icon-button (click)="likeUnLikeit(true,item.id,i)">
+                <mat-icon [ngClass]="false ? 'unLiked':'liked'">thumb_up</mat-icon><span> 0 like</span>
+              </button></div>
+
+
+            <div *ngIf="item.rate.length != 0">
+              <rating class="starRating" [(ngModel)]="item.rate[0].rate" [max]="5" [float]=true fullIcon="★" emptyIcon="☆"
+                [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item.id,i+1)">
+              </rating><span>{{starsCount[i]}} rating</span>
+            </div>
+
+            <div *ngIf="item.rate.length == 0">
+              <rating class="starRating" [required]="true" [(ngModel)]="emptyStarCase[i+1]" [max]="5" [float]=true
+                fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item.id,i+1)">
+              </rating><span>{{starsCount[i]}} rating</span>
+            </div>
+
+
+
+
+          </div>
+          <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
+              [(ngModel)]="replyInput" placeholder="write something here.."></textarea>
+            <button mat-button (click)=sendReply(item.id)>Reply</button></div>
+        </div>
         <!-- </div> -->
       </div>
       <!-- <div fxFlex="20"></div> -->
+      <!-- <mat-divider></mat-divider> -->
+
+      <!-- ***************************************1st Inner reply starts*****************************************-->
+
+      <div class="firstLevelReply" *ngFor="let item1 of replyArr; let i=index">
+        <!-- <div *ngIf="item1.parentId[0] == undefined"> -->
+        <div *ngIf="note.questionAndAnswerNotes.length != 0">
+          <div fxLayout="row" *ngIf="item1.parentId == item.id">
+            <button mat-fab [ngStyle]="{ 'background-image': 'url(' + proPicDiplay[i] + ')', 'background-size': 'cover'}"></button>
+            <div class="contentBody">
+              <div fxLayout="row">
+                <div class="userName" [innerHTML]="item.user.firstName +' '+item.user.lastName"></div>
+                &nbsp;&nbsp;&nbsp;
+                <br>
+                <div class="userName" [innerHTML]="dateTimeStatus[i]"></div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center">
+                <div class="quesText" [innerHTML]="item1.message"></div>
+                <div><button mat-icon-button (click)="showReplyInput[i+1] = !showReplyInput[i+1]">
+                    <mat-icon>reply</mat-icon>
+                  </button></div>
+
+                <div fxLayout="row wrap" >
+                  <div fxLayout="row wrap">
+                    <div *ngIf="item1.like.length != 0"><button mat-icon-button
+                        (click)="likeUnLikeit(!item1.like[0].like,item1.id,i)">
+                        <mat-icon [ngClass]="item1.like[0].like == true ? 'unLiked':'liked'">thumb_up</mat-icon><span>
+                          {{likeCount[i]}} like</span>
+                      </button></div>
+
+                    <div *ngIf="item1.like.length == 0"><button mat-icon-button
+                        (click)="likeUnLikeit(true,item1.id,i)">
+                        <mat-icon [ngClass]="false ? 'unLiked':'liked'">thumb_up</mat-icon><span> 0 like</span>
+                      </button></div>
+
+                  </div>
+                </div>
+
+
+                <div fxLayout="row wrap" >
+                  <div fxLayout="row wrap">
+                    <div *ngIf="item1.rate.length != 0 ">
+                      <rating class="starRating" [(ngModel)]="item1.rate[0].rate" [max]="5" [float]=true fullIcon="★"
+                        emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item1.id,i+1)">
+                      </rating><span>{{starsCount[i]}} rating</span>
+                    </div>
+
+                    <div *ngIf="item1.rate.length == 0 ">
+                      <rating class="starRating" [required]="true" [(ngModel)]="emptyStarCase[i+1]" [max]="5" [float]=true
+                        fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item1.id,i+1)">
+                      </rating><span>{{starsCount[i]}} rating</span>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+              <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
+                  [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(item1.id)></textarea>
+                <button mat-button (click)=sendReply(item1.id)>Reply</button></div>
+            </div>
+            <!-- </div> -->
+          </div>
+          <!-- <div fxFlex="20"></div> -->
+
+        </div>
+      </div>
+
+      <!-- ***************************************1st Inner reply ends*****************************************-->
+
     </div>
+    <!-- </div> -->
+    <!-- ******************************1st Level Reply Part start***********************************************-->
+
   </div>
-  </div>
+</div>

@@ -1,3 +1,5 @@
+import { environment } from './../../../environments/environment';
+import { AuthService } from './../../core/services/auth.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { DataShareService } from './../../core/services/data-share.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,26 +22,31 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
   constructor(private myRoute: Router,
     private dataShow: DataShareService,
     private noteService: NoteServicesService,
-    private param: ActivatedRoute) { }
+    private param: ActivatedRoute,
+    private auth: AuthService) { }
 
   questionAsk;
   note;
   dateCalc;
   dateTimeStatus = [];
-  emptyStarCase = 0;
-  starsCount = {
-    'rate': Boolean,
-    'userId': String
-  };
+  emptyStarCase = [];
+  starsCount = [];
   isLiked = {
     'like': Boolean,
     'userId': String
   }
+  isRatedArr = [];
   showReplyInput = [];
   replyInput;
   likeArr = [];
-  startCountArr= [];
-  replyArr=[];
+  startCountArr = [];
+  replyArr = [];
+  likeCount = [];
+  currentUserId;
+  updatePic;
+  quesPic;
+  proPicDiplay = [];
+
 
   backToNotes() {
 
@@ -79,49 +86,92 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
     console.log("star is now", this.starsCount)
 
-if(this.note.questionAndAnswerNotes[index].rate.length != 0){
-    let requestbody = {
-      "rate": this.note.questionAndAnswerNotes[index].rate[0].rate
-    }
-
-    this.noteService.rateQuestionAndAnswer(questionId, requestbody)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        responsive => {
-
-          LoggerService.log("rate is successfully updated")
-        },
-        error => {
-          console.error("error Occured", error)
-        }
-      )
-      }else {
-
-        let requestbody = {
-          "rate": this.emptyStarCase
-        }
-    
-        this.noteService.rateQuestionAndAnswer(questionId, requestbody)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(
-            responsive => {
-    
-              LoggerService.log("rate is successfully updated")
-            },
-            error => {
-              console.error("error Occured", error)
-            }
-          )
-
+    if (this.note.questionAndAnswerNotes[index].rate.length != 0) {
+      let requestbody = {
+        "rate": this.note.questionAndAnswerNotes[index].rate[0].rate
       }
+
+      this.noteService.rateQuestionAndAnswer(questionId, requestbody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          responsive => {
+
+            LoggerService.log("rate is successfully updated")
+            if (questionId === this.note.questionAndAnswerNotes[0]) {
+              this.getNoteDetails();
+            } else {
+              if (this.replyArr[index].rate.length != 0) {
+                this.replyArr[index].rate[0].rate = this.note.questionAndAnswerNotes[index].rate[0].rate;
+
+                let count = 0;
+                for (let j = 0; j < this.note.questionAndAnswerNotes[index].rate.length; j++) {
+
+                  count += this.note.questionAndAnswerNotes[index].rate[j].rate
+                }
+                this.starsCount.push(count / this.note.questionAndAnswerNotes[index].rate.length);
+
+                this.getNoteDetails();
+
+              }
+              //else {
+
+              //   this.starsCount.push(count+ / this.note.questionAndAnswerNotes[index].rate.length);
+              // }
+            }
+
+          },
+          error => {
+            console.error("error Occured", error)
+          }
+        )
+    } else {
+      let requestbody;
+      if (this.note.questionAndAnswerNotes[0].id === questionId) {
+        requestbody = {
+          "rate": this.emptyStarCase[0]
+        }
+      } else {
+        requestbody = {
+          "rate": this.emptyStarCase[index]
+        }
+      }
+
+      this.noteService.rateQuestionAndAnswer(questionId, requestbody)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          responsive => {
+
+            LoggerService.log("rate is successfully updated");
+            this.getNoteDetails();
+          },
+          error => {
+            console.error("error Occured", error)
+          }
+        )
+
+    }
   }
 
   likeUnLikeit(temp, parentId, index) {
 
-    this.isLiked.like = temp
+    this.isLiked.like = temp;
+    let requestbody;
+
+    // for (let i = 0; i < this.note.questionAndAnswerNotes[index].like.length; i++) {
+
+    //   if (this.currentUserId === this.note.questionAndAnswerNotes[index].like[i].userId) {
+
+    //     requestbody = {
+    //       "like": this.note.questionAndAnswerNotes[index].like[i].like
+    //     }
+    //   }
+    // }
+    // if (requestbody === undefined) {
+    //   return;
+    // }
     // this.likeArr[index].like = temp;
-    console.log("this is temp here",temp)
-    let requestbody = {
+    console.log("this is temp here", temp);
+    requestbody = {
       "like": temp
     }
 
@@ -131,7 +181,27 @@ if(this.note.questionAndAnswerNotes[index].rate.length != 0){
         response => {
 
           LoggerService.log("liked/Unlike Successfuly")
-          this.getNoteDetails();
+
+          if (parentId === this.note.questionAndAnswerNotes[0]) {
+            this.getNoteDetails();
+          } else {
+            if (this.replyArr[index].like.length != 0) {
+              this.replyArr[index].like[0].like = temp;
+              if (this.replyArr[index].like[0].like) {
+                this.likeCount[index]++;
+              } else {
+                this.likeCount[index]--;
+              }
+            } else {
+              this.likeCount[index]++;
+
+            }
+
+            // this.replyArr = [];
+            this.getNoteDetails();
+
+          }
+
         },
         error => {
           console.error("error Occured", error)
@@ -144,136 +214,187 @@ if(this.note.questionAndAnswerNotes[index].rate.length != 0){
   //   // this.not
   // }
 
-  sendReply(parentId){
+  sendReply(parentId) {
 
     // if(this.showReplyInput === true){
     let requestBody = {
       'message': this.replyInput
     }
 
-    this.noteService.replyQuestionAndAnswer(parentId,requestBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(
-      response => {
+    this.noteService.replyQuestionAndAnswer(parentId, requestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        response => {
 
-        LoggerService.log("Reply is sucessfully added!!");
-        // this.replyArr.push(requestBody.message)
-        this.replyArr = [];
-        this.getNoteDetails();
-      },
-      error => {
+          LoggerService.log("Reply is sucessfully added!!");
+          // this.replyArr.push(requestBody.message)
+          // this.replyArr = [];
+          this.getNoteDetails();
+        },
+        error => {
 
-        console.error("error Occured", error)
+          console.error("error Occured", error)
+        }
+      )
+    // }
+  }
+
+  replyPrint() {
+
+    this.replyArr = [];
+    this.starsCount = [];
+    if (this.note.questionAndAnswerNotes.length !== 0) {
+      for (let i = 1; i < this.note.questionAndAnswerNotes.length; i++) {
+
+        this.replyArr.push(this.note.questionAndAnswerNotes[i]);
+
+        if (this.note.questionAndAnswerNotes[i].like.length != 0) {
+
+          if (this.note.questionAndAnswerNotes[i].like[0].like === true) {
+            this.likeCount.push(1)
+          } else {
+            this.likeCount.push(0);
+          }
+        } else {
+          this.likeCount.push(0);
+        }
+
+        if (this.note.questionAndAnswerNotes[i].rate.length != 0) {
+
+          let count = 0;
+          for (let j = 0; j < this.note.questionAndAnswerNotes[i].rate.length; j++) {
+
+            count += this.note.questionAndAnswerNotes[i].rate[j].rate
+          }
+          this.starsCount.push(count / this.note.questionAndAnswerNotes[i].rate.length);
+
+        } else {
+
+          this.starsCount.push(0);
+        }
+
+
+
       }
-    )
-  // }
-  }
-
-  replyPrint(){
-
-    if(this.note.questionAndAnswerNotes.length !== 0){
-    for(let i=1; i<this.note.questionAndAnswerNotes.length; i++){
-
-      this.replyArr.push(this.note.questionAndAnswerNotes[i]);
     }
+    console.log("startscount is ", this.starsCount)
   }
+
+  proPicSet(index) {
+
+    return environment.imageURL + this.note.questionAndAnswerNotes[index].user.imageUrl
+  }
+
+  likeCheck(index) {
+
+    if (this.note.questionAndAnswerNotes[index].like.length != 0) {
+
+      for (let i = 0; i < this.note.questionAndAnswerNotes[index].like.length; i++) {
+
+        this.likeArr.push({
+          'like': this.note.questionAndAnswerNotes[index].like[i].like,
+          'userId': this.note.questionAndAnswerNotes[index].like[i].userId
+        })
+      }
+      return this.likeArr;
+
+    } else {
+
+      return -1;
+    }
+
+  }
+
+  ratingCheck(index) {
+
+    if (this.note.questionAndAnswerNotes[index].rate.length != 0) {
+
+      for (let i = 0; i < this.note.questionAndAnswerNotes[index].rate.length; i++) {
+
+        this.isRatedArr.push({
+          'rate': this.note.questionAndAnswerNotes[index].rate[i].rate,
+          'userId': this.note.questionAndAnswerNotes[index].rate[i].userId
+        })
+      }
+      // if(this.note.questionAndAnswerNotes[index].userId === this.auth.getId()){
+      return this.isRatedArr;
+      // }
+
+    } else {
+
+      return -1;
+    }
   }
 
   getNoteDetails() {
-// debugger;
+    // debugger;
     let noteId = this.param.snapshot.paramMap.get('id');
+
+
 
     this.noteService.getNotesDetail(noteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         response => {
 
+
           this.note = response['data']['data'][0];
           LoggerService.logObj("note detail is here", this.note);
 
           this.replyPrint();
+          this.emptyStarCase = [];
 
-          for(let i=0; i<this.note.questionAndAnswerNotes.length; i++){
 
-// debugger;
+
+
+          for (let i = 0; i < this.note.questionAndAnswerNotes.length; i++) {
+
+            // debugger;
             this.showReplyInput.push(false);
             // console.log("i m here")
 
-           
+            this.likeCheck(i);
+            this.ratingCheck(i);
+
+            this.proPicDiplay.push(this.proPicSet(i));
+
+            this.emptyStarCase.push(0);
 
             // console.log("rate check here", this.startCountArr)
-          // console.log("date is ", new Date(this.note.questionAndAnswerNotes[i].createdDate))
+            // console.log("date is ", new Date(this.note.questionAndAnswerNotes[i].createdDate))
 
-          this.dateCalc = new Date(this.note.questionAndAnswerNotes[i].createdDate);
+            this.dateCalc = new Date(this.note.questionAndAnswerNotes[i].createdDate);
 
-          if (new Date(this.dateCalc).getFullYear() === new Date().getFullYear()) {
+            if (new Date(this.dateCalc).getFullYear() === new Date().getFullYear()) {
 
-            if (new Date(this.dateCalc).getMonth() === new Date().getMonth()) {
+              if (new Date(this.dateCalc).getMonth() === new Date().getMonth()) {
 
-              if (new Date(this.dateCalc).getDate() === new Date().getDate()) {
+                if (new Date(this.dateCalc).getDate() === new Date().getDate()) {
 
-                if (new Date(this.dateCalc).getHours() === new Date().getHours()) {
+                  if (new Date(this.dateCalc).getHours() === new Date().getHours()) {
 
-                  this.dateTimeStatus.push("Few minutes ago");
+                    this.dateTimeStatus.push("Few minutes ago");
 
+                  } else {
+                    this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getHours() - new Date().getHours()) + "hours ago")
+                  }
                 } else {
-                  this.dateTimeStatus.push( Math.abs(new Date(this.dateCalc).getHours() - new Date().getHours()) + "hours ago")
+                  this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getDate() - new Date().getDate()) + "Days ago")
                 }
               } else {
-                this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getDate() - new Date().getDate()) + "Days ago")
+                this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getMonth() - new Date().getMonth()) + "Months ago")
               }
             } else {
-              this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getMonth() - new Date().getMonth()) + "Months ago")
+              this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getFullYear() - new Date().getFullYear()) + "years ago")
             }
-          } else {
-            this.dateTimeStatus.push(Math.abs(new Date(this.dateCalc).getFullYear() - new Date().getFullYear()) + "years ago")
           }
-        }
 
-        
 
-        // for(let j=0; j<this.note.questionAndAnswerNotes.length; j++){
+          // this.updatePic = environment.imageURL+this.note.user.imageUrl;
+          if (this.note.questionAndAnswerNotes.length != 0) {
+            this.quesPic = environment.imageURL + this.note.questionAndAnswerNotes[0].user.imageUrl;
+          }
 
-        //   if (this.note.questionAndAnswerNotes[j].like.length !== 0 && this.note.questionAndAnswerNotes[j].like[0].like != null) {
-        //     this.likeArr.push(
-        //       {
-        //         'like': this.note.questionAndAnswerNotes[j].like[0].like,
-        //         'userId': this.note.questionAndAnswerNotes[j].like[0].userId
-        //       }
-                
-        //       // }
-        //     )
-        //     }
-        //     console.log("like check here", this.likeArr)
-
-        //     // if(this.isRatedCheck(i) !== -1){
-        //       if (this.note.questionAndAnswerNotes[j].rate.length !== 0 && this.note.questionAndAnswerNotes[j].rate[0].rate != null) {
-        //       this.startCountArr.push(
-        //         {
-        //           'rate': this.note.questionAndAnswerNotes[j].rate[0].rate,
-        //           'userId': this.note.questionAndAnswerNotes[j].rate[0].userId
-        //         }
-        //       )
-        //     }
-        // }
-
-        console.log("likeArr is here", this.likeArr);
-        console.log("rateArr is here", this.startCountArr)
-        console.log("reply is here", this.replyArr);
-
-          // if (this.note.questionAndAnswerNotes[0].like.length !== 0) {
-          //   this.isLiked = {
-          //     'like': this.note.questionAndAnswerNotes[0].like[0].like,
-          //     'userId': this.note.questionAndAnswerNotes[0].like[0].userId
-          //   }
-          // }
-
-          // if (this.note.questionAndAnswerNotes[0].rate.length !== 0) {
-          //   this.starsCount = {
-          //     'rate': this.note.questionAndAnswerNotes[0].rate[0].rate,
-          //     'userId': this.note.questionAndAnswerNotes[0].rate[0].userId
-          //   }
-          // }
         },
         error => {
           // throw error;
@@ -291,9 +412,10 @@ if(this.note.questionAndAnswerNotes[index].rate.length != 0){
     // this.noteService.
     // if(this.note != undefined){
 
-
-
-
+    this.currentUserId = this.auth.getId();
+    if (this.note !== undefined) {
+      this.quesPic = environment.imageURL + this.note.questionAndAnswerNotes[0].user.imageUrl;
+    }
     // }
 
   }

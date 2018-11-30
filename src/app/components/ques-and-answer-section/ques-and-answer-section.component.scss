@@ -34,6 +34,15 @@
     @include width(100%)
 }
 
+.quesText{
+
+    font-size: 15px;
+}
+
+.mainQuesText{
+    font-size: 30px;
+}
+
 .userName{
 
     font-size: 15px
@@ -48,6 +57,7 @@
 .starRating{
 
     font-size: 16px;
+    @include margin(0,0,0,25px);
     
 }
 
@@ -83,4 +93,15 @@
   textarea[name=replyInput]{
       resize: none;
       border: none;
+      
+  }
+
+  .firstLevelReply{
+
+    @include margin(15px,0,0,40px)
+  }
+
+  .questDiv{
+
+    @include margin(60px);
   }
