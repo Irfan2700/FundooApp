@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'node_modules/ngx-toastr/toastr.css';
+@import 'node_modules/ngx-bar-rating/themes/br-fontawesome-o-theme.css/';
+/* @import 'node_modules/ngx-bar-rating/themes/br-default-theme.css' ; */
+
 
 .emailSnack-bar{
 
@@ -9,3 +12,5 @@
   margin: 0px 0px 30px 0px;
   align-content: center;
 }
+
+/* node_modules/ngx-bar-rating/themes/br-fontawesome-o-theme.css */

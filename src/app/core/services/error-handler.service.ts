@@ -5,36 +5,36 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorHandlerService implements ErrorHandler {
+export class ErrorHandlerService  {
 
   constructor(private injector: Injector) { }
 
-  handleError(error: any){
+  // handleError(error: any){
 
-    let router = this.injector.get(Router);
-    console.log('URL: '+ router.url);
+  //   let router = this.injector.get(Router);
+  //   console.log('URL: '+ router.url);
 
-    if(error instanceof HttpErrorResponse){
+  //   if(error instanceof HttpErrorResponse){
 
-      if(!navigator.onLine){
-        alert("Internet is Note Avalible");
-      }else{
-        alert("Server Error is Occured");
-      }
+  //     if(!navigator.onLine){
+  //       alert("Internet is Note Avalible");
+  //     }else{
+  //       alert(error);
+  //     }
 
-      // if(!error.status){
+  //     // if(!error.status){
 
-      //   console.log("internet not found")
-      //   alert("Internet is not Available")
-      //   // window.location.href= '/test'
-      // }else{
-      //   alert("Internet Failed error is not work")
-      // }
-      alert("Argo Chutiya ho gya hai")
-      console.error("Server Sending some Error");
-      console.error("Response Body: ", error.message);
-    }else{
-      console.error("An error Occured: ", error.message);
-    }
-  }
+  //     //   console.log("internet not found")
+  //     //   alert("Internet is not Available")
+  //     //   // window.location.href= '/test'
+  //     // }else{
+  //     //   alert("Internet Failed error is not work")
+  //     // }
+  //     alert("Argo Chutiya ho gya hai")
+  //     console.error("Server Sending some Error");
+  //     console.error("Response Body: ", error.message);
+  //   }else{
+  //     console.error("An error Occured: ", error.message);
+  //   }
+  // }
 }

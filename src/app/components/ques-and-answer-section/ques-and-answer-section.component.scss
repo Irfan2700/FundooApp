@@ -47,6 +47,40 @@
 
 .starRating{
 
-    font-size: 18px;
+    font-size: 16px;
     
 }
+
+.liked{
+    @include text-color($lightGrey_color)
+}
+
+.unLiked{
+    @include text-color($lightBlue_color)
+}
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+  }
+  
+  div[contenteditable=true] {
+    border: none;
+    @include height;
+    font-size: 18px;
+    @include width(486px);
+    outline: none;
+    @include padding(10px);
+  }
+
+  .replyInput{
+
+    // border-color: $lightGrey_color;
+    resize: none;
+
+  }
+
+  textarea[name=replyInput]{
+      resize: none;
+      border: none;
+  }

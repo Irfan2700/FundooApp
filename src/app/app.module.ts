@@ -12,7 +12,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { RatingModule } from 'ngx-rating/index.js'
+import { RatingModule } from 'ngx-rating/index.js';
+import { BarRatingModule } from "ngx-bar-rating";
 
 
 
@@ -156,7 +157,8 @@ import { QuesAndAnswerSectionComponent } from './components/ques-and-answer-sect
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
-    RatingModule
+    RatingModule,
+    BarRatingModule
 
     // ServicesService
   ],
@@ -166,10 +168,13 @@ import { QuesAndAnswerSectionComponent } from './components/ques-and-answer-sect
   entryComponents: [SignupComponent, TermsDialog, ResetPasswordComponent, ResetPasswordSetComponent,
     ExpandedNotesComponent, NotesComponent, TopToolbarComponent, CreateLabelComponent, CropImageComponent,
     CollaboratorIconComponent, CollaboratorsComponent],
-  providers: [LoggerService, MessagingService, ErrorHandlerService, {
-    provide: ErrorHandler,
-    useClass: ErrorHandlerService
-  }, InterceptService,
+  providers: [LoggerService, MessagingService,
+  //    ErrorHandlerService, 
+  //   {
+  //   provide: ErrorHandler,
+  //   useClass: ErrorHandlerService
+  // }
+  , InterceptService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,

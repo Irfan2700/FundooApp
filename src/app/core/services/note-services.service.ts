@@ -119,4 +119,16 @@ export class NoteServicesService {
   // getQuestionAndAnswer(){
 
   // }
+
+  likeQuestionAndAnswer(parentId, body){
+    return this.httpService.httpPostJson("questionAndAnswerNotes/like/"+parentId, body);
+  }
+
+  rateQuestionAndAnswer(parentId, body){
+    return this.httpService.httpPostJson("questionAndAnswerNotes/rate/"+parentId, body);
+  }
+
+  replyQuestionAndAnswer(parentId, body){
+    return this.httpService.httpPostJson("questionAndAnswerNotes/reply/"+parentId, body);
+  }
 }
