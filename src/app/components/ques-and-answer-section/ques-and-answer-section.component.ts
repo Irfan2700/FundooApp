@@ -46,6 +46,8 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
   updatePic;
   quesPic;
   proPicDiplay = [];
+  finalRate;
+  finalelike;
 
 
   backToNotes() {
@@ -192,7 +194,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
               } else {
                 this.likeCount[index]--;
               }
-            } else {
+            } else {0
               this.likeCount[index]++;
 
             }
@@ -213,6 +215,34 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
   //   // this.not
   // }
+
+  rateChecking(rating,index){
+
+    for(let i=0; i<this.note.questionAndAnswerNotes[index].rate.length; i++){
+
+      if(rating[i].userId === this.currentUserId){
+
+        this.finalRate = rating[i].rate;
+        return true;
+      }
+    }
+    this.finalRate = 0;
+    return true;
+  }
+
+  likeChecking(like,index){
+
+    for(let i=0; i<this.note.questionAndAnswerNotes[index].like.length; i++){
+
+      if(like[i].userId === this.currentUserId){
+
+        this.finalelike = like[i].like;
+        return true;
+      }
+    }
+    this.finalelike = 0;
+    return true;
+  }
 
   sendReply(parentId) {
 
@@ -268,7 +298,8 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
           }
           this.starsCount.push(count / this.note.questionAndAnswerNotes[i].rate.length);
 
-        } else {
+        }
+        else {
 
           this.starsCount.push(0);
         }
