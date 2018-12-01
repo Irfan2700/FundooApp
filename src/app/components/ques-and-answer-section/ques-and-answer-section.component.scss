@@ -1,12 +1,37 @@
 @import '../../../scss/mixin';
 @import '../../../scss/variable';
 
+
+.topDiv{
+
+    position: fixed;
+    @include bg-color($white_color);
+    @include margin(-17px);
+    z-index: 3;
+    @include height(250px);
+    overflow-y: scroll;
+    box-shadow: 0px 5px 15px 5px $lightGrey_color;
+    // width: 200px;
+}
+
+.bottomDiv{
+
+    @include margin(240px);
+    
+}
+
+// .container{
+
+//     // @include margin(20px);
+// }
+
 .backButton{
 
-    float: right;
-    @include margin(20px,20px);
+    // float: right;
+    @include margin(20px);
     @include bg-color($lightGrey_color);
     @include border-radius;
+    @include height(37px);
     
 }
 
@@ -19,7 +44,7 @@
 }
 
 .description{
-    @include margin(56px,0, 0, -58px);
+    @include margin(56px,0, 0, 0);
     @include width(100%);
 }
 
@@ -98,7 +123,7 @@
 
   .firstLevelReply{
 
-    @include margin(15px,0,0,40px)
+    @include margin(15px,0,0,55px)
   }
 
   .questDiv{
@@ -110,3 +135,89 @@
 
     font-size: 16px;
   }
+
+  
+   .fixedTop{
+
+    @include padding(16px,0,0,10px)
+  }
+
+  .checkText{
+
+    @include margin(0,0,0,20px)
+  }
+  
+  @media screen and (max-width: 599px){
+    .topDiv{
+
+        position: fixed;
+    @include bg-color($white_color);
+    @include margin(-17px);
+    z-index: 3;
+    @include height(150px);
+    overflow-y: scroll;
+        }
+
+    .bottomDiv{
+
+        @include margin(135px)
+    }
+    }
+    
+    @media screen and (min-width: 600px) and (max-width: 959px){
+    
+        .topDiv{
+
+            position: fixed;
+        @include bg-color($white_color);
+        @include margin(-17px);
+        z-index: 3;
+        @include height(150px);
+        overflow-y: scroll;
+            }
+    
+        .bottomDiv{
+    
+            @include margin(135px)
+        }
+    }
+    
+    @media screen and (min-width: 960px) and (max-width: 1279px){
+    
+        .topDiv{
+
+            position: fixed;
+        @include bg-color($white_color);
+        @include margin(-17px);
+        z-index: 3;
+        @include height(150px);
+        overflow-y: scroll;
+            }
+    
+        .bottomDiv{
+    
+            @include margin(135px)
+        }
+    }
+    
+    @media screen and (min-width: 1280px) and (max-width: 1919px){
+    
+      .dialogCard{
+        font-size:17px;
+        max-width: 441px;
+        margin: 38px -10px 0px -3px; 
+        border-radius: 8px;
+      }
+    }
+    
+    
+    
+    @media screen and (min-width: 1920px) and (max-width: 5000px){
+    
+      .dialogCard{
+        font-size:17px;
+        max-width: 441px;
+        margin: 38px -10px 0px -3px; 
+        border-radius: 8px;
+      }
+    }

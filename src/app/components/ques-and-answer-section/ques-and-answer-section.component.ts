@@ -24,13 +24,16 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
     private noteService: NoteServicesService,
     private param: ActivatedRoute,
     private auth: AuthService) { }
-
+  
   questionAsk;
+  dummy = 0;
   note;
   dateCalc;
   dateTimeStatus = [];
   emptyStarCase = [];
   starsCount = [];
+  showReplyDisply =false;
+  id;
   isLiked = {
     'like': Boolean,
     'userId': String
@@ -84,13 +87,13 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
     }
   }
 
-  starCounting(questionId, index) {
+  starCounting(questionId, data, index) {
 
     console.log("star is now", this.starsCount)
 
     if (this.note.questionAndAnswerNotes[index].rate.length != 0) {
       let requestbody = {
-        "rate": this.note.questionAndAnswerNotes[index].rate[0].rate
+        "rate": data.rate
       }
 
       this.noteService.rateQuestionAndAnswer(questionId, requestbody)
@@ -153,6 +156,30 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
     }
   }
+  likeUnlike(data){
+  if(data.length==0)
+      return false;
+    for(let i=0;i<data.length;i++){
+      if(data[i].userId==this.currentUserId && data[i].like==true){
+        return true;
+      }
+    }
+    return false;
+    
+  }
+
+  likeCounting(data){
+
+    if(data.length==0)
+      return 0;
+      let count = 0;
+    for(let i=0;i<data.length;i++){
+      if(data[i].like==true){
+        count++;
+      }
+    }
+    return count;
+  }
 
   likeUnLikeit(temp, parentId, index) {
 
@@ -194,7 +221,8 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
               } else {
                 this.likeCount[index]--;
               }
-            } else {0
+            } else {
+              0
               this.likeCount[index]++;
 
             }
@@ -211,16 +239,19 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
       )
   }
 
-  // replayIt(parentId){
 
-  //   // this.not
-  // }
 
-  rateChecking(rating,index){
+  enableReply(replyObj, value) {
 
-    for(let i=0; i<this.note.questionAndAnswerNotes[index].rate.length; i++){
+    this.showReplyDisply = value;
+    this.id = replyObj.id;
+  }
 
-      if(rating[i].userId === this.currentUserId){
+  rateChecking(rating, index) {
+
+    for (let i = 0; i < this.note.questionAndAnswerNotes[index].rate.length; i++) {
+
+      if (rating[i].userId === this.currentUserId) {
 
         this.finalRate = rating[i].rate;
         return true;
@@ -230,11 +261,11 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  likeChecking(like,index){
+  likeChecking(like, index) {
 
-    for(let i=0; i<this.note.questionAndAnswerNotes[index].like.length; i++){
+    for (let i = 0; i < this.note.questionAndAnswerNotes[index].like.length; i++) {
 
-      if(like[i].userId === this.currentUserId){
+      if (like[i].userId === this.currentUserId) {
 
         this.finalelike = like[i].like;
         return true;
@@ -346,6 +377,9 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
           'rate': this.note.questionAndAnswerNotes[index].rate[i].rate,
           'userId': this.note.questionAndAnswerNotes[index].rate[i].userId
         })
+
+
+
       }
       // if(this.note.questionAndAnswerNotes[index].userId === this.auth.getId()){
       return this.isRatedArr;
@@ -390,6 +424,11 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
             this.proPicDiplay.push(this.proPicSet(i));
 
             this.emptyStarCase.push(0);
+            // if (i = 0) {
+            //   continue;
+            // } else {
+            //   this.showReplyDisply.push(false);
+            // }
 
             // console.log("rate check here", this.startCountArr)
             // console.log("date is ", new Date(this.note.questionAndAnswerNotes[i].createdDate))
