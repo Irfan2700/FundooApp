@@ -21,6 +21,7 @@ export class LabelComponent implements OnInit, OnDestroy {
   arr = [];
   labelName;
   private notes: Note[] = [];
+  spinnerStatus = false;
 
   ngOnInit() {
     // this.showNotes();
@@ -32,6 +33,7 @@ export class LabelComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.labelName = params['labelName']
         this.getLabelNotes(this.labelName)
+        this.spinnerStatus = true;
       }
     )
 
@@ -46,7 +48,7 @@ export class LabelComponent implements OnInit, OnDestroy {
       response => {
 
         LoggerService.log(response);
-
+        this.spinnerStatus = true;
         this.arr = [];
         this.notes = response["data"].data;
         if (response["data"].data.length !== 0) {
@@ -60,7 +62,9 @@ export class LabelComponent implements OnInit, OnDestroy {
               }
             }
           }
+          
         }
+        
       },
       error => {
         LoggerService.log("Error Occured")
@@ -76,7 +80,7 @@ export class LabelComponent implements OnInit, OnDestroy {
         // console.log("Data is Successfully Fetched!!", response);
 
         console.log("fresh", response["data"].data);
-
+        this.spinnerStatus = true;
         this.arr = [];
         for (var i = response["data"].data.length - 1; i >= 0; i--) {
           if (response["data"].data[i].isDeleted === false) {
@@ -88,7 +92,7 @@ export class LabelComponent implements OnInit, OnDestroy {
             }
           }
         }
-
+        
         // console.log("the array one", this.arr);
       },
       error => {

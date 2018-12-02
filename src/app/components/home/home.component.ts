@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isPinned;
   pinnedCase = true;
   unpinnedCase = false;
+  spinnerStatus = false;
   
   // private noteCard = false;
 
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         // console.log("Data is Successfully Fetched!!", response);
 
         console.log("fresh", response["data"].data);
-
+        
         this.notes = response["data"].data;
         this.pinnedArr = [];
         this.unpinnedArr = [];
@@ -69,6 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
           }
         }
+        this.spinnerStatus = true;
 
         // console.log("the array one", this.arr);
         this.dataShare.sendData3(this.arr);

@@ -120,7 +120,7 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
   updatePic;
 
   changeProPic(event) {
-    LoggerService.log("I am here")
+    // LoggerService.log("I am here")
 
 
 
@@ -134,7 +134,7 @@ export class TopToolbarComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
 
-          console.log("qqq", data)
+          // console.log("qqq", data)
           LoggerService.log(data);
 
           let requestBody = new FormData()

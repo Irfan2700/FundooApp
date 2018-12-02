@@ -25,6 +25,7 @@ export class ReminderComponent implements OnInit {
   pinnedArr = [];
   unpinnedArr = [];
   labelName;
+  spinnerStatus = false;
 
   pinnedCase = true;
   unpinnedCase = false;
@@ -101,8 +102,10 @@ export class ReminderComponent implements OnInit {
               }
             }
           }
-          
+          this.spinnerStatus = true;
         }
+
+
       },
       error => {
         LoggerService.log("Error Occured")
@@ -118,6 +121,7 @@ export class ReminderComponent implements OnInit {
         // console.log("Data is Successfully Fetched!!", response);
 
         console.log("fresh", response["data"].data);
+        
 
         this.arr = [];
         for (var i = response["data"].data.length - 1; i >= 0; i--) {
@@ -130,7 +134,7 @@ export class ReminderComponent implements OnInit {
             }
           }
         }
-
+        
         // console.log("the array one", this.arr);
       },
       error => {

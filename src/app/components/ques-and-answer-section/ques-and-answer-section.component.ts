@@ -51,7 +51,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
   proPicDiplay = [];
   finalRate;
   finalelike;
-
+  spinnerStatus = false;
 
   backToNotes() {
 
@@ -62,7 +62,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
     if (event.keyCode === 13) {
 
-      console.log("question is ", this.questionAsk)
+      // console.log("question is ", this.questionAsk)
 
       let requestBody = {
 
@@ -89,9 +89,9 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
   starCounting(questionId, data, index) {
 
-    console.log("star is now", this.starsCount)
+    // console.log("star is now", this.starsCount)
 
-    if (this.note.questionAndAnswerNotes[index].rate.length != 0) {
+    if (this.note.questionAndAnswerNotes[index].rate.length != 0 && this.note != undefined) {
       let requestbody = {
         "rate": data.rate
       }
@@ -105,6 +105,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
             if (questionId === this.note.questionAndAnswerNotes[0]) {
               this.getNoteDetails();
             } else {
+              // this.getNoteDetails();
               if (this.replyArr[index].rate.length != 0) {
                 this.replyArr[index].rate[0].rate = this.note.questionAndAnswerNotes[index].rate[0].rate;
 
@@ -199,7 +200,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
     //   return;
     // }
     // this.likeArr[index].like = temp;
-    console.log("this is temp here", temp);
+    // console.log("this is temp here", temp);
     requestbody = {
       "like": temp
     }
@@ -339,7 +340,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
       }
     }
-    console.log("startscount is ", this.starsCount)
+    // console.log("startscount is ", this.starsCount)
   }
 
   proPicSet(index) {
@@ -465,6 +466,8 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
             this.quesPic = environment.imageURL + this.note.questionAndAnswerNotes[0].user.imageUrl;
           }
 
+          this.spinnerStatus = true;
+
         },
         error => {
           // throw error;
@@ -477,7 +480,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
 
     this.getNoteDetails();
 
-    console.log("star is ", this.starsCount)
+    // console.log("star is ", this.starsCount)
 
     // this.noteService.
     // if(this.note != undefined){

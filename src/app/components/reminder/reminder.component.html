@@ -6,7 +6,7 @@
          <div fxFlex="15" fxLayout="row" fxLayoutAlign="center center" >
       
           <!-- <router-outlet name="createnote"></router-outlet> -->
-          <app-create-note (open)="updateNotes($event)"></app-create-note>
+          <app-create-note  (open)="updateNotes($event)"></app-create-note>
       
       
         </div>
@@ -15,10 +15,24 @@
           <br>
           <!-- <br><br> -->
       
+          <div class="sk-circle" *ngIf="spinnerStatus == false">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
           <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
             <!-- <div *ngFor="let item of arr"> -->
   
-          <app-notes  [model]= "pinnedArr" [pinHead]="pinnedCase" (updateList)= "reload($event)"></app-notes>
+          <app-notes *ngIf="spinnerStatus == true" [model]= "pinnedArr" [pinHead]="pinnedCase" (updateList)= "reload($event)"></app-notes>
           
   
         </div>
@@ -32,7 +46,7 @@
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
             <!-- <div *ngFor="let item of arr"> -->
   
-          <app-notes  [model]= "unpinnedArr" [pinHead]="unpinnedCase" (updateList)= "reload($event)"></app-notes>
+          <app-notes *ngIf="spinnerStatus == true" [model]= "unpinnedArr" [pinHead]="unpinnedCase" (updateList)= "reload($event)"></app-notes>
   
         </div>
         </div>
