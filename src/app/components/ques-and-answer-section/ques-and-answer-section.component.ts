@@ -38,6 +38,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
     'like': Boolean,
     'userId': String
   }
+  starShowFlag = false;
   isRatedArr = [];
   showReplyInput = [];
   replyInput;
@@ -87,11 +88,29 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
     }
   }
 
+  starCalculate(index){
+
+    if (this.replyArr[index].rate.length != 0) {
+      this.replyArr[index].rate[0].rate = this.note.questionAndAnswerNotes[index].rate[0].rate;
+
+      let count = 0;
+      for (let j = 0; j < this.note.questionAndAnswerNotes[index].rate.length; j++) {
+
+        count += this.note.questionAndAnswerNotes[index].rate[j].rate
+      }
+      this.starsCount.push(count / this.note.questionAndAnswerNotes[index].rate.length);
+
+      this.getNoteDetails();
+
+    }
+  }
+
   starCounting(questionId, data, index) {
 
     // console.log("star is now", this.starsCount)
+    
 
-    if (this.note.questionAndAnswerNotes[index].rate.length != 0 && this.note != undefined) {
+    if (this.note.questionAndAnswerNotes[index].rate.length != 0 && this.note != undefined && data.rate != 0) {
       let requestbody = {
         "rate": data.rate
       }
@@ -104,25 +123,20 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
             LoggerService.log("rate is successfully updated")
             if (questionId === this.note.questionAndAnswerNotes[0]) {
               this.getNoteDetails();
-            } else {
-              // this.getNoteDetails();
-              if (this.replyArr[index].rate.length != 0) {
-                this.replyArr[index].rate[0].rate = this.note.questionAndAnswerNotes[index].rate[0].rate;
+            } else if(this.note !== undefined){
+              
 
-                let count = 0;
-                for (let j = 0; j < this.note.questionAndAnswerNotes[index].rate.length; j++) {
+            this.getNoteDetails();
 
-                  count += this.note.questionAndAnswerNotes[index].rate[j].rate
-                }
-                this.starsCount.push(count / this.note.questionAndAnswerNotes[index].rate.length);
-
-                this.getNoteDetails();
-
-              }
+              
+              this.starCalculate(index);
               //else {
 
               //   this.starsCount.push(count+ / this.note.questionAndAnswerNotes[index].rate.length);
               // }
+            } else{
+
+              this.getNoteDetails();
             }
 
           },
@@ -130,7 +144,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
             console.error("error Occured", error)
           }
         )
-    } else {
+    } else if(data.rate != 0) {
       let requestbody;
       if (this.note.questionAndAnswerNotes[0].id === questionId) {
         requestbody = {
@@ -156,6 +170,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
         )
 
     }
+    
   }
   likeUnlike(data){
   if(data.length==0)
@@ -288,6 +303,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
 
+          this.replyInput ='';
           LoggerService.log("Reply is sucessfully added!!");
           // this.replyArr.push(requestBody.message)
           // this.replyArr = [];
@@ -379,7 +395,10 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
           'userId': this.note.questionAndAnswerNotes[index].rate[i].userId
         })
 
+        if(this.note.questionAndAnswerNotes[index].rate[i].userId === this.currentUserId){
 
+          this.starShowFlag = true;
+        }
 
       }
       // if(this.note.questionAndAnswerNotes[index].userId === this.auth.getId()){
@@ -467,6 +486,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
           }
 
           this.spinnerStatus = true;
+          // console.log("pic related", this.proPicDiplay)
 
         },
         error => {

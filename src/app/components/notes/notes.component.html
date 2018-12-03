@@ -127,6 +127,15 @@
       <div class="panal" *ngIf="item.isDeleted === true">
         <app-trash-more-option [note]="item" (update)="updateOptionsNote($event)"></app-trash-more-option>
       </div>
+
+      <div *ngIf="item.questionAndAnswerNotes.length != 0">
+        <mat-divider></mat-divider>
+        <div>
+          <h6>Question Asked</h6>
+          
+          <span class="questionAns">{{item.questionAndAnswerNotes[0].message}}</span>
+        </div>
+      </div>
     </mat-card>
   </div>
 

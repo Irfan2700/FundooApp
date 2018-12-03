@@ -22,7 +22,7 @@
 
       <!-- <p>swsw</p> -->
       <div fxLayout="row wrap">
-        <div class="fixedTop" fxFlex.xl="990px" fxFlex.lg=1037px fxFlex.md="713px" fxFlex.sm="680px" fxFlex.xs="240px"
+        <div class="fixedTop" fxFlex.xl="990px" fxFlex.lg=1037px fxFlex.md="713px" fxFlex.sm="680px" fxFlex.xs="287px"
           *ngIf="note != undefined" fxLayout="row wrap">
           <div class="titleHead" [innerHTML]="note.title"></div>
           <div *ngIf="(note.description != undefined)" class="description" [innerHTML]="note.description"></div>
@@ -165,7 +165,7 @@
                 <button mat-icon-button *ngIf="likeUnlike(item.like)" (click)="likeUnLikeit(false,item.id,i)">
                   <mat-icon class=unLiked>thumb_up</mat-icon>
                 </button>
-                <span>{{likeCounting(item.like)}}  like</span>
+                <span class="likeCount">{{likeCounting(item.like)}}  likes</span>
               </div>
 
 
@@ -179,10 +179,10 @@
                     </rating><span class="ratingText">({{starsCount[i]}})</span>
                   </div>
 
-                  <div *ngIf="item2.userId != currentUserId && item2.rate == 0 && item != undefined">
+                  <div *ngIf="item2.userId != currentUserId && item != undefined && starShowFlag == false">
                     <rating class="starRating" [required]="true" [(ngModel)]="emptyStarCase[i+1]" [max]="5" [float]=true
                       fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item.id,item2,i+1)">
-                    </rating><span class="ratingText">({{starsCount[i]}})</span>
+                    </rating><span class="ratingText">s({{starsCount[i]}})</span>
                   </div>
                 </div>
               </div>
@@ -190,7 +190,7 @@
               <div *ngIf="item.rate.length == 0">
                 <rating class="starRating" [required]="true" [(ngModel)]="emptyStarCase[i+1]" [max]="5" [float]=true
                   fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item.id,emptyStarCase[i+1],i+1)">
-                </rating><span class="ratingText">({{starsCount[i]}})</span>
+                </rating><span class="ratingText">a({{starsCount[i]}})</span>
               </div>
 
               <div>
@@ -208,7 +208,7 @@
           <!-- </div> -->
           <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
               [(ngModel)]="replyInput" placeholder="write something here.."></textarea>
-            <button mat-button (click)=sendReply(item.id)>Reply</button></div>
+            <button mat-button (click)="sendReply(item.id); showReplyInput[i+1] = !showReplyInput[i+1]">Reply</button></div>
 
           <!-- </div> -->
         </div>
@@ -272,7 +272,7 @@
                     <button mat-icon-button *ngIf="likeUnlike(item1.like)" (click)="likeUnLikeit(false,item1.id,i)">
                       <mat-icon class=unLiked>thumb_up</mat-icon>
                     </button>
-                    <span>{{likeCounting(item1.like)}}  like</span>
+                    <span class="likeCount">{{likeCounting(item1.like)}}  likes</span>
                   </div>
 
 
@@ -282,17 +282,17 @@
                     <div *ngIf="item1.rate.length != 0">
                       <div fxLayout="row wrap" *ngFor="let item2 of item1.rate; let j=index;">
 
-                        <div *ngIf=" item2.userId == currentUserId && item != undefined">
+                        <div *ngIf=" item2.userId == currentUserId">
                           <rating class="starRating" [(ngModel)]="item1.rate[j].rate" [max]="5" [float]=true fullIcon="★"
                             emptyIcon="☆" [required]="true" [titles]="['one', 'two', 'three', 'four', 'five']" (click)="starCounting(item1.id,item2,i+1)">
-                          </rating><span class="ratingText">s1({{starsCount[i]}})</span>
+                          </rating><span class="ratingText">({{starsCount[i]}})</span>
                         </div>
 
-                        <div *ngIf=" item2.userId != currentUserId && item2.rate == 0 && item != undefined">
+                        <div *ngIf=" item2.userId != currentUserId && item != undefined && starShowFlag == false">
                           <rating class="starRating" [required]="true" [(ngModel)]="emptyStarCase[i+1]" [max]="5"
                             [float]=true fullIcon="★" emptyIcon="☆" [titles]="['one', 'two', 'three', 'four', 'five']"
                             (click)="starCounting(item1.id,item2,i+1)">
-                          </rating><span class="ratingText">s2({{starsCount[i]}})</span>
+                          </rating><span class="ratingText">({{starsCount[i]}})</span>
                         </div>
 
                         
@@ -315,7 +315,7 @@
 
               <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
                   [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(item1.id)></textarea>
-                <button mat-button (click)=sendReply(item1.id)>Reply</button></div>
+                <button mat-button (click)="sendReply(item1.id); showReplyInput[i+1] = !showReplyInput[i+1]">Reply</button></div>
               <!-- </div> -->
               <!-- </div> -->
             </div>

@@ -8,9 +8,10 @@
     @include bg-color($white_color);
     @include margin(-17px);
     z-index: 3;
-    @include height(250px);
-    overflow-y: scroll;
-    box-shadow: 0px 5px 15px 5px $lightGrey_color;
+    // @include height(250px);
+    // overflow-y: scroll;
+    // box-shadow: 0px 5px 15px 5px $lightGrey_color;
+    // @include border-radius(30px);
     // width: 200px;
 }
 
@@ -220,6 +221,12 @@
         margin: 38px -10px 0px -3px; 
         border-radius: 8px;
       }
+    }
+
+    .likeCount{
+
+        font-size: 20px;
+        @include margin(9px);
     }
 
     //////////////////////////////////////////////////////////////////
