@@ -1,11 +1,11 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import {
   Component, OnInit, Output, EventEmitter, Input, OnDestroy
 } from "@angular/core";
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
 
 @Component({
   selector: "app-home",
@@ -18,19 +18,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private noteService: NoteServicesService,
-    private dataShare: DataShareService
-  ) { }
+    private dataShare: DataShareService,
+  ) {
+    
+   }
 
   @Output() reloaderUpdate = new EventEmitter();
   
-  private notes: Note[] = [];
+  // private notes: Notes;
   isPinned;
   pinnedCase = true;
   unpinnedCase = false;
   spinnerStatus = false;
   
   // private noteCard = false;
-
+   notes =[];
   arr= [];
   pinnedArr = [];
   unpinnedArr = [];
@@ -49,7 +51,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         console.log("fresh", response["data"].data);
         
-        this.notes = response["data"].data;
+        this.notes = (response["data"].data).map((note : Notes) => new Notes().deserialize(note));
+
+        // console.log("model is now tested is ", notes)
+        // this.notes = response["data"].data;
         this.pinnedArr = [];
         this.unpinnedArr = [];
         this.arr = [];

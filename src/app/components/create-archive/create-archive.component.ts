@@ -1,5 +1,5 @@
 import { DataShareService } from 'src/app/core/services/data-share.service';
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { ServicesService } from '../../core/services/services.service';
@@ -23,7 +23,7 @@ export class CreateArchiveComponent implements OnInit, OnDestroy {
   // @Input('isArchive') isArchive:boolean;
   @Output() reloadNote = new EventEmitter();
 
-  private notes: Note[] = [];
+  private notes: Notes[] = [];
   flag = false;
   archiveStatus;
   noteArr = [];

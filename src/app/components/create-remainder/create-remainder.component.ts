@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { EventEmitter, Output, OnDestroy } from '@angular/core';
@@ -50,7 +50,7 @@ export class CreateRemainderComponent implements OnInit, OnDestroy {
   @Input() allowDate;
 // allowDate = false;
   // note;
-  private noteObject: Note = this.note;
+  private noteObject: Notes = this.note;
   private settingDate;
   flag = false;
   date = new FormControl(moment());

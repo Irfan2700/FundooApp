@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -20,7 +20,7 @@ export class LabelComponent implements OnInit, OnDestroy {
 
   arr = [];
   labelName;
-  private notes: Note[] = [];
+  private notes: Notes[] = [];
   spinnerStatus = false;
 
   ngOnInit() {

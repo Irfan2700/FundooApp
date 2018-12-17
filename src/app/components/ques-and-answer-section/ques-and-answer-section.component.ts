@@ -53,21 +53,30 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
   finalRate;
   finalelike;
   spinnerStatus = false;
+  public editorContent:string;
+
+  public options: Object = {
+    charCounterCount: true,
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert','undo','redo'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert','undo','redo'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert','undo','redo'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert','undo','redo'],
+  };
 
   backToNotes() {
 
     this.myRoute.navigate(['/home']);
   }
 
-  addQuestion(event) {
+  addQuestion() {
 
-    if (event.keyCode === 13) {
+    
 
       // console.log("question is ", this.questionAsk)
 
       let requestBody = {
 
-        "message": this.questionAsk,
+        "message": this.editorContent,
         "notesId": this.note.id
       }
 
@@ -85,7 +94,7 @@ export class QuesAndAnswerSectionComponent implements OnInit, OnDestroy {
             console.error("error Occured", error)
           }
         )
-    }
+    
   }
 
   starCalculate(index){

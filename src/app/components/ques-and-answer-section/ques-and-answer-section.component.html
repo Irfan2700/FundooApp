@@ -62,10 +62,12 @@
         <span>Ask A Question</span>
       </div>
       <div *ngIf="note.questionAndAnswerNotes.length == 0">
-        <mat-form-field class="quesForm">
+          <div [froalaEditor] [(froalaModel)]="editorContent" ></div>
+          <button mat-button (click)="addQuestion()">ask</button>
+        <!-- <mat-form-field class="quesForm">
           <input matInput class="addQues" autofocus="false" placeholder="What is your Question?" [(ngModel)]="questionAsk"
             (keydown)="addQuestion($event)">
-        </mat-form-field>
+        </mat-form-field> -->
       </div>
       <br>
       <!-- <div fxLayout="column wrap" > -->
@@ -81,7 +83,7 @@
                 <div class="userName" [innerHTML]="dateTimeStatus[0]"></div>
               </div>
               <div fxLayout="row wrap" fxLayoutAlign="space-between">
-                <div class="mainQuesText" [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
+                <div class="mainQuesText" style="margin-top: 0px" [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
                 <div><button mat-icon-button (click)="showReplyInput[0] = !showReplyInput[0]">
                     <mat-icon>reply</mat-icon>
                   </button></div>
@@ -107,8 +109,10 @@
                 <!-- <bar-rating [(rate)]="starsCount" [theme]="'fontawesome-o'" [max]="5"></bar-rating> -->
 
               </div>
-              <div *ngIf="showReplyInput[0] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
-                  [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(note.questionAndAnswerNotes[0].id)></textarea>
+              <div *ngIf="showReplyInput[0] == true" fxLayout="row">
+                <!-- <textarea name="replyInput" cols="52" class="replyInput"
+                  [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(note.questionAndAnswerNotes[0].id)></textarea> -->
+                  <div [froalaEditor]="options" cols="52" [(froalaModel)]="replyInput" class="replyInput" placeholder="write something here.."></div>
                 <button mat-button (click)=sendReply(note.questionAndAnswerNotes[0].id)>Reply</button></div>
             </div>
           </div>
@@ -122,7 +126,7 @@
 
       <div class="1stLevelReply" *ngFor="let item of replyArr; let i=index">
         <!-- <div *ngIf="item.parentId[0] == undefined"> -->
-        <div fxLayout="column wrap" fxLayoutAlign="space-between" *ngIf="note.questionAndAnswerNotes.length != 0 && item.parentId == note.questionAndAnswerNotes[0].id">
+        <div fxLayout="column wrap" fxLayoutAlign="space-between" *ngIf="note.questionAndAnswerNotes.length != 0 && item.parentId == note.questionAndAnswerNotes[0].id && item.isApproved">
           <div fxFlex>
             <div fxLayout="row wrap">
               <button mat-fab [ngStyle]="{ 'background-image': 'url(' + proPicDiplay[i+1] + ')', 'background-size': 'cover'}"></button>
@@ -206,8 +210,10 @@
 
           </div>
           <!-- </div> -->
-          <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
-              [(ngModel)]="replyInput" placeholder="write something here.."></textarea>
+          <div *ngIf="showReplyInput[i+1] == true" fxLayout="row">
+            <!-- <textarea name="replyInput" cols="52" class="replyInput"
+              [(ngModel)]="replyInput" placeholder="write something here.."></textarea> -->
+              <div [froalaEditor]="options" [(froalaModel)]="replyInput" class="replyInput" placeholder="write something here.."></div>
             <button mat-button (click)="sendReply(item.id); showReplyInput[i+1] = !showReplyInput[i+1]">Reply</button></div>
 
           <!-- </div> -->
@@ -221,7 +227,7 @@
         <div class="firstLevelReply" *ngFor="let item1 of replyArr; let i=index">
           <!-- <div *ngIf="item1.parentId[0] == undefined"> -->
           <div *ngIf="note.questionAndAnswerNotes.length != 0">
-            <div fxLayout="column wrap" *ngIf="item1.parentId == item.id && showReplyDisply && id==item.id">
+            <div fxLayout="column wrap" *ngIf="item1.parentId == item.id && showReplyDisply && id==item.id && item1.isApproved">
               <div fxFlex>
                 <div fxLayout="row wrap">
                   <button mat-fab [ngStyle]="{ 'background-image': 'url(' + proPicDiplay[i+1] + ')', 'background-size': 'cover'}"></button>
@@ -313,8 +319,10 @@
               </div>
 
 
-              <div *ngIf="showReplyInput[i+1] == true" fxLayout="row"><textarea name="replyInput" cols="52" class="replyInput"
-                  [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(item1.id)></textarea>
+              <div *ngIf="showReplyInput[i+1] == true" fxLayout="row">
+                <!-- <textarea name="replyInput" cols="52" class="replyInput"
+                  [(ngModel)]="replyInput" placeholder="write something here.." (click)=sendReply(item1.id)></textarea> -->
+                  <div [froalaEditor]="options" [(froalaModel)]="replyInput" class="replyInput" placeholder="write something here.."></div>
                 <button mat-button (click)="sendReply(item1.id); showReplyInput[i+1] = !showReplyInput[i+1]">Reply</button></div>
               <!-- </div> -->
               <!-- </div> -->

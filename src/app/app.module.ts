@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { RatingModule } from 'ngx-rating/index.js';
 import { BarRatingModule } from "ngx-bar-rating";
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 
 
@@ -158,7 +159,8 @@ import { QuesAndAnswerSectionComponent } from './components/ques-and-answer-sect
     MatNativeDateModule,
     MatTooltipModule,
     RatingModule,
-    BarRatingModule
+    BarRatingModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
 
     // ServicesService
   ],

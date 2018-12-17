@@ -1,6 +1,6 @@
 import { UserServicesService } from 'src/app/core/services/user-services.service';
 import { AuthService } from './../../core/services/auth.service';
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
@@ -25,7 +25,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   @ViewChild('title') title: ElementRef;
   @ViewChild('desc') desc: ElementRef;
 
-  private notes: Note[] = [];
+  private notes: Notes[] = [];
   isPinned = false;
   noteCard = false;
   isCheckListTicked = false;

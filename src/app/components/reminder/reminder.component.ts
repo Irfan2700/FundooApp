@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { Router } from '@angular/router';
 import { NoteServicesService } from './../../core/services/note-services.service';
 // import { test } from './../notes/notes.component';
@@ -20,7 +20,8 @@ export class ReminderComponent implements OnInit {
   constructor(private noteService: NoteServicesService,
     private myRoute: Router) { }
 
-  private notes: Note[] = [];
+  notes;
+  notes1;
   arr = [];
   pinnedArr = [];
   unpinnedArr = [];
@@ -60,7 +61,8 @@ export class ReminderComponent implements OnInit {
         this.arr = [];
         this.pinnedArr = [];
         this.unpinnedArr = [];
-        this.notes = response["data"].data;
+        // this.notes = response["data"].data;
+        this.notes = (response["data"].data).map((note : Notes) => new Notes().deserialize(note));
         if (this.notes.length !== 0) {
           for (var i = this.notes.length - 1; i >= 0; i--) {
             if (this.notes[i].isDeleted === false) {
@@ -122,13 +124,14 @@ export class ReminderComponent implements OnInit {
 
         console.log("fresh", response["data"].data);
         
+        this.notes1 = (response["data"].data).map((note : Notes) => new Notes().deserialize(note));
 
         this.arr = [];
-        for (var i = response["data"].data.length - 1; i >= 0; i--) {
-          if (response["data"].data[i].isDeleted === false) {
-            if (response["data"].data[i].isArchived === false) {
-              if (response["data"].data[i].noteLabels !== undefined) {
-                this.arr.push(response["data"].data[i]);
+        for (var i = this.notes1.length - 1; i >= 0; i--) {
+          if (this.notes1[i].isDeleted === false) {
+            if (this.notes1[i].isArchived === false) {
+              if (this.notes1[i].noteLabels !== undefined) {
+                this.arr.push(this.notes1[i]);
                 // this.arr = response['data'].data;app-more-options
               }
             }

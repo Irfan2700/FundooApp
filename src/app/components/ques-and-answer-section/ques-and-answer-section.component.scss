@@ -67,6 +67,11 @@
 
 .mainQuesText{
     font-size: 30px;
+
+    & p {
+        margin-top: 0px !important;
+    
+}
 }
 
 .userName{
@@ -113,6 +118,7 @@
 
     // border-color: $lightGrey_color;
     resize: none;
+    @include width(100%);
 
   }
 

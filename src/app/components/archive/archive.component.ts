@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +17,8 @@ export class ArchiveComponent implements OnInit {
   constructor(
     private noteService: NoteServicesService) { }
 
-  private notes: Note[] = [];
+  // private notes: Notes[] = [];
+  notes;
   arr = [];
   private archiveList;
 
@@ -38,7 +39,10 @@ export class ArchiveComponent implements OnInit {
           this.unpinnedArr = [];
           LoggerService.log("Archive Notes Fetching Successful!!");
           LoggerService.log(response);
-          this.notes = response['data'].data;
+          // this.notes = response['data'].data;
+
+          
+        this.notes = (response["data"].data).map((note : Notes) => new Notes().deserialize(note));
 
           for (let i = 0; i < this.notes.length; i++) {
 

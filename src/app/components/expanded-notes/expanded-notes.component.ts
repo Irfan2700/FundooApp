@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { DataShareService } from './../../core/services/data-share.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Router } from '@angular/router';
@@ -36,7 +36,7 @@ export class ExpandedNotesComponent implements OnInit, OnDestroy {
 
   // public arr = this.data;
 
-  private noteObject: Note = this.data;
+  private noteObject: Notes = this.data;
   array = [];
   tempArr = [];
   switch = false;

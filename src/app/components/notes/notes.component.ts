@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { Router } from '@angular/router';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { LoggerService } from './../../core/services/logger.service';
@@ -27,13 +27,14 @@ export class NotesComponent implements OnInit, OnDestroy {
     private myRoute: Router) {
     // let newModel = elementRef.nativeElement.getAttribute('model');
     // this.model = newModel
+
   }
   @ViewChild('itemName') itemName: ElementRef;
 
   @Output() updateList = new EventEmitter();
   // @Input() NoteArray;
   @Input() searchInput;
-  private notes:Note[] = [];
+  // private notes:Notes[] = [];
 
   private isPinned = false;
   dateFlag = '';

@@ -2,7 +2,7 @@ import { environment } from './../../../environments/environment';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { UserServicesService } from './../../core/services/user-services.service';
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { OnDestroy, Inject } from '@angular/core';
 import { AuthService } from './../../core/services/auth.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -27,7 +27,7 @@ export class CollaboratorsComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private noteService: NoteServicesService) { }
 
-  private notes: Note;
+  private notes: Notes;
 
   currentUserName;
   currentUserEmail;

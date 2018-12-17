@@ -4,6 +4,7 @@ import { LoggerService } from 'src/app/core/services/logger.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Notes } from 'src/app/core/Model/note';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class TrashComponent implements OnInit, OnDestroy {
 
   arr = [];
   labelName;
+
+  notes;
 
   ngOnInit() {
     this.showNotes();
@@ -35,11 +38,13 @@ export class TrashComponent implements OnInit, OnDestroy {
 
         console.log("fresh", response["data"].data);
 
+        this.notes = (response["data"].data).map((note : Notes) => new Notes().deserialize(note));
+
         this.arr = [];
-        for (var i = response["data"].data.length - 1; i >= 0; i--) {
-          if (response["data"].data[i].isDeleted === true) {
+        for (var i = this.notes.length - 1; i >= 0; i--) {
+          if (this.notes.isDeleted === true) {
             
-                this.arr.push(response["data"].data[i]);
+                this.arr.push(this.notes[i]);
                 // this.arr = response['data'].data;app-more-options
               }
           

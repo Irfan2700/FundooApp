@@ -1,4 +1,4 @@
-import { Note, Label } from './../../core/Model/note';
+import { Notes, Labels } from './../../core/Model/note';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { DataShareService } from '../../core/services/data-share.service';
@@ -21,8 +21,8 @@ export class CreateLabelComponent implements OnInit, OnDestroy {
 
   @ViewChild('myDiv') myDiv: ElementRef;
   
-  private notes: Note[] = [];
-  private labels: Label[] = [];
+  private notes: Notes[] = [];
+  private labels: Labels[] = [];
   // private labelObject: Label;
   labelInput;
 

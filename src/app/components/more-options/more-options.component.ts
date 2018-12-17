@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { LoggerService } from './../../core/services/logger.service';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -26,7 +26,7 @@ export class MoreOptionsComponent implements OnInit, OnDestroy {
     @Output() updateLabel = new EventEmitter();
     // @Output() updateLabelList = new EventEmitter();
 
-    private notes: Note
+    private notes: Notes
     labelArr = [];
     labelUpdate;
 

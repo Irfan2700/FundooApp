@@ -1,4 +1,4 @@
-import { Note } from './../../core/Model/note';
+import { Notes } from './../../core/Model/note';
 import { NoteServicesService } from './../../core/services/note-services.service';
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -20,7 +20,7 @@ export class CreatNoteMoreOptionComponent implements OnInit, OnDestroy {
   @Output() labelAdds = new EventEmitter();
   @Output() checkBox = new EventEmitter();
 
-  private notes: Note[] = [];
+  private notes: Notes[] = [];
   private labelArr;
   tempArr = [];
   
